@@ -1,19 +1,17 @@
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, Paper } from "@mantine/core";
 import Forecast from "./components/Forecast";
 
 function App() {
   return (
-    <MantineProvider theme={{ colorScheme: "dark" }}>
-      <div className="App">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        ></a>
-        <main>{<Forecast />}</main>
-      </div>
-    </MantineProvider>
+    <>
+      <MantineProvider theme={{ colorScheme: "dark" }}>
+        <Paper shadow="xs" p="md">
+          <div className="App">
+            <Forecast />
+          </div>
+        </Paper>
+      </MantineProvider>
+    </>
   );
 }
 

@@ -8,10 +8,10 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { default as React, useState } from "react";
-import Conditions from "./Conditions";
+import Cards from "./Cards";
 
 const Forecast = (): any => {
-  const [responseObj, setResponseObj] = useState({});
+  const [weatherData, setWeatherData] = useState(null);
   let [city, setCity] = useState("");
   let [unit, setUnit] = useState("imperial");
   const uriEncodedCity = encodeURIComponent(city);
@@ -36,15 +36,14 @@ const Forecast = (): any => {
       {
         method: "GET",
         headers: {
-          "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-          "x-rapidapi-key":
-            "22b6974f68mshd6dc54fc6e63c07p123f8ejsna4e3c74c9095",
+          "x-rapidapi-host": `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
+          "x-rapidapi-key": `${process.env.REACT_APP_RAPID_API_KEY}`,
         },
       }
     )
       .then((response) => response.json())
       .then((response) => {
-        setResponseObj(response);
+        setWeatherData(response);
       })
       .catch((err) => {
         console.error(err);
@@ -80,8 +79,9 @@ const Forecast = (): any => {
             <Button type="submit">Submit</Button>
           </Group>
         </form>
-        <Conditions responseObj={responseObj} />
+        {navigator.geolocation.getCurrentPosition((e) => console.log(e))}
       </Box>
+      {weatherData && <Cards resp={weatherData}></Cards>}
     </>
   );
 };
