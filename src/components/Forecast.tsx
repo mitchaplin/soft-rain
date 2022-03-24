@@ -9,17 +9,19 @@ import {
 import { useForm } from "@mantine/form";
 import { default as React, useState } from "react";
 import Cards from "./Cards";
+import { WeatherMode } from "./types";
 
 const Forecast = (): any => {
-  const [weatherData, setWeatherData] = useState(null);
+  let [weatherData, setWeatherData] = useState(null);
   let [city, setCity] = useState("");
   let [unit, setUnit] = useState("imperial");
+  let [mode, setMode] = useState<WeatherMode>("one");
   const uriEncodedCity = encodeURIComponent(city);
 
   const encodeURI = (inp: string) => encodeURIComponent(inp);
   const form = useForm({
     initialValues: {
-      location: "London",
+      location: "Madison",
       unit: "imperial",
     },
 
@@ -70,18 +72,32 @@ const Forecast = (): any => {
             onChange={setUnit}
             label="Select Temp Unit"
             description=""
+            style={{ marginBottom: 15 }}
             required
           >
             <Radio value="imperial" label="Fahrenheit" />
             <Radio value="metric" label="Celcius" />
           </RadioGroup>
+          <RadioGroup
+            value={mode}
+            onChange={setMode as any}
+            label="Select Time Frame"
+            description=""
+            style={{ marginBottom: 15 }}
+            required
+          >
+            <Radio value="one" label="One Day" />
+            <Radio value="five" label="Five Day" />
+          </RadioGroup>
           <Group position="right" mt="md">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" fullWidth={true} style={{ marginBottom: 25 }}>
+              Submit
+            </Button>
           </Group>
         </form>
         {navigator.geolocation.getCurrentPosition((e) => console.log(e))}
       </Box>
-      {weatherData && <Cards resp={weatherData}></Cards>}
+      {true && <Cards resp={weatherData} mode={mode}></Cards>}
     </>
   );
 };
