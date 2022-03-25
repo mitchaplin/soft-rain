@@ -1,13 +1,7 @@
-import {
-  Box,
-  Button,
-  Group,
-  Radio,
-  RadioGroup,
-  TextInput,
-} from "@mantine/core";
+import { Box, Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { default as React, useState } from "react";
+import { useTempUnit } from "../TempUnitProvider";
 import Cards from "./Cards";
 import { WeatherMode } from "./types";
 
@@ -17,7 +11,7 @@ const Forecast = (): any => {
   let [unit, setUnit] = useState("imperial");
   let [mode, setMode] = useState<WeatherMode>("one");
   const uriEncodedCity = encodeURIComponent(city);
-
+  const { tempUnit, toggleTempUnit } = useTempUnit();
   const encodeURI = (inp: string) => encodeURIComponent(inp);
   const form = useForm({
     initialValues: {
@@ -32,7 +26,7 @@ const Forecast = (): any => {
 
   const getForecast = (location: string, unit: string) => {
     fetch(
-      `https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${encodeURI(
+      `https://community-open-weather-map.p.rapidapi.com/weather?units=${tempUnit}&q=${encodeURI(
         location
       )}`,
       {
@@ -67,7 +61,7 @@ const Forecast = (): any => {
             placeholder="Enter a location..."
             {...form.getInputProps("location")}
           />
-          <RadioGroup
+          {/* <RadioGroup
             value={unit}
             onChange={setUnit}
             label="Select Temp Unit"
@@ -88,7 +82,7 @@ const Forecast = (): any => {
           >
             <Radio value="one" label="One Day" />
             <Radio value="five" label="Five Day" />
-          </RadioGroup>
+          </RadioGroup> */}
           <Group position="right" mt="md">
             <Button type="submit" fullWidth={true} style={{ marginBottom: 25 }}>
               Submit
@@ -97,7 +91,7 @@ const Forecast = (): any => {
         </form>
         {navigator.geolocation.getCurrentPosition((e) => console.log(e))}
       </Box>
-      {true && <Cards resp={weatherData} mode={mode}></Cards>}
+      {weatherData && <Cards resp={weatherData} mode={mode}></Cards>}
     </>
   );
 };

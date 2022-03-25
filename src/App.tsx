@@ -1,13 +1,31 @@
-import { MantineProvider, Paper } from "@mantine/core";
-import Forecast from "./components/Forecast";
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+  Paper,
+} from "@mantine/core";
+import { useState } from "react";
+import MainComponent from "./MainComponent";
+import { TempUnitProvider } from "./TempUnitProvider";
 
 function App() {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
   return (
-    <MantineProvider theme={{ colorScheme: "dark" }}>
-      <Paper shadow="xs" p="md" radius={0} style={{ height: "100vh" }}>
-        <Forecast />
-      </Paper>
-    </MantineProvider>
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider theme={{ colorScheme }} withGlobalStyles>
+        <Paper radius={0} style={{ height: "100vh" }}>
+          <TempUnitProvider>
+            <MainComponent />
+          </TempUnitProvider>
+        </Paper>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 
