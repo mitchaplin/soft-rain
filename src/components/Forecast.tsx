@@ -8,7 +8,6 @@ import { WeatherMode } from "./types";
 
 const Forecast = (): any => {
   let [weatherData, setWeatherData] = useState(null);
-  let [city, setCity] = useState("");
   let [mode, setMode] = useState<WeatherMode>("one");
   let [lat, setLat] = useState<number | null>(null);
   let [long, setLong] = useState<number | null>(null);
