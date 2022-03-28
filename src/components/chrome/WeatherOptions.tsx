@@ -6,16 +6,28 @@ import {
   CurrentLocation,
   Map,
 } from "tabler-icons-react";
+import {
+  useWeatherOption,
+  WeatherOptionsTypes,
+} from "../../context/WeatherOptionProvider";
 
 interface WeatherOptionProps {
   icon: React.ReactNode;
   color: string;
   label: string;
+  name: WeatherOptionsTypes;
 }
 
-function WeatherOption({ icon, color, label }: WeatherOptionProps) {
+const toggleEnabledStyle = () => {
+  return "";
+};
+
+function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
+  const { weatherOption, setWeatherOption } = useWeatherOption();
+  console.log(weatherOption);
   return (
     <UnstyledButton
+      onClick={() => [toggleEnabledStyle(), setWeatherOption(name)]}
       sx={(theme) => ({
         display: "block",
         width: "100%",
@@ -48,23 +60,31 @@ const data = [
     icon: <BoxMultiple1 size={16} />,
     color: "blue",
     label: "One Day Forecast",
+    name: "one" as WeatherOptionsTypes,
   },
   {
     icon: <BoxMultiple5 size={16} />,
     color: "teal",
     label: "Five Day Forecast",
+    name: "five" as WeatherOptionsTypes,
   },
   {
     icon: <CurrentLocation size={16} />,
     color: "violet",
     label: "Current Location",
+    name: "location" as WeatherOptionsTypes,
   },
-  { icon: <Map size={16} />, color: "grape", label: "Map" },
+  {
+    icon: <Map size={16} />,
+    color: "grape",
+    label: "Map",
+    name: "map" as WeatherOptionsTypes,
+  },
 ];
 
 export function WeatherOptions() {
   const options = data.map((option) => (
-    <WeatherOption {...option} key={option.label} />
+    <WeatherOption {...option} key={option.label} name={option.name} />
   ));
   return <div>{options}</div>;
 }

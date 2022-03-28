@@ -17,7 +17,7 @@ import { Logo } from "./components/chrome/Logo";
 import { User } from "./components/chrome/User";
 import { WeatherOptions } from "./components/chrome/WeatherOptions";
 import Forecast from "./components/Forecast";
-import { useTempUnit } from "./TempUnitProvider";
+import { useTempUnit } from "./context/TempUnitProvider";
 const MainComponent = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { tempUnit, toggleTempUnit } = useTempUnit();
@@ -42,7 +42,6 @@ const MainComponent = () => {
             <Logo colorScheme={colorScheme} />
             <Group>
               <ActionIcon variant="default" onClick={toggleTempUnit} size={30}>
-                {/* {console.log("cadasd" + tempUnit)} */}
                 {tempUnit === "metric" ? (
                   <TemperatureFahrenheit size={16} />
                 ) : (
