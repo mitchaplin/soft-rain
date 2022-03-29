@@ -26,7 +26,7 @@ function useWeatherOption() {
   const context = React.useContext(WeatherOptionContext);
   if (context === undefined) {
     throw new Error(
-      "useWeatherOption must be used within a weather option unit provider"
+      "useWeatherOption must be used within a weather option provider"
     );
   }
   return context;

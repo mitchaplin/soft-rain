@@ -10,18 +10,20 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { WeatherMode } from "./types";
+import { WeatherOptionsTypes } from "../context/WeatherOptionProvider";
 
 interface WeatherCardProps {
-  mode: WeatherMode;
+  mode: WeatherOptionsTypes;
   resp: any;
 }
 
-const Cards = (props: WeatherCardProps) => {
+// one/five day comes back as an array,
+// location is an object
+
+const FiveDayForecastCards = (props: WeatherCardProps) => {
   const theme = useMantineTheme();
   const duration = 1000;
   const { resp, mode } = props;
-  console.log(resp);
   const parseConditions = (condition: any) => {
     switch (condition) {
       case "Clear":
@@ -77,8 +79,8 @@ const Cards = (props: WeatherCardProps) => {
         >
           {(styles) => (
             <div style={styles}>
-              <Grid justify="space-around">
-                <Grid.Col style={{ maxWidth: 350 }} sm={4} xs={4}>
+              <Grid justify="center">
+                <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
                   <Card shadow="sm" p="lg" style={styles.card1}>
                     <Card.Section>
                       <Image
@@ -92,7 +94,7 @@ const Cards = (props: WeatherCardProps) => {
                       style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
                     >
                       <Title order={1} style={{ lineHeight: 1.5 }}>
-                        {resp.name}
+                        {Math.round(resp.main.temp)}°
                       </Title>
                       <Badge
                         color={parseConditions(resp.weather[0].main).status}
@@ -102,9 +104,8 @@ const Cards = (props: WeatherCardProps) => {
                       </Badge>
                     </Group>
                     <Title order={1} style={{ lineHeight: 1.5 }}>
-                      {Math.round(resp.main.temp)}°
+                      {resp.name}
                     </Title>
-
                     <Button
                       variant="light"
                       color="blue"
@@ -116,7 +117,7 @@ const Cards = (props: WeatherCardProps) => {
                   </Card>
                 </Grid.Col>
                 {mode === "five" && (
-                  <Grid.Col style={{ maxWidth: 350 }} sm={4} xs={4}>
+                  <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
                     <Card shadow="sm" p="lg" style={styles.card2}>
                       <Card.Section>
                         <Image
@@ -157,7 +158,7 @@ const Cards = (props: WeatherCardProps) => {
                   </Grid.Col>
                 )}
                 {mode === "five" && (
-                  <Grid.Col style={{ maxWidth: 350 }} sm={4} xs={4}>
+                  <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
                     <Card shadow="sm" p="lg" style={styles.card3}>
                       <Card.Section>
                         <Image
@@ -198,7 +199,7 @@ const Cards = (props: WeatherCardProps) => {
                   </Grid.Col>
                 )}
                 {mode === "five" && (
-                  <Grid.Col style={{ maxWidth: 350 }} sm={4} xs={4}>
+                  <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
                     <Card shadow="sm" p="lg" style={styles.card4}>
                       <Card.Section>
                         <Image
@@ -239,7 +240,7 @@ const Cards = (props: WeatherCardProps) => {
                   </Grid.Col>
                 )}
                 {mode === "five" && (
-                  <Grid.Col style={{ maxWidth: 350 }} sm={4} xs={4}>
+                  <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
                     <Card shadow="sm" p="lg" style={styles.card5}>
                       <Card.Section>
                         <Image
@@ -288,4 +289,4 @@ const Cards = (props: WeatherCardProps) => {
   );
 };
 
-export default Cards;
+export default FiveDayForecastCards;

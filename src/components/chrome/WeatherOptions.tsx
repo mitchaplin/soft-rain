@@ -6,6 +6,7 @@ import {
   CurrentLocation,
   Map,
 } from "tabler-icons-react";
+import { useLatLong } from "../../context/LatLongProvider";
 import {
   useWeatherOption,
   WeatherOptionsTypes,
@@ -18,29 +19,43 @@ interface WeatherOptionProps {
   name: WeatherOptionsTypes;
 }
 
-const toggleEnabledStyle = () => {
-  return "";
-};
-
 function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
+  const { latLong, setLatLong } = useLatLong();
+  const getCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition((e) => [
+      setLatLong({ lat: e.coords.latitude, long: e.coords.longitude }),
+    ]);
+  };
   const { weatherOption, setWeatherOption } = useWeatherOption();
-  console.log(weatherOption);
   return (
     <UnstyledButton
-      onClick={() => [toggleEnabledStyle(), setWeatherOption(name)]}
+      onClick={() => [
+        setWeatherOption(name),
+        name === "location" || name === "map" ? getCurrentLocation() : null,
+      ]}
       sx={(theme) => ({
         display: "block",
         width: "100%",
+        marginBottom: 6,
         padding: theme.spacing.xs,
         borderRadius: theme.radius.sm,
         color:
           theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
 
+        backgroundColor:
+          theme.colorScheme === "dark"
+            ? weatherOption === name
+              ? theme.colors.dark[4]
+              : theme.colors.dark
+            : weatherOption === name
+            ? theme.colors.gray[4]
+            : theme.colors.gray[0],
+
         "&:hover": {
           backgroundColor:
             theme.colorScheme === "dark"
               ? theme.colors.dark[6]
-              : theme.colors.gray[0],
+              : theme.colors.gray[4],
         },
       })}
     >

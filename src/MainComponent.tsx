@@ -41,11 +41,15 @@ const MainComponent = () => {
           <Group sx={{ height: "100%" }} px={20} position="apart">
             <Logo colorScheme={colorScheme} />
             <Group>
-              <ActionIcon variant="default" onClick={toggleTempUnit} size={30}>
+              <ActionIcon
+                variant="default"
+                onClick={() => toggleTempUnit()}
+                size={30}
+              >
                 {tempUnit === "metric" ? (
-                  <TemperatureFahrenheit size={16} />
-                ) : (
                   <TemperatureCelsius size={16} />
+                ) : (
+                  <TemperatureFahrenheit size={16} />
                 )}
               </ActionIcon>
 
