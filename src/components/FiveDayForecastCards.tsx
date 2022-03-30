@@ -47,7 +47,7 @@ const FiveDayForecastCards = (props: WeatherCardProps) => {
     <div>
       {resp && (
         <GroupedTransition
-          mounted={true}
+          mounted={false}
           transitions={{
             card1: {
               duration: duration,

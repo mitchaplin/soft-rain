@@ -52,7 +52,7 @@ const LocationForecastCard = (props: WeatherCardProps) => {
     <div>
       {resp && (
         <GroupedTransition
-          mounted={weatherOption === "map" || weatherOption === "location"}
+          mounted={true}
           transitions={{
             card1: {
               duration: duration,

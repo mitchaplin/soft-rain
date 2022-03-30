@@ -74,7 +74,7 @@ const data = [
   {
     icon: <BoxMultiple1 size={16} />,
     color: "blue",
-    label: "One Day Forecast",
+    label: "Current Weather",
     name: "one" as WeatherOptionsTypes,
   },
   {
@@ -86,13 +86,13 @@ const data = [
   {
     icon: <CurrentLocation size={16} />,
     color: "violet",
-    label: "Current Location",
+    label: "Current Location Forecast",
     name: "location" as WeatherOptionsTypes,
   },
   {
     icon: <Map size={16} />,
     color: "grape",
-    label: "Map",
+    label: "Map Forecast",
     name: "map" as WeatherOptionsTypes,
   },
 ];
