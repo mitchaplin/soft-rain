@@ -1,8 +1,7 @@
 import { default as React } from "react";
 import { useWeatherData } from "../context/WeatherDataProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
-import FiveDayForecastCards from "./CurrentWeather";
-import LocationForecastCard from "./FiveDayForecast";
+import CurrentWeather from "./CurrentWeather";
 import { SubmitForm } from "./SubmitForm";
 
 const Forecast = (): any => {
@@ -12,22 +11,24 @@ const Forecast = (): any => {
     <>
       {console.log("test")}
       {console.log(weatherData)}
+
       <SubmitForm />
-      {weatherData ? (
+      {/* {weatherData ? (
         weatherOption === "one" || weatherOption === "five" ? (
-          <FiveDayForecastCards
+          <CurrentWeather
             resp={weatherData}
             mode={weatherOption}
-          ></FiveDayForecastCards>
+          ></CurrentWeather>
         ) : (
-          <LocationForecastCard
+          <TenDayForecast
             resp={weatherData}
             mode={weatherOption}
-          ></LocationForecastCard>
+          ></TenDayForecast>
         )
       ) : (
         <></>
-      )}
+      )} */}
+      <CurrentWeather resp={weatherData} mode={weatherOption}></CurrentWeather>
     </>
   );
 };

@@ -26,9 +26,9 @@ export function SubmitForm() {
     },
   });
 
-  const getDailyForecast = () => {
+  const getTenDayForecast = () => {
     fetch(
-      `https://community-open-weather-map.p.rapidapi.com/forecast/daily?lat=${latLong.lat}&lon=${latLong.long}&cnt=1&units=${tempUnit}`,
+      `https://community-open-weather-map.p.rapidapi.com/forecast/daily?lat=${latLong.lat}&lon=${latLong.long}&cnt=10&units=${tempUnit}`,
       {
         method: "GET",
         headers: {
@@ -46,7 +46,7 @@ export function SubmitForm() {
       });
   };
 
-  const getFiveDayForecast = (location: string) => {
+  const getCurrentForecast = (location: string) => {
     fetch(
       `https://community-open-weather-map.p.rapidapi.com/weather?units=${tempUnit}&q=${encodedURI(
         location
@@ -71,9 +71,7 @@ export function SubmitForm() {
     <Box sx={{ maxWidth: 300 }} mx="auto">
       <form
         onSubmit={form.onSubmit((values) =>
-          weatherOption === "one" || weatherOption === "five"
-            ? getFiveDayForecast(values.location)
-            : getDailyForecast()
+          getCurrentForecast(values.location)
         )}
       >
         <TextInput

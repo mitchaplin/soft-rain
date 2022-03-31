@@ -17,7 +17,7 @@ interface WeatherCardProps {
   resp: any;
 }
 
-const FiveDayForecast = (props: WeatherCardProps) => {
+const TenDayForecast = (props: WeatherCardProps) => {
   const theme = useMantineTheme();
   const duration = 1000;
   const { resp, mode } = props;
@@ -260,4 +260,4 @@ const FiveDayForecast = (props: WeatherCardProps) => {
     </div>
   );
 };
-export default FiveDayForecast;
+export default TenDayForecast;

@@ -63,6 +63,15 @@ export const conditionFromId = (id: number) => {
   }
 };
 
+// export const calculateWindDirection = (direction: number) => {
+//     case direction > 0 && direction < 22.5:
+//         return {
+//           main: "Thunderstorm",
+//           description: "thunderstorm with light rain",
+//           icon: "11d",
+//         };
+//     }
+// }
 // 0.0 	N
 // 22.5 	NNE
 // 45.0 	NE
