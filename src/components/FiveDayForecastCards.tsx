@@ -17,9 +17,6 @@ interface WeatherCardProps {
   resp: any;
 }
 
-// one/five day comes back as an array,
-// location is an object
-
 const FiveDayForecastCards = (props: WeatherCardProps) => {
   const theme = useMantineTheme();
   const duration = 1000;
