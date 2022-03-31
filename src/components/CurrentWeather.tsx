@@ -4,9 +4,9 @@ import {
   Card,
   Grid,
   Group,
-  GroupedTransition,
   Image,
   Title,
+  Transition,
   useMantineTheme,
 } from "@mantine/core";
 import {
@@ -19,7 +19,7 @@ interface WeatherCardProps {
   resp: any;
 }
 
-const LocationForecastCard = (props: WeatherCardProps) => {
+const CurrentWeather = (props: WeatherCardProps) => {
   const theme = useMantineTheme();
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const duration = 1000;
@@ -51,22 +51,17 @@ const LocationForecastCard = (props: WeatherCardProps) => {
   return (
     <div>
       {resp && (
-        <GroupedTransition
-          mounted={true}
-          transitions={{
-            card1: {
-              duration: duration,
-              transition: "slide-right",
-              timingFunction: "ease",
-            },
-          }}
+        <Transition
+          mounted={!!resp}
+          transition="fade"
+          duration={400}
           timingFunction="ease"
         >
           {(styles) => (
             <div style={styles}>
               <Grid justify="space-around">
-                <Grid.Col style={{ maxWidth: 350 }} sm={4} xs={4}>
-                  <Card shadow="sm" p="lg" style={styles.card1}>
+                <Grid.Col style={{ maxWidth: 4000 }} sm={4} xs={4}>
+                  <Card shadow="sm" p="lg">
                     <Card.Section>
                       <Image
                         src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-1.svg"
@@ -107,10 +102,10 @@ const LocationForecastCard = (props: WeatherCardProps) => {
               </Grid>
             </div>
           )}
-        </GroupedTransition>
+        </Transition>
       )}
     </div>
   );
 };
 
-export default LocationForecastCard;
+export default CurrentWeather;

@@ -4,10 +4,10 @@ import {
   Card,
   Grid,
   Group,
-  GroupedTransition,
   Image,
   Text,
   Title,
+  Transition,
   useMantineTheme,
 } from "@mantine/core";
 import { WeatherOptionsTypes } from "../context/WeatherOptionProvider";
@@ -17,7 +17,7 @@ interface WeatherCardProps {
   resp: any;
 }
 
-const FiveDayForecastCards = (props: WeatherCardProps) => {
+const FiveDayForecast = (props: WeatherCardProps) => {
   const theme = useMantineTheme();
   const duration = 1000;
   const { resp, mode } = props;
@@ -43,42 +43,17 @@ const FiveDayForecastCards = (props: WeatherCardProps) => {
   return (
     <div>
       {resp && (
-        <GroupedTransition
-          mounted={false}
-          transitions={{
-            card1: {
-              duration: duration,
-              transition: "slide-right",
-              timingFunction: "ease",
-            },
-            card2: {
-              duration: duration * 1.5,
-              transition: "slide-right",
-              timingFunction: "ease",
-            },
-            card3: {
-              duration: duration * 2,
-              transition: "slide-right",
-              timingFunction: "ease",
-            },
-            card4: {
-              duration: duration * 2.5,
-              transition: "slide-right",
-              timingFunction: "ease",
-            },
-            card5: {
-              duration: duration * 3,
-              transition: "slide-right",
-              timingFunction: "ease",
-            },
-          }}
+        <Transition
+          mounted={!!resp}
+          transition="slide-down"
+          duration={400}
           timingFunction="ease"
         >
           {(styles) => (
             <div style={styles}>
               <Grid justify="center">
                 <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
-                  <Card shadow="sm" p="lg" style={styles.card1}>
+                  <Card shadow="sm" p="lg">
                     <Card.Section>
                       <Image
                         src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-1.svg"
@@ -115,7 +90,7 @@ const FiveDayForecastCards = (props: WeatherCardProps) => {
                 </Grid.Col>
                 {mode === "five" && (
                   <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
-                    <Card shadow="sm" p="lg" style={styles.card2}>
+                    <Card shadow="sm" p="lg">
                       <Card.Section>
                         <Image
                           src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-2.svg"
@@ -156,7 +131,7 @@ const FiveDayForecastCards = (props: WeatherCardProps) => {
                 )}
                 {mode === "five" && (
                   <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
-                    <Card shadow="sm" p="lg" style={styles.card3}>
+                    <Card shadow="sm" p="lg">
                       <Card.Section>
                         <Image
                           src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-3.svg"
@@ -197,7 +172,7 @@ const FiveDayForecastCards = (props: WeatherCardProps) => {
                 )}
                 {mode === "five" && (
                   <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
-                    <Card shadow="sm" p="lg" style={styles.card4}>
+                    <Card shadow="sm" p="lg">
                       <Card.Section>
                         <Image
                           src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-4.svg"
@@ -238,7 +213,7 @@ const FiveDayForecastCards = (props: WeatherCardProps) => {
                 )}
                 {mode === "five" && (
                   <Grid.Col style={{ maxWidth: 300 }} sm={4} xs={4}>
-                    <Card shadow="sm" p="lg" style={styles.card5}>
+                    <Card shadow="sm" p="lg">
                       <Card.Section>
                         <Image
                           src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/day.svg"
@@ -280,10 +255,9 @@ const FiveDayForecastCards = (props: WeatherCardProps) => {
               </Grid>
             </div>
           )}
-        </GroupedTransition>
+        </Transition>
       )}
     </div>
   );
 };
-
-export default FiveDayForecastCards;
+export default FiveDayForecast;
