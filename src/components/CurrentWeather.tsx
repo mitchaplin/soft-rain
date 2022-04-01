@@ -62,13 +62,21 @@ const CurrentWeather = (props: WeatherCardProps) => {
           {(styles) => (
             <div style={styles}>
               <Grid justify="center">
-                <Grid.Col style={{ maxWidth: 350 }} sm={4} xs={4}>
+                <Grid.Col
+                  style={{
+                    maxWidth: 250,
+                    width: 250,
+                  }}
+                  sm={4}
+                  xs={4}
+                >
                   <Card shadow="sm" p="lg">
                     <Card.Section>
                       <Image
                         src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-1.svg"
-                        height={350}
+                        height={250}
                         alt="Test"
+                        style={{ width: 250 }}
                       />
                     </Card.Section>
                     <Group
@@ -94,15 +102,6 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       {Math.round(resp.main.temp)}°
                     </Title>
-                    {/* 
-                    <Button
-                      variant="light"
-                      color="blue"
-                      fullWidth
-                      style={{ marginTop: 14 }}
-                    >
-                      Get Extended Weather
-                    </Button> */}
                   </Card>
                 </Grid.Col>
                 <Grid.Col
@@ -111,79 +110,37 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   xs={4}
                   styles={{ marginTop: 50 }}
                 >
-                  <Card shadow="sm" p="lg">
+                  <Card
+                    shadow="sm"
+                    p="md"
+                    style={{ width: 250, marginBottom: 16 }}
+                  >
                     <Group
                       position="apart"
                       style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
                     >
                       <Title order={1} style={{ lineHeight: 1.5 }}>
                         <Text>Feels Like: {resp.main.feels_like}</Text>
-                        <Text> Low: {resp.main.temp_min}</Text>
+                        <Text>Low: {resp.main.temp_min}</Text>
                         <Text>High: {resp.main.temp_max}</Text>
-                        <Text> Pressure: {resp.main.pressure}</Text>
-                        <Text> Humidity: {resp.main.humidity}</Text>
+                        <Text>Pressure: {resp.main.pressure}</Text>
+                        <Text>Humidity: {resp.main.humidity}</Text>
                       </Title>
                     </Group>
-
-                    {/* 
-                    <Button
-                      variant="light"
-                      color="blue"
-                      fullWidth
-                      style={{ marginTop: 14 }}
-                    >
-                      Get Extended Weather
-                    </Button> */}
                   </Card>
-                  <Grid style={{ marginLeft: 0.25, marginTop: 16 }}>
-                    <Card shadow="sm" p="lg" style={{ height: 327 }}>
-                      <Group
-                        position="apart"
-                        style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
-                      >
-                        <Title order={1} style={{ lineHeight: 1.5 }}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="icon icon-tabler icon-tabler-arrow-left-circle"
-                            width="200"
-                            height="216"
-                            viewBox="0 0 24 24"
-                            stroke-width="2"
-                            stroke="currentColor"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              stroke="none"
-                              d="M0 0h24v24H0z"
-                              fill="none"
-                            ></path>
-                            <path d="M17 12h-14"></path>
-                            <path d="M6 9l-3 3l3 3"></path>
-                            <circle cx="19" cy="12" r="2"></circle>
-                          </svg>
-                          {/* <ArrowLeftCircle
-                            size={200}
-                            width={216}
-                            style={{ transform: "90deg" }}
-                          />
-                        // </Title>
-                        <Text>Test: Test</Text> */}
-                        </Title>
-                      </Group>
-
-                      {/* 
-                    <Button
-                      variant="light"
-                      color="blue"
-                      fullWidth
-                      style={{ marginTop: 14 }}
+                  <Card shadow="sm" p="md" style={{ width: 250 }}>
+                    <Group
+                      position="apart"
+                      style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
                     >
-                      Get Extended Weather
-                    </Button> */}
-                    </Card>
-                  </Grid>
+                      <Title order={1} style={{ lineHeight: 1.5 }}>
+                        Wind
+                        <Text>Speed: {resp.wind.speed}</Text>
+                        <Text>Direction: {resp.wind.deg}</Text>
+                        <Text>Gust: {resp.wind.gust}</Text>
+                      </Title>
+                    </Group>
+                  </Card>
                 </Grid.Col>
               </Grid>
             </div>
