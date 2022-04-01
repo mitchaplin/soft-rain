@@ -65,8 +65,8 @@ const CurrentWeather = (props: WeatherCardProps) => {
               <Grid justify="center">
                 <Grid.Col
                   style={{
-                    maxWidth: 250,
-                    width: 250,
+                    maxWidth: 265,
+                    width: 270,
                   }}
                   sm={4}
                   xs={4}
@@ -109,7 +109,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   </Card>
                 </Grid.Col>
                 <Grid.Col
-                  style={{ maxWidth: 275 }}
+                  style={{ maxWidth: 265 }}
                   sm={4}
                   xs={4}
                   styles={{ marginTop: 50 }}
@@ -143,11 +143,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                       </Title>
                     </Group>
                   </Card>
-                  <Card
-                    shadow="sm"
-                    p="md"
-                    style={{ width: 250, marginBottom: 16 }}
-                  >
+                  <Card shadow="sm" p="md" style={{ width: 250 }}>
                     <Group position="apart">
                       <Title order={1} style={{ lineHeight: 1.5 }}>
                         Sunrise
@@ -159,21 +155,9 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     </Group>
                   </Card>
                 </Grid.Col>
-                <Grid.Col
-                  style={{ maxWidth: 275 }}
-                  sm={4}
-                  xs={4}
-                  styles={{ marginTop: 50 }}
-                >
-                  <Card
-                    shadow="sm"
-                    p="md"
-                    style={{ width: 250, marginLeft: -8 }}
-                  >
-                    <Group
-                      position="apart"
-                      style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
-                    >
+                <Grid.Col style={{ maxWidth: 265, width: 270 }} sm={4} xs={4}>
+                  <Card shadow="sm" p="md" style={{ width: 250 }}>
+                    <Group position="apart">
                       <Title order={1} style={{ lineHeight: 1.5 }}>
                         Wind
                         <Text>Speed: {resp.wind.speed}</Text>
