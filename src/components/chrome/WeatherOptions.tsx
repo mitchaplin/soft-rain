@@ -1,5 +1,5 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BoxMultiple1,
   BoxMultiple5,
@@ -21,17 +21,28 @@ interface WeatherOptionProps {
 
 function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
   const { latLong, setLatLong } = useLatLong();
-  const getCurrentLocation = () => {
-    navigator.geolocation.getCurrentPosition((e) => [
-      setLatLong({ lat: e.coords.latitude, long: e.coords.longitude }),
-    ]);
-  };
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (location) => {
+          setLatLong({
+            lat: location.coords.latitude,
+            long: location.coords.longitude,
+          });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+  }, [setLatLong]);
+  console.log(latLong);
   const { weatherOption, setWeatherOption } = useWeatherOption();
   return (
     <UnstyledButton
       onClick={() => [
         setWeatherOption(name),
-        name === "location" || name === "map" ? getCurrentLocation() : null,
+        name === "location" || name === "map" ? setLatLong(latLong) : null,
       ]}
       sx={(theme) => ({
         display: "block",

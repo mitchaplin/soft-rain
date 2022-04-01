@@ -63,6 +63,16 @@ export const conditionFromId = (id: number) => {
   }
 };
 
+export function toTimestamp(s: any) {
+  const date = new Date(s * 1000);
+  const hours = date.getHours();
+  const minutes = "0" + date.getMinutes();
+  const seconds = "0" + date.getSeconds();
+  const formattedTime =
+    hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+
+  return formattedTime;
+}
 // export const calculateWindDirection = (direction: number) => {
 //     case direction > 0 && direction < 22.5:
 //         return {
