@@ -72,7 +72,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   xs={4}
                 >
                   <Card shadow="sm" p="lg">
-                    <Card.Section style={{ marginLeft: -10 }}>
+                    <Card.Section style={{ marginLeft: -5 }}>
                       <Image
                         src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-1.svg"
                         height={240}
