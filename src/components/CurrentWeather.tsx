@@ -67,15 +67,16 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   style={{
                     maxWidth: 265,
                     width: 270,
+                    textAlign: "center",
                   }}
                   sm={4}
                   xs={4}
                 >
                   <Card shadow="sm" p="lg">
-                    <Card.Section style={{ marginLeft: -5 }}>
+                    <Card.Section style={{ marginLeft: 0 }}>
                       <Image
                         src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-1.svg"
-                        height={240}
+                        height={286}
                         alt="Test"
                         style={{ width: 250 }}
                       />
@@ -83,14 +84,11 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       {Math.round(resp.main.temp)}°
                     </Title>
-                    <Group
-                      position="apart"
-                      style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
-                    >
-                      <Title order={1} style={{ lineHeight: 1.5 }}>
-                        {resp.name}
-                      </Title>
-                    </Group>
+
+                    <Title order={1} style={{ lineHeight: 1.5 }}>
+                      {resp.name}
+                    </Title>
+
                     <Text component="p" size="xl">
                       {resp.sys.country}
                     </Text>
@@ -109,7 +107,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   </Card>
                 </Grid.Col>
                 <Grid.Col
-                  style={{ maxWidth: 265 }}
+                  style={{ maxWidth: 265, textAlign: "center" }}
                   sm={4}
                   xs={4}
                   styles={{ marginTop: 50 }}
@@ -134,48 +132,78 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     p="md"
                     style={{ width: 250, marginBottom: 16 }}
                   >
-                    <Group position="apart">
-                      <Title order={1} style={{ lineHeight: 1.5 }}>
-                        Conditions
-                        <Text>Visibility: {resp.visibility}</Text>
-                        <Text>Rain: {resp.rain["1h"]}</Text>
-                        <Text>Clouds: {resp.clouds.all}</Text>
-                      </Title>
-                    </Group>
+                    <Title order={1} style={{ lineHeight: 1.5 }}>
+                      Conditions
+                      <Text>Visibility: {resp.visibility}</Text>
+                      <Text>Rain: {resp.rain["1h"]}</Text>
+                      <Text>Clouds: {resp.clouds.all}</Text>
+                    </Title>
                   </Card>
-                  <Card shadow="sm" p="md" style={{ width: 250 }}>
-                    <Group position="apart">
-                      <Title order={1} style={{ lineHeight: 1.5 }}>
-                        Sunrise
-                        <Text>
-                          Sunrise: {toTimestamp(`${resp.sys.sunrise}`)}
-                        </Text>
-                        <Text>Sunset: {toTimestamp(`${resp.sys.sunset}`)}</Text>
-                      </Title>
-                    </Group>
+                  <Card
+                    shadow="sm"
+                    p="md"
+                    style={{
+                      width: 250,
+                      textAlign: "center",
+                    }}
+                  >
+                    <Title order={1} style={{ lineHeight: 1.5 }}>
+                      Coords
+                      <Text>Lat: {resp.coord.lat}</Text>
+                      <Text>Long: {resp.coord.lon}</Text>
+                    </Title>
                   </Card>
                 </Grid.Col>
-                <Grid.Col style={{ maxWidth: 265, width: 270 }} sm={4} xs={4}>
+                <Grid.Col
+                  style={{ maxWidth: 265, width: 270, textAlign: "center" }}
+                  sm={4}
+                  xs={4}
+                >
+                  <Card
+                    shadow="sm"
+                    p="md"
+                    style={{
+                      width: 250,
+                      textAlign: "center",
+                      marginBottom: 16,
+                    }}
+                  >
+                    <Title order={1} style={{ lineHeight: 1.5 }}>
+                      Sunrise
+                      <Text>Sunrise: {toTimestamp(`${resp.sys.sunrise}`)}</Text>
+                      <Text>Sunset: {toTimestamp(`${resp.sys.sunset}`)}</Text>
+                    </Title>
+                  </Card>
                   <Card shadow="sm" p="md" style={{ width: 250 }}>
-                    <Group position="apart">
-                      <Title order={1} style={{ lineHeight: 1.5 }}>
-                        Wind
-                        <Text>Speed: {resp.wind.speed}</Text>
-                        <Text>Direction: {resp.wind.deg}</Text>
-                        <Text>Gust: {resp.wind.gust}</Text>
-                      </Title>
-                      <Title order={1} style={{ lineHeight: 1.5 }}>
+                    <Title order={1} style={{ lineHeight: 1.5 }}>
+                      Wind
+                      <Text>Speed: {resp.wind.speed}</Text>
+                      <Text>Direction: {resp.wind.deg}</Text>
+                      <Text>Gust: {resp.wind.gust}</Text>
+                    </Title>
+                    <Title
+                      order={1}
+                      style={{ lineHeight: 1.5, marginBottom: 36 }}
+                    >
+                      <div
+                        style={{
+                          alignContent: "center",
+                          marginTop: 50,
+                        }}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="icon icon-tabler icon-tabler-arrow-left-circle"
-                          width="200"
-                          height="216"
+                          width="100"
+                          height="100"
                           viewBox="0 0 24 24"
                           stroke-width="2"
                           stroke="currentColor"
                           fill="none"
                           stroke-linecap="round"
                           stroke-linejoin="round"
+                          transform={`rotate(${resp.wind.deg})`}
+                          scale={2}
                         >
                           <path
                             stroke="none"
@@ -186,8 +214,8 @@ const CurrentWeather = (props: WeatherCardProps) => {
                           <path d="M6 9l-3 3l3 3"></path>
                           <circle cx="19" cy="12" r="2"></circle>
                         </svg>
-                      </Title>
-                    </Group>
+                      </div>
+                    </Title>
                   </Card>
                 </Grid.Col>
               </Grid>
