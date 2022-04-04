@@ -13,22 +13,23 @@ const Forecast = (): any => {
       {console.log(weatherData)}
 
       <SubmitForm />
-      {/* {weatherData ? (
+      {weatherData ? (
         weatherOption === "one" || weatherOption === "five" ? (
           <CurrentWeather
             resp={weatherData}
             mode={weatherOption}
           ></CurrentWeather>
         ) : (
-          <TenDayForecast
-            resp={weatherData}
-            mode={weatherOption}
-          ></TenDayForecast>
+          <></>
+          // <TenDayForecast
+          //   resp={weatherData}
+          //   mode={weatherOption}
+          // ></TenDayForecast>
         )
       ) : (
         <></>
-      )} */}
-      <CurrentWeather resp={weatherData} mode={weatherOption}></CurrentWeather>
+      )}
+      {/* <CurrentWeather resp={weatherData} mode={weatherOption}></CurrentWeather> */}
     </>
   );
 };

@@ -13,8 +13,7 @@ import {
   useWeatherOption,
   WeatherOptionsTypes,
 } from "../context/WeatherOptionProvider";
-import { test } from "../testdata";
-import { toTimestamp } from "../utils";
+import { degToDir, determineWeatherImage, toTimestamp } from "../utils";
 
 interface WeatherCardProps {
   mode: WeatherOptionsTypes;
@@ -25,7 +24,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
   const theme = useMantineTheme();
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const duration = 1000;
-  // const { resp, mode } = props;
+  const { resp, mode } = props;
   const parseConditions = (condition: any) => {
     switch (condition) {
       case "Clear":
@@ -50,7 +49,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
         };
     }
   };
-  const resp = test;
+  // const resp = test;
   return (
     <div>
       {resp && (
@@ -73,9 +72,9 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   xs={4}
                 >
                   <Card shadow="sm" p="lg">
-                    <Card.Section style={{ marginLeft: 0 }}>
+                    <Card.Section style={{ marginLeft: -10 }}>
                       <Image
-                        src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-1.svg"
+                        src={determineWeatherImage(resp.weather[0].id)}
                         height={286}
                         alt="Test"
                         style={{ width: 250 }}
@@ -120,10 +119,10 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     <Group position="apart">
                       <Title order={1} style={{ lineHeight: 1.5 }}>
                         Temperature
-                        <Text>Feels Like: {resp.main.feels_like}</Text>
-                        <Text>Low: {resp.main.temp_min}</Text>
-                        <Text>High: {resp.main.temp_max}</Text>
-                        <Text>Pressure: {resp.main.pressure}</Text>
+                        <Text>Feels Like: {resp.main.feels_like}°</Text>
+                        <Text>Low: {resp.main.temp_min}°</Text>
+                        <Text>High: {resp.main.temp_max}°</Text>
+                        <Text>Pressure: {resp.main.pressure} mb</Text>
                       </Title>
                     </Group>
                   </Card>
@@ -132,11 +131,20 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     p="md"
                     style={{ width: 250, marginBottom: 16 }}
                   >
-                    <Title order={1} style={{ lineHeight: 1.5 }}>
+                    <Title
+                      order={1}
+                      style={{
+                        lineHeight: 1.5,
+                        marginBottom: resp.rain || resp.snow ? 0 : 23,
+                      }}
+                    >
                       Conditions
-                      <Text>Visibility: {resp.visibility}</Text>
-                      <Text>Rain: {resp.rain["1h"]}</Text>
-                      <Text>Clouds: {resp.clouds.all}</Text>
+                      <Text>
+                        Visibility: {(resp.visibility / 5280).toFixed(2)} km
+                      </Text>
+                      {resp.rain && <Text>Rain: {resp.rain["1h"]} in</Text>}
+                      {resp.snow && <Text>Snow: {resp.snow["1h"]} in</Text>}
+                      <Text>Cloud Cover: {resp.clouds.all}%</Text>
                     </Title>
                   </Card>
                   <Card
@@ -170,8 +178,34 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   >
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       Sunrise
-                      <Text>Sunrise: {toTimestamp(`${resp.sys.sunrise}`)}</Text>
-                      <Text>Sunset: {toTimestamp(`${resp.sys.sunset}`)}</Text>
+                      <Group>
+                        <Image
+                          src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/weather_sunset.svg"
+                          height={50}
+                          alt="Sunrise"
+                          style={{
+                            width: 50,
+                            filter:
+                              "invert(77%) sepia(92%) saturate(5578%) hue-rotate(7deg) brightness(99%) contrast(105%)",
+                          }}
+                        />
+                        <Text>
+                          Sunrise: {toTimestamp(`${resp.sys.sunrise}`)}
+                        </Text>
+                      </Group>
+                      <Group style={{ justifyContent: "center" }}>
+                        <Text>Sunset: {toTimestamp(`${resp.sys.sunset}`)}</Text>
+                        <Image
+                          src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/weather_sunset.svg"
+                          height={50}
+                          alt="Sunrise"
+                          style={{
+                            width: 50,
+                            filter:
+                              "invert(77%) sepia(92%) saturate(5578%) hue-rotate(7deg) brightness(99%) contrast(105%)",
+                          }}
+                        />
+                      </Group>
                     </Title>
                   </Card>
                   <Card shadow="sm" p="md" style={{ width: 250 }}>
@@ -179,41 +213,41 @@ const CurrentWeather = (props: WeatherCardProps) => {
                       Wind
                       <Text>Speed: {resp.wind.speed}</Text>
                       <Text>Direction: {resp.wind.deg}</Text>
-                      <Text>Gust: {resp.wind.gust}</Text>
+                      {resp.gust && <Text>Gust: {resp.wind.gust}</Text>}
                     </Title>
-                    <Title
-                      order={1}
-                      style={{ lineHeight: 1.5, marginBottom: 36 }}
-                    >
+                    <Title order={1} style={{ lineHeight: 1.5 }}>
                       <div
                         style={{
                           alignContent: "center",
-                          marginTop: 50,
+                          marginTop: resp.gust ? 31 : 65,
                         }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="icon icon-tabler icon-tabler-arrow-left-circle"
-                          width="100"
-                          height="100"
+                          className="icon icon-tabler icon-tabler-arrow-top-tail"
+                          height={`${resp.wind.speed + 50}`}
+                          width={`${resp.wind.speed + 50}`}
                           viewBox="0 0 24 24"
-                          stroke-width="2"
+                          stroke-width="1.5"
                           stroke="currentColor"
                           fill="none"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                           transform={`rotate(${resp.wind.deg})`}
-                          scale={2}
+                          scale={1}
+                          filter={
+                            "invert(67%) sepia(100%) saturate(3787%) hue-rotate(170deg) brightness(95%) contrast(103%)"
+                          }
                         >
-                          <path
-                            stroke="none"
-                            d="M0 0h24v24H0z"
-                            fill="none"
-                          ></path>
-                          <path d="M17 12h-14"></path>
-                          <path d="M6 9l-3 3l3 3"></path>
-                          <circle cx="19" cy="12" r="2"></circle>
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <line x1="12" y1="18" x2="12" y2="3" />
+                          <path d="M15 6l-3 -3l-3 3" />
+                          <path d="M15 21l-3 -3l-3 3" />
                         </svg>
+                        <Title order={3} style={{ lineHeight: 1.5 }}>
+                          Wind {degToDir(resp.wind.deg)} at{" "}
+                          {Math.floor(resp.wind.speed)} mph
+                        </Title>
                       </div>
                     </Title>
                   </Card>
