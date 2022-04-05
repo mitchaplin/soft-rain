@@ -75,7 +75,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     <Card.Section style={{ marginLeft: -10 }}>
                       <Image
                         src={determineWeatherImage(resp.weather[0].id)}
-                        height={286}
+                        height={297}
                         alt="Test"
                         style={{ width: 250 }}
                       />
@@ -84,7 +84,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                       {Math.round(resp.main.temp)}°
                     </Title>
 
-                    <Title order={1} style={{ lineHeight: 1.5 }}>
+                    <Title order={2} style={{ lineHeight: 1.5 }}>
                       {resp.name}
                     </Title>
 
@@ -219,14 +219,14 @@ const CurrentWeather = (props: WeatherCardProps) => {
                       <div
                         style={{
                           alignContent: "center",
-                          marginTop: resp.gust ? 31 : 65,
+                          marginTop: resp.gust ? 12 : 27,
                         }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="icon icon-tabler icon-tabler-arrow-top-tail"
-                          height={`${resp.wind.speed + 50}`}
-                          width={`${resp.wind.speed + 50}`}
+                          height={100}
+                          width={100}
                           viewBox="0 0 24 24"
                           stroke-width="1.5"
                           stroke="currentColor"

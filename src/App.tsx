@@ -5,6 +5,7 @@ import {
   Paper,
 } from "@mantine/core";
 import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { LatLongProvider } from "./context/LatLongProvider";
 import { TempUnitProvider } from "./context/TempUnitProvider";
 import { WeatherDataProvider } from "./context/WeatherDataProvider";
@@ -17,24 +18,33 @@ function App() {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider theme={{ colorScheme }} withGlobalStyles>
-        <Paper radius={0} style={{ height: "100vh" }}>
-          <TempUnitProvider>
-            <WeatherOptionProvider>
-              <WeatherDataProvider>
-                <LatLongProvider>
-                  <MainComponent />
-                </LatLongProvider>
-              </WeatherDataProvider>
-            </WeatherOptionProvider>
-          </TempUnitProvider>
-        </Paper>
-      </MantineProvider>
-    </ColorSchemeProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ColorSchemeProvider
+              colorScheme={colorScheme}
+              toggleColorScheme={toggleColorScheme}
+            >
+              <MantineProvider theme={{ colorScheme }} withGlobalStyles>
+                <Paper radius={0} style={{ height: "100vh" }}>
+                  <TempUnitProvider>
+                    <WeatherOptionProvider>
+                      <WeatherDataProvider>
+                        <LatLongProvider>
+                          <MainComponent />
+                        </LatLongProvider>
+                      </WeatherDataProvider>
+                    </WeatherOptionProvider>
+                  </TempUnitProvider>
+                </Paper>
+              </MantineProvider>
+            </ColorSchemeProvider>
+          }
+        ></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
