@@ -3,7 +3,7 @@ import {
   Button,
   Group,
   TextInput,
-  useMantineColorScheme,
+  useMantineColorScheme
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useLatLong } from "../context/LatLongProvider";
@@ -26,47 +26,24 @@ export function SubmitForm() {
     },
   });
 
-  const getTenDayForecast = () => {
-    fetch(
-      `https://community-open-weather-map.p.rapidapi.com/forecast/daily?lat=${latLong.lat}&lon=${latLong.long}&cnt=10&units=${tempUnit}`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
-          "x-rapidapi-key": `${process.env.REACT_APP_RAPID_API_KEY}`,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        setWeatherData(response);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
   const getCurrentForecast = (location: string) => {
-    fetch(
-      `https://community-open-weather-map.p.rapidapi.com/weather?units=${tempUnit}&q=${encodedURI(
-        location
-      )}`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
-          "x-rapidapi-key": `${process.env.REACT_APP_RAPID_API_KEY}`,
-        },
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Host':  `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
+        'X-RapidAPI-Key':  `${process.env.REACT_APP_RAPID_API_KEY}`,
       }
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        setWeatherData(response);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+    };
+    
+    fetch(`https://weatherapi-com.p.rapidapi.com/search.json?q=${location}`, options)
+    .then((response) => response.json())
+    .then((response) => {
+      setWeatherData(response);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
       <form
