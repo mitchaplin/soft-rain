@@ -3,16 +3,14 @@ import {
   Button,
   Group,
   TextInput,
-  useMantineColorScheme
+  useMantineColorScheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useLatLong } from "../context/LatLongProvider";
-import { useTempUnit } from "../context/TempUnitProvider";
 import { useWeatherData } from "../context/WeatherDataProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
 
 export function SubmitForm() {
-  const { tempUnit, toggleTempUnit } = useTempUnit();
   const { latLong, setLatLong } = useLatLong();
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const { weatherData, setWeatherData } = useWeatherData();
@@ -28,21 +26,25 @@ export function SubmitForm() {
 
   const getCurrentForecast = (location: string) => {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'X-RapidAPI-Host':  `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
-        'X-RapidAPI-Key':  `${process.env.REACT_APP_RAPID_API_KEY}`,
-      }
+        "X-RapidAPI-Host": `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
+        "X-RapidAPI-Key": `${process.env.REACT_APP_RAPID_API_KEY}`,
+      },
     };
-    
-    fetch(`https://weatherapi-com.p.rapidapi.com/search.json?q=${location}`, options)
-    .then((response) => response.json())
-    .then((response) => {
-      setWeatherData(response);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+
+    fetch(
+      `https://weatherapi-com.p.rapidapi.com/search.json?q=${location}`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setWeatherData(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
