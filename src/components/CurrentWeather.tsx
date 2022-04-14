@@ -9,22 +9,24 @@ import {
   Transition,
   useMantineTheme,
 } from "@mantine/core";
+import { useTempUnit } from "../context/TempUnitProvider";
 import {
   useWeatherOption,
   WeatherOptionsTypes,
 } from "../context/WeatherOptionProvider";
-import { degToDir, determineWeatherImage, toTimestamp } from "../utils";
+import { testData } from "../testdata";
+import { determineWeatherImage, toTimestamp } from "../utils";
 
 interface WeatherCardProps {
   mode: WeatherOptionsTypes;
   resp: any;
 }
-
 const CurrentWeather = (props: WeatherCardProps) => {
   const theme = useMantineTheme();
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const duration = 1000;
-  const { resp, mode } = props;
+  const { tempUnit, toggleTempUnit } = useTempUnit();
+  // const { resp, mode } = props;
   const parseConditions = (condition: any) => {
     switch (condition) {
       case "Clear":
@@ -49,7 +51,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
         };
     }
   };
-  // const resp = test;
+  const resp = testData;
   return (
     <div>
       {resp && (
@@ -74,22 +76,25 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   <Card shadow="sm" p="lg">
                     <Card.Section style={{ marginLeft: -10 }}>
                       <Image
-                        src={determineWeatherImage(resp.weather[0].id)}
+                        src={determineWeatherImage(resp.current.condition.code)}
                         height={297}
                         alt="Test"
                         style={{ width: 250 }}
                       />
                     </Card.Section>
                     <Title order={1} style={{ lineHeight: 1.5 }}>
-                      {Math.round(resp.main.temp)}°
+                      {tempUnit === "imperial"
+                        ? Math.round(resp.current.temp_f)
+                        : Math.round(resp.current.temp_c)}
+                      °
                     </Title>
 
                     <Title order={2} style={{ lineHeight: 1.5 }}>
-                      {resp.name}
+                      {resp.location.name}
                     </Title>
 
                     <Text component="p" size="xl">
-                      {resp.sys.country}
+                      {resp.location.country}
                     </Text>
                     <Badge
                       color={parseConditions(resp.weather[0].main).status}

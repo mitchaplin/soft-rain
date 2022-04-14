@@ -10,83 +10,69 @@ export function toTimestamp(s: any) {
 export const determineWeatherImage = (conditionId: number) => {
   console.log(conditionId + "id");
   switch (conditionId) {
-    case 300:
-    case 301:
-    case 302:
-    case 310:
+    case 143:
+    case 176:
+    case 185:
+    case 263:
+    case 266:
+    case 281:
+    case 284:
+    case 293:
     case 311:
-    case 312:
-    case 313:
-    case 314:
-    case 321:
-    case 531:
-    case 615:
-    case 611:
-    case 612:
-    case 615:
-    case 616:
-    case 300:
-    case 301:
-    case 302:
-    case 310:
-    case 311:
-    case 312:
-    case 313:
-    case 314:
-    case 321:
+    case 353:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-4.svg";
-    case 500:
-    case 501:
-    case 520:
-    case 521:
+    case 296:
+    case 299:
+    case 302:
+    case 314:
+    case 356:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-5.svg";
-    case 502:
-    case 503:
-    case 504:
-    case 522:
+    case 305:
+    case 308:
+    case 359:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-6.svg";
-    case 511:
+    case 182:
+    case 317:
+    case 320:
+    case 350:
+    case 362:
+    case 365:
+    case 374:
+    case 377:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-7.svg";
-    case 600:
+    case 323:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/snowy-4.svg";
-    case 601:
-    case 620:
-    case 621:
-    case 613:
+    case 329:
+    case 332:
+    case 368:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/snowy-5.svg";
     case 602:
-    case 622:
+    case 179:
+    case 227:
+    case 230:
+    case 335:
+    case 338:
+    case 371:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/snowy-6.svg";
-    case 804:
+    case 119:
+    case 122:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy.svg";
-    case 801:
+    case 116:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy-day-1.svg";
     case 803:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy-day-2.svg";
     case 802:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy-day-3.svg";
-    case 800:
+    case 113:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/day.svg";
     case 200:
-    case 201:
-    case 202:
-    case 210:
-    case 211:
-    case 212:
-    case 221:
-    case 230:
-    case 231:
-    case 232:
+    case 386:
+    case 389:
+    case 392:
+    case 395:
       return "https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/thunder.svg";
-    case 701:
-    case 711:
-    case 721:
-    case 731:
-    case 741:
-    case 751:
-    case 761:
-    case 771:
-    case 781:
+    case 230:
+    case 260:
       return "https://cdn4.iconfinder.com/data/icons/weather-outlines-icon-set/142/mist-512.png";
 
     default:
