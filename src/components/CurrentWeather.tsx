@@ -15,7 +15,7 @@ import {
   WeatherOptionsTypes,
 } from "../context/WeatherOptionProvider";
 import { testData } from "../testdata";
-import { determineWeatherImage, toTimestamp } from "../utils";
+import { determineWeatherImage } from "../utils";
 
 interface WeatherCardProps {
   mode: WeatherOptionsTypes;
@@ -27,30 +27,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
   const duration = 1000;
   const { tempUnit, toggleTempUnit } = useTempUnit();
   // const { resp, mode } = props;
-  const parseConditions = (condition: any) => {
-    switch (condition) {
-      case "Clear":
-        return {
-          status: "green",
-          img: "",
-        };
-      case "Clouds":
-        return {
-          status: "green",
-          img: "",
-        };
-      case "Haze":
-        return {
-          status: "yellow",
-          img: "",
-        };
-      default:
-        return {
-          status: "green",
-          img: "",
-        };
-    }
-  };
+
   const resp = testData;
   return (
     <div>
@@ -96,17 +73,8 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     <Text component="p" size="xl">
                       {resp.location.country}
                     </Text>
-                    <Badge
-                      color={parseConditions(resp.weather[0].main).status}
-                      variant="filled"
-                    >
-                      {resp.weather[0].description
-                        .split(" ")
-                        .map(
-                          (a: string) =>
-                            a.charAt(0).toUpperCase() + a.substring(1)
-                        )
-                        .join(" ")}
+                    <Badge color={"blue"} variant="filled">
+                      {resp.current.condition.text.toUpperCase()}
                     </Badge>
                   </Card>
                 </Grid.Col>
@@ -124,10 +92,15 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     <Group position="apart">
                       <Title order={1} style={{ lineHeight: 1.5 }}>
                         Temperature
-                        <Text>Feels Like: {resp.main.feels_like}°</Text>
-                        <Text>Low: {resp.main.temp_min}°</Text>
-                        <Text>High: {resp.main.temp_max}°</Text>
-                        <Text>Pressure: {resp.main.pressure} mb</Text>
+                        <Text>
+                          Feels Like:
+                          {tempUnit === "imperial"
+                            ? Math.round(resp.current.feelslike_f)
+                            : Math.round(resp.current.feelslike_c)}
+                          °
+                        </Text>
+                        <Text>Pressure: {resp.current.pressure_in} in</Text>
+                        <Text>Pressure: {resp.current.pressure_mb} mb</Text>
                       </Title>
                     </Group>
                   </Card>
@@ -140,16 +113,19 @@ const CurrentWeather = (props: WeatherCardProps) => {
                       order={1}
                       style={{
                         lineHeight: 1.5,
-                        marginBottom: resp.rain || resp.snow ? 0 : 23,
                       }}
                     >
                       Conditions
-                      <Text>
-                        Visibility: {(resp.visibility / 5280).toFixed(2)} km
-                      </Text>
-                      {resp.rain && <Text>Rain: {resp.rain["1h"]} in</Text>}
-                      {resp.snow && <Text>Snow: {resp.snow["1h"]} in</Text>}
-                      <Text>Cloud Cover: {resp.clouds.all}%</Text>
+                      {tempUnit === "imperial" ? (
+                        <Text>Visibility: {resp.current.vis_miles} in</Text>
+                      ) : (
+                        <Text>Visibility: {resp.current.vis_km} km</Text>
+                      )}
+                      <Text>Precipitation: {resp.current.precip_in} in</Text>
+                      <Text>Precipitation: {resp.current.precip_in} in</Text>
+                      <Text>Cloud Cover: {resp.current.cloud}%</Text>
+                      <Text>Humidity: {resp.current.humidity}%</Text>
+                      <Text>UV Index: {resp.current.uv}</Text>
                     </Title>
                   </Card>
                   <Card
@@ -162,69 +138,34 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   >
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       Coords
-                      <Text>Lat: {resp.coord.lat}</Text>
-                      <Text>Long: {resp.coord.lon}</Text>
+                      <Text>Timezone: {resp.location.tz_id}</Text>
+                      <Text>Lat: {resp.location.lat}</Text>
+                      <Text>Long: {resp.location.lon}</Text>
+                      <Text>Local Time: {resp.location.localtime}</Text>
                     </Title>
                   </Card>
                 </Grid.Col>
-                <Grid.Col
-                  style={{ maxWidth: 265, width: 270, textAlign: "center" }}
-                  sm={4}
-                  xs={4}
-                >
-                  <Card
-                    shadow="sm"
-                    p="md"
-                    style={{
-                      width: 250,
-                      textAlign: "center",
-                      marginBottom: 16,
-                    }}
-                  >
-                    <Title order={1} style={{ lineHeight: 1.5 }}>
-                      Sunrise
-                      <Group>
-                        <Image
-                          src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/weather_sunset.svg"
-                          height={50}
-                          alt="Sunrise"
-                          style={{
-                            width: 50,
-                            filter:
-                              "invert(77%) sepia(92%) saturate(5578%) hue-rotate(7deg) brightness(99%) contrast(105%)",
-                          }}
-                        />
-                        <Text>
-                          Sunrise: {toTimestamp(`${resp.sys.sunrise}`)}
-                        </Text>
-                      </Group>
-                      <Group style={{ justifyContent: "center" }}>
-                        <Text>Sunset: {toTimestamp(`${resp.sys.sunset}`)}</Text>
-                        <Image
-                          src="https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/weather_sunset.svg"
-                          height={50}
-                          alt="Sunrise"
-                          style={{
-                            width: 50,
-                            filter:
-                              "invert(77%) sepia(92%) saturate(5578%) hue-rotate(7deg) brightness(99%) contrast(105%)",
-                          }}
-                        />
-                      </Group>
-                    </Title>
-                  </Card>
+                <Grid.Col>
                   <Card shadow="sm" p="md" style={{ width: 250 }}>
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       Wind
-                      <Text>Speed: {resp.wind.speed}</Text>
-                      <Text>Direction: {resp.wind.deg}</Text>
-                      {resp.gust && <Text>Gust: {resp.wind.gust}</Text>}
+                      {tempUnit === "imperial" ? (
+                        <Text>Speed: {resp.current.wind_mph}</Text>
+                      ) : (
+                        <Text>Speed: {resp.current.wind_kph}</Text>
+                      )}
+                      <Text>Degree: {resp.current.wind_degree}</Text>
+                      <Text>Direction: {resp.current.wind_dir}</Text>
+                      {tempUnit === "imperial" ? (
+                        <Text>Gust: {resp.current.gust_mph}</Text>
+                      ) : (
+                        <Text>Gust: {resp.current.gust_kph}</Text>
+                      )}
                     </Title>
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       <div
                         style={{
                           alignContent: "center",
-                          marginTop: resp.gust ? 12 : 27,
                         }}
                       >
                         <svg
@@ -236,9 +177,9 @@ const CurrentWeather = (props: WeatherCardProps) => {
                           stroke-width="1.5"
                           stroke="currentColor"
                           fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          transform={`rotate(${resp.wind.deg})`}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          transform={`rotate(${resp.current.wind_degree})`}
                           scale={1}
                           filter={
                             "invert(67%) sepia(100%) saturate(3787%) hue-rotate(170deg) brightness(95%) contrast(103%)"
@@ -249,10 +190,6 @@ const CurrentWeather = (props: WeatherCardProps) => {
                           <path d="M15 6l-3 -3l-3 3" />
                           <path d="M15 21l-3 -3l-3 3" />
                         </svg>
-                        <Title order={3} style={{ lineHeight: 1.5 }}>
-                          Wind {degToDir(resp.wind.deg)} at{" "}
-                          {Math.floor(resp.wind.speed)} mph
-                        </Title>
                       </div>
                     </Title>
                   </Card>
