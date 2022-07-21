@@ -1,16 +1,16 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BoxMultiple1,
   BoxMultiple5,
   CurrentLocation,
   Map,
 } from "tabler-icons-react";
-import { useLatLong } from "../../context/LatLongProvider";
 import {
   useWeatherOption,
   WeatherOptionsTypes,
 } from "../../context/WeatherOptionProvider";
+import { useGeolocation } from "../../hooks/CurrentLocation";
 
 interface WeatherOptionProps {
   icon: React.ReactNode;
@@ -20,29 +20,13 @@ interface WeatherOptionProps {
 }
 
 function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
-  const { latLong, setLatLong } = useLatLong();
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (location) => {
-          setLatLong({
-            lat: location.coords.latitude,
-            long: location.coords.longitude,
-          });
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }
-  }, [setLatLong]);
-  console.log(latLong);
   const { weatherOption, setWeatherOption } = useWeatherOption();
+  const location = useGeolocation();
   return (
     <UnstyledButton
       onClick={() => [
         setWeatherOption(name),
-        name === "location" || name === "map" ? setLatLong(latLong) : null,
+        name === "location" || name === "map" ? location : null,
       ]}
       sx={(theme) => ({
         display: "block",
@@ -83,22 +67,22 @@ function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
 
 const data = [
   {
+    icon: <CurrentLocation size={16} />,
+    color: "violet",
+    label: "Current Location Forecast",
+    name: "location" as WeatherOptionsTypes,
+  },
+  {
     icon: <BoxMultiple1 size={16} />,
     color: "blue",
-    label: "Current Weather",
+    label: "Current Weather Search",
     name: "one" as WeatherOptionsTypes,
   },
   {
     icon: <BoxMultiple5 size={16} />,
     color: "teal",
-    label: "Five Day Forecast",
+    label: "Three Day Forecast",
     name: "five" as WeatherOptionsTypes,
-  },
-  {
-    icon: <CurrentLocation size={16} />,
-    color: "violet",
-    label: "Current Location Forecast",
-    name: "location" as WeatherOptionsTypes,
   },
   {
     icon: <Map size={16} />,

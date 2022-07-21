@@ -53,7 +53,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   <Card shadow="sm" p="lg">
                     <Card.Section style={{ marginLeft: -10 }}>
                       <Image
-                        src={determineWeatherImage(resp.current.condition.code)}
+                        src={determineWeatherImage(resp.current.condition.icon)}
                         height={297}
                         alt="Test"
                         style={{ width: 250 }}

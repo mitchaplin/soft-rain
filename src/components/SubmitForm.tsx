@@ -6,6 +6,7 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+
 import { useLatLong } from "../context/LatLongProvider";
 import { useWeatherData } from "../context/WeatherDataProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
@@ -34,7 +35,7 @@ export function SubmitForm() {
     };
 
     fetch(
-      `https://weatherapi-com.p.rapidapi.com/search.json?q=${location}`,
+      `https://weatherapi-com.p.rapidapi.com/current.json?q=${location}`,
       options
     )
       .then((response) => response.json())
