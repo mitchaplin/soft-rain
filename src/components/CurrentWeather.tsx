@@ -15,7 +15,6 @@ import {
   WeatherOptionsTypes,
 } from "../context/WeatherOptionProvider";
 import { testData } from "../testdata";
-import { determineWeatherImage } from "../utils";
 
 interface WeatherCardProps {
   mode: WeatherOptionsTypes;
@@ -50,22 +49,31 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   sm={4}
                   xs={4}
                 >
-                  <Card shadow="sm" p="lg">
-                    <Card.Section style={{ marginLeft: -10 }}>
-                      <Image
-                        src={determineWeatherImage(resp.current.condition.icon)}
-                        height={297}
-                        alt="Test"
-                        style={{ width: 250 }}
-                      />
+                  <Card shadow="sm" p="lg" style={{ width: 250, height: 350 }}>
+                    <Card.Section style={{ margin: "0px 0px 0px 10px" }}>
+                      <Grid justify="center">
+                        <Image
+                          src={resp.current.condition.icon}
+                          height={75}
+                          radius={"md"}
+                          alt=""
+                          style={{ width: 75, justifyContent: "center" }}
+                        />
+                      </Grid>
                     </Card.Section>
+                    <Badge
+                      color={"blue"}
+                      variant="filled"
+                      style={{ margin: "12px 0 0 12px" }}
+                    >
+                      {resp.current.condition.text.toUpperCase()}
+                    </Badge>
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       {tempUnit === "imperial"
                         ? Math.round(resp.current.temp_f)
                         : Math.round(resp.current.temp_c)}
                       °
                     </Title>
-
                     <Title order={2} style={{ lineHeight: 1.5 }}>
                       {resp.location.name}
                     </Title>
@@ -73,9 +81,85 @@ const CurrentWeather = (props: WeatherCardProps) => {
                     <Text component="p" size="xl">
                       {resp.location.country}
                     </Text>
-                    <Badge color={"blue"} variant="filled">
-                      {resp.current.condition.text.toUpperCase()}
-                    </Badge>
+                  </Card>
+                </Grid.Col>
+                <Grid.Col
+                  style={{ maxWidth: 265, textAlign: "center" }}
+                  sm={4}
+                  xs={4}
+                  styles={{ marginTop: 50 }}
+                >
+                  <Card shadow="sm" p="md" style={{ width: 250, height: 350 }}>
+                    <Title order={1} style={{ lineHeight: 1.5 }}>
+                      Wind
+                      {tempUnit === "imperial" ? (
+                        <Text>Speed: {resp.current.wind_mph}</Text>
+                      ) : (
+                        <Text>Speed: {resp.current.wind_kph}</Text>
+                      )}
+                      <Text>Degree: {resp.current.wind_degree}</Text>
+                      <Text>Direction: {resp.current.wind_dir}</Text>
+                      {tempUnit === "imperial" ? (
+                        <Text>Gust: {resp.current.gust_mph}</Text>
+                      ) : (
+                        <Text>Gust: {resp.current.gust_kph}</Text>
+                      )}
+                    </Title>
+                    <Title
+                      order={1}
+                      style={{ lineHeight: 1.5, paddingTop: 32 }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="icon icon-tabler icon-tabler-arrow-top-tail"
+                        height={100}
+                        width={100}
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        transform={`rotate(${resp.current.wind_degree})`}
+                        scale={1}
+                        filter={
+                          "invert(67%) sepia(100%) saturate(3787%) hue-rotate(170deg) brightness(95%) contrast(103%)"
+                        }
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <line x1="12" y1="18" x2="12" y2="3" />
+                        <path d="M15 6l-3 -3l-3 3" />
+                        <path d="M15 21l-3 -3l-3 3" />
+                      </svg>
+                    </Title>
+                  </Card>
+                </Grid.Col>
+
+                <Grid.Col
+                  style={{ maxWidth: 265, textAlign: "center" }}
+                  sm={4}
+                  xs={4}
+                  styles={{ marginTop: 50 }}
+                >
+                  <Card
+                    shadow="sm"
+                    p="md"
+                    style={{ width: 250, marginBottom: 16, height: 350 }}
+                  >
+                    <Group position="apart">
+                      <Title order={1} style={{ lineHeight: 1.5 }}>
+                        Temperature
+                        <Text>
+                          Feels Like:{" "}
+                          {tempUnit === "imperial"
+                            ? Math.round(resp.current.feelslike_f)
+                            : Math.round(resp.current.feelslike_c)}
+                          °
+                        </Text>
+                        <Text>Pressure: {resp.current.pressure_in} in</Text>
+                        <Text>Pressure: {resp.current.pressure_mb} mb</Text>
+                      </Title>
+                    </Group>
                   </Card>
                 </Grid.Col>
                 <Grid.Col
@@ -87,27 +171,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                   <Card
                     shadow="sm"
                     p="md"
-                    style={{ width: 250, marginBottom: 16 }}
-                  >
-                    <Group position="apart">
-                      <Title order={1} style={{ lineHeight: 1.5 }}>
-                        Temperature
-                        <Text>
-                          Feels Like:
-                          {tempUnit === "imperial"
-                            ? Math.round(resp.current.feelslike_f)
-                            : Math.round(resp.current.feelslike_c)}
-                          °
-                        </Text>
-                        <Text>Pressure: {resp.current.pressure_in} in</Text>
-                        <Text>Pressure: {resp.current.pressure_mb} mb</Text>
-                      </Title>
-                    </Group>
-                  </Card>
-                  <Card
-                    shadow="sm"
-                    p="md"
-                    style={{ width: 250, marginBottom: 16 }}
+                    style={{ width: 250, marginBottom: 16, height: 350 }}
                   >
                     <Title
                       order={1}
@@ -128,12 +192,20 @@ const CurrentWeather = (props: WeatherCardProps) => {
                       <Text>UV Index: {resp.current.uv}</Text>
                     </Title>
                   </Card>
+                </Grid.Col>
+                <Grid.Col
+                  style={{ maxWidth: 265, textAlign: "center" }}
+                  sm={4}
+                  xs={4}
+                  styles={{ marginTop: 50 }}
+                >
                   <Card
                     shadow="sm"
                     p="md"
                     style={{
                       width: 250,
                       textAlign: "center",
+                      height: 350,
                     }}
                   >
                     <Title order={1} style={{ lineHeight: 1.5 }}>
@@ -142,55 +214,6 @@ const CurrentWeather = (props: WeatherCardProps) => {
                       <Text>Lat: {resp.location.lat}</Text>
                       <Text>Long: {resp.location.lon}</Text>
                       <Text>Local Time: {resp.location.localtime}</Text>
-                    </Title>
-                  </Card>
-                </Grid.Col>
-                <Grid.Col>
-                  <Card shadow="sm" p="md" style={{ width: 250 }}>
-                    <Title order={1} style={{ lineHeight: 1.5 }}>
-                      Wind
-                      {tempUnit === "imperial" ? (
-                        <Text>Speed: {resp.current.wind_mph}</Text>
-                      ) : (
-                        <Text>Speed: {resp.current.wind_kph}</Text>
-                      )}
-                      <Text>Degree: {resp.current.wind_degree}</Text>
-                      <Text>Direction: {resp.current.wind_dir}</Text>
-                      {tempUnit === "imperial" ? (
-                        <Text>Gust: {resp.current.gust_mph}</Text>
-                      ) : (
-                        <Text>Gust: {resp.current.gust_kph}</Text>
-                      )}
-                    </Title>
-                    <Title order={1} style={{ lineHeight: 1.5 }}>
-                      <div
-                        style={{
-                          alignContent: "center",
-                        }}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="icon icon-tabler icon-tabler-arrow-top-tail"
-                          height={100}
-                          width={100}
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          transform={`rotate(${resp.current.wind_degree})`}
-                          scale={1}
-                          filter={
-                            "invert(67%) sepia(100%) saturate(3787%) hue-rotate(170deg) brightness(95%) contrast(103%)"
-                          }
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                          <line x1="12" y1="18" x2="12" y2="3" />
-                          <path d="M15 6l-3 -3l-3 3" />
-                          <path d="M15 21l-3 -3l-3 3" />
-                        </svg>
-                      </div>
                     </Title>
                   </Card>
                 </Grid.Col>
