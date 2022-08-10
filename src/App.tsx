@@ -10,9 +10,11 @@ import { LatLongProvider } from "./context/LatLongProvider";
 import { TempUnitProvider } from "./context/TempUnitProvider";
 import { WeatherDataProvider } from "./context/WeatherDataProvider";
 import { WeatherOptionProvider } from "./context/WeatherOptionProvider";
+import { useGeolocation } from "./hooks/CurrentLocation";
 import MainComponent from "./MainComponent";
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
+  const location = useGeolocation();
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 

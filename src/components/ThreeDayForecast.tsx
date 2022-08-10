@@ -12,18 +12,16 @@ import {
 import { useTempUnit } from "../context/TempUnitProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
 
-interface CurrentWeatherProps {
-  useLocation?: boolean;
+interface WeatherCardProps {
   resp: any;
 }
-const CurrentWeather = (props: CurrentWeatherProps) => {
+const ThreeDayForecast = (props: WeatherCardProps) => {
   const theme = useMantineTheme();
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const duration = 1000;
   const { tempUnit, toggleTempUnit } = useTempUnit();
-  const { resp, useLocation } = props;
+  const { resp } = props;
 
-  // const resp = testData;
   return (
     <div>
       {resp && (
@@ -222,4 +220,4 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
   );
 };
 
-export default CurrentWeather;
+export default ThreeDayForecast;

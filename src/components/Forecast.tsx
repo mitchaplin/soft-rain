@@ -1,35 +1,31 @@
-import { default as React } from "react";
 import { useWeatherData } from "../context/WeatherDataProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
+import { useGeolocation } from "../hooks/CurrentLocation";
 import CurrentWeather from "./CurrentWeather";
 import { SubmitForm } from "./SubmitForm";
+import ThreeDayForecast from "./ThreeDayForecast";
+import { WeatherMapComponent } from "./WeatherMap";
 
 const Forecast = (): any => {
   const { weatherData, setWeatherData } = useWeatherData();
   const { weatherOption, setWeatherOption } = useWeatherOption();
+  const location = useGeolocation();
   return (
     <>
-      {console.log("test")}
+      {console.log(location)}
       {console.log(weatherData)}
 
       <SubmitForm />
-      {weatherData ? (
-        weatherOption === "one" || weatherOption === "five" ? (
-          <CurrentWeather
-            resp={weatherData}
-            mode={weatherOption}
-          ></CurrentWeather>
-        ) : (
-          <></>
-          // <TenDayForecast
-          //   resp={weatherData}
-          //   mode={weatherOption}
-          // ></TenDayForecast>
-        )
+      {weatherData &&
+      (weatherOption === "one" || weatherOption === "location") ? (
+        <CurrentWeather resp={weatherData}></CurrentWeather>
+      ) : weatherData && weatherOption === "three" ? (
+        <ThreeDayForecast resp={weatherData}></ThreeDayForecast>
+      ) : weatherData && weatherOption === "map" ? (
+        <WeatherMapComponent></WeatherMapComponent>
       ) : (
         <></>
       )}
-      {/* <CurrentWeather resp={weatherData} mode={weatherOption}></CurrentWeather> */}
     </>
   );
 };

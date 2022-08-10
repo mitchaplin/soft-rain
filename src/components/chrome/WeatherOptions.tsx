@@ -6,6 +6,7 @@ import {
   CurrentLocation,
   Map,
 } from "tabler-icons-react";
+import { useWeatherData } from "../../context/WeatherDataProvider";
 import {
   useWeatherOption,
   WeatherOptionsTypes,
@@ -21,12 +22,40 @@ interface WeatherOptionProps {
 
 function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
   const { weatherOption, setWeatherOption } = useWeatherOption();
+  const { weatherData, setWeatherData } = useWeatherData();
   const location = useGeolocation();
+  const getCurrentForecast = (location: string) => {
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Host": `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
+        "X-RapidAPI-Key": `${process.env.REACT_APP_RAPID_API_KEY}`,
+      },
+    };
+
+    fetch(
+      `https://weatherapi-com.p.rapidapi.com/current.json?q=${location}`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setWeatherData(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <UnstyledButton
       onClick={() => [
+        setWeatherOption(null),
         setWeatherOption(name),
-        name === "location" || name === "map" ? location : null,
+        name === "location" || name === "map"
+          ? getCurrentForecast(
+              `${location?.coords.latitude},${location?.coords.longitude}`
+            )
+          : null,
       ]}
       sx={(theme) => ({
         display: "block",
@@ -82,7 +111,7 @@ const data = [
     icon: <BoxMultiple5 size={16} />,
     color: "teal",
     label: "Three Day Forecast",
-    name: "five" as WeatherOptionsTypes,
+    name: "three" as WeatherOptionsTypes,
   },
   {
     icon: <Map size={16} />,

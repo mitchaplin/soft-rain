@@ -1,5 +1,4 @@
 import GoogleMapReact from "google-map-react";
-import { default as React } from "react";
 import { MADISON_LAT, MADISON_LONG } from "../constants";
 
 const WeatherMap = ({ text }: any) => (
