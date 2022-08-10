@@ -1,16 +1,16 @@
 import { ColorScheme, Image, SimpleGrid, Title } from "@mantine/core";
-import { determineWeatherImage } from "../../utils";
 
 export function Logo({ colorScheme }: { colorScheme: ColorScheme }) {
   return (
     <SimpleGrid cols={4}>
       <Image
-        src={determineWeatherImage("")}
+        src={require("./soft_rain_logo.png")}
+        alt={"Soft Rain"}
+        radius="md"
         height={50}
-        alt="Test"
-        style={{ width: 50 }}
+        width={50}
       />
-      <Title>Soft Rain</Title>
+      <Title style={{ marginLeft: "-2rem" }}>Soft Rain</Title>
     </SimpleGrid>
   );
 }

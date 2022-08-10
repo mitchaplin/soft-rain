@@ -6,7 +6,6 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-
 import { useLatLong } from "../context/LatLongProvider";
 import { useWeatherData } from "../context/WeatherDataProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
@@ -18,7 +17,6 @@ export function SubmitForm() {
   const encodedURI = (inp: string) => encodeURIComponent(inp);
 
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-
   const form = useForm({
     initialValues: {
       location: "Madison",

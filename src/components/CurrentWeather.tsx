@@ -115,7 +115,7 @@ const CurrentWeather = (props: WeatherCardProps) => {
                         height={100}
                         width={100}
                         viewBox="0 0 24 24"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         stroke="currentColor"
                         fill="none"
                         strokeLinecap="round"
