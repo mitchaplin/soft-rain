@@ -1,11 +1,6 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
 import React from "react";
-import {
-  BoxMultiple1,
-  BoxMultiple5,
-  CurrentLocation,
-  Map,
-} from "tabler-icons-react";
+import { BoxMultiple1, BoxMultiple5, Map } from "tabler-icons-react";
 import { useWeatherData } from "../../context/WeatherDataProvider";
 import {
   useWeatherOption,
@@ -48,15 +43,7 @@ function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
 
   return (
     <UnstyledButton
-      onClick={() => [
-        setWeatherOption(null),
-        setWeatherOption(name),
-        name === "location" || name === "map"
-          ? getCurrentForecast(
-              `${location?.coords.latitude},${location?.coords.longitude}`
-            )
-          : null,
-      ]}
+      onClick={() => [setWeatherOption(null), setWeatherOption(name), null]}
       sx={(theme) => ({
         display: "block",
         width: "100%",
@@ -95,12 +82,6 @@ function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
 }
 
 const data = [
-  {
-    icon: <CurrentLocation size={16} />,
-    color: "violet",
-    label: "Current Location Forecast",
-    name: "location" as WeatherOptionsTypes,
-  },
   {
     icon: <BoxMultiple1 size={16} />,
     color: "blue",

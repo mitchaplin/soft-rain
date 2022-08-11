@@ -1,27 +1,17 @@
-import {
-  Box,
-  Button,
-  Group,
-  TextInput,
-  useMantineColorScheme,
-} from "@mantine/core";
+import { Box, Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { CurrentLocation } from "tabler-icons-react";
 
-import { useLatLong } from "../context/LatLongProvider";
 import { useWeatherData } from "../context/WeatherDataProvider";
-import { useWeatherOption } from "../context/WeatherOptionProvider";
+import { useGeolocation } from "../hooks/CurrentLocation";
 
 export function SubmitForm() {
-  const { latLong, setLatLong } = useLatLong();
-  const { weatherOption, setWeatherOption } = useWeatherOption();
   const { weatherData, setWeatherData } = useWeatherData();
-  const encodedURI = (inp: string) => encodeURIComponent(inp);
-
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const geoLocation = useGeolocation();
 
   const form = useForm({
     initialValues: {
-      location: "Madison",
+      location: "",
     },
   });
 
@@ -46,7 +36,7 @@ export function SubmitForm() {
         console.error(err);
       });
   };
-
+  const location = useGeolocation();
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
       <form
@@ -54,12 +44,23 @@ export function SubmitForm() {
           getCurrentForecast(values.location)
         )}
       >
-        <TextInput
-          required
-          label="Location"
-          placeholder="Enter a location..."
-          {...form.getInputProps("location")}
-        />
+        <Group position="left" mt="sm">
+          <TextInput
+            width={51000}
+            required
+            label="Location"
+            placeholder="Enter a location..."
+            {...form.getInputProps("location")}
+          />
+          <CurrentLocation
+            style={{ margin: "1rem", marginTop: "2.5rem" }}
+            onClick={() =>
+              form.setValues({
+                location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
+              })
+            }
+          />
+        </Group>
         <Group position="right" mt="md">
           <Button type="submit" fullWidth={true} style={{ marginBottom: 25 }}>
             Submit

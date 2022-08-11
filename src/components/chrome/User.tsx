@@ -6,7 +6,6 @@ import {
   UnstyledButton,
   useMantineTheme,
 } from "@mantine/core";
-import React from "react";
 import { ChevronLeft, ChevronRight } from "tabler-icons-react";
 
 export function User() {
@@ -47,7 +46,7 @@ export function User() {
           />
           <Box sx={{ flex: 1 }}>
             <Text size="sm" weight={500}>
-              John Doe
+              John Dough
             </Text>
             <Text color="dimmed" size="xs">
               johnnydoe@gmail.com

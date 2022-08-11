@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 
-export type WeatherOptionsTypes = "one" | "three" | "map" | "location" | null;
+export type WeatherOptionsTypes = "one" | "three" | "map" | null;
 type ContextState = {
   weatherOption: WeatherOptionsTypes;
   setWeatherOption: Dispatch<SetStateAction<WeatherOptionsTypes>>;

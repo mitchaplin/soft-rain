@@ -6,7 +6,6 @@ import {
   Navbar,
   useMantineColorScheme,
 } from "@mantine/core";
-import React from "react";
 import {
   MoonStars,
   Sun,
@@ -17,10 +16,15 @@ import { Logo } from "./components/chrome/Logo";
 import { User } from "./components/chrome/User";
 import { WeatherOptions } from "./components/chrome/WeatherOptions";
 import Forecast from "./components/Forecast";
+import { useLatLong } from "./context/LatLongProvider";
 import { useTempUnit } from "./context/TempUnitProvider";
+import { useGeolocation } from "./hooks/CurrentLocation";
 const MainComponent = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { tempUnit, toggleTempUnit } = useTempUnit();
+  const location = useGeolocation();
+  const { latLong, setLatLong } = useLatLong();
+
   return (
     <AppShell
       padding="md"

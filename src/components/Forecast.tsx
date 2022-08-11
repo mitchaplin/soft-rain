@@ -16,8 +16,7 @@ const Forecast = (): any => {
       {console.log(weatherData)}
 
       <SubmitForm />
-      {weatherData &&
-      (weatherOption === "one" || weatherOption === "location") ? (
+      {weatherData && weatherOption === "one" ? (
         <CurrentWeather resp={weatherData}></CurrentWeather>
       ) : weatherData && weatherOption === "three" ? (
         <ThreeDayForecast resp={weatherData}></ThreeDayForecast>
