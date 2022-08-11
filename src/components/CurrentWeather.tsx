@@ -13,7 +13,6 @@ import { useTempUnit } from "../context/TempUnitProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
 
 interface CurrentWeatherProps {
-  useLocation?: boolean;
   resp: any;
 }
 const CurrentWeather = (props: CurrentWeatherProps) => {
@@ -21,7 +20,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const duration = 1000;
   const { tempUnit, toggleTempUnit } = useTempUnit();
-  const { resp, useLocation } = props;
+  const { resp } = props;
 
   // const resp = testData;
   return (
@@ -73,7 +72,9 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     <Title order={2} style={{ lineHeight: 1.5 }}>
                       {resp.location.name}
                     </Title>
-
+                    <Title order={2} style={{ lineHeight: 1.5 }}>
+                      {resp.location.region}
+                    </Title>
                     <Text component="p" size="xl">
                       {resp.location.country}
                     </Text>

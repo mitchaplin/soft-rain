@@ -1,9 +1,10 @@
-import { Box, Button, Group, TextInput } from "@mantine/core";
+import { ActionIcon, Box, Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { CurrentLocation } from "tabler-icons-react";
 
 import { useWeatherData } from "../context/WeatherDataProvider";
 import { useGeolocation } from "../hooks/CurrentLocation";
+import { testData } from "../testdata";
 
 export function SubmitForm() {
   const { weatherData, setWeatherData } = useWeatherData();
@@ -33,6 +34,7 @@ export function SubmitForm() {
         setWeatherData(response);
       })
       .catch((err) => {
+        setWeatherData(testData);
         console.error(err);
       });
   };
@@ -46,20 +48,23 @@ export function SubmitForm() {
       >
         <Group position="left" mt="sm">
           <TextInput
-            sx={{ minWidth: 328 }}
+            sx={{ minWidth: 340 }}
             required
             label="Location"
             placeholder="Enter a location..."
             {...form.getInputProps("location")}
           />
-          <CurrentLocation
-            style={{ margin: "2.75rem 1rem 1rem 1rem" }}
+          <ActionIcon
+            variant="hover"
+            style={{ margin: "1.75rem 0rem 0rem 0rem" }}
             onClick={() =>
               form.setValues({
                 location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
               })
             }
-          />
+          >
+            <CurrentLocation />
+          </ActionIcon>
         </Group>
         <Group position="right" mt="md">
           <Button type="submit" fullWidth={true} style={{ marginBottom: 25 }}>
