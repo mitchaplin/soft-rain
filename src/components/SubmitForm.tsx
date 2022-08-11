@@ -38,7 +38,7 @@ export function SubmitForm() {
   };
   const location = useGeolocation();
   return (
-    <Box sx={{ maxWidth: 300 }} mx="auto">
+    <Box sx={{ maxWidth: 400 }} mx="auto">
       <form
         onSubmit={form.onSubmit((values) =>
           getCurrentForecast(values.location)
@@ -46,14 +46,14 @@ export function SubmitForm() {
       >
         <Group position="left" mt="sm">
           <TextInput
-            width={51000}
+            sx={{ minWidth: 328 }}
             required
             label="Location"
             placeholder="Enter a location..."
             {...form.getInputProps("location")}
           />
           <CurrentLocation
-            style={{ margin: "1rem", marginTop: "2.5rem" }}
+            style={{ margin: "2.75rem 1rem 1rem 1rem" }}
             onClick={() =>
               form.setValues({
                 location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
