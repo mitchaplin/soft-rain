@@ -138,11 +138,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   xs={4}
                   styles={{ marginTop: 50 }}
                 >
-                  <Card
-                    shadow="sm"
-                    p="md"
-                    style={{ width: 250, marginBottom: 16, height: 350 }}
-                  >
+                  <Card shadow="sm" p="md" style={{ width: 250, height: 350 }}>
                     <Group position="apart">
                       <Title order={1} style={{ lineHeight: 1.5 }}>
                         Temperature
@@ -163,13 +159,8 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   style={{ maxWidth: 265, textAlign: "center" }}
                   sm={4}
                   xs={4}
-                  styles={{ marginTop: 50 }}
                 >
-                  <Card
-                    shadow="sm"
-                    p="md"
-                    style={{ width: 250, marginBottom: 16, height: 350 }}
-                  >
+                  <Card shadow="sm" p="md" style={{ width: 250, height: 350 }}>
                     <Title
                       order={1}
                       style={{
@@ -194,7 +185,6 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   style={{ maxWidth: 265, textAlign: "center" }}
                   sm={4}
                   xs={4}
-                  styles={{ marginTop: 50 }}
                 >
                   <Card
                     shadow="sm"
