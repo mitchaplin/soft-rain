@@ -29,7 +29,10 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
   const { classes, theme } = useStyles();
   const { tempUnit, toggleTempUnit } = useTempUnit();
   const rows = data.forecast.forecastday.map((row: any) => {
-    const dailyChanceOfPrecip = 0 + row.day.daily_chance_of_rain;
+    const dailyChanceOfPrecip =
+      row.day.daily_chance_of_rain > row.day.daily_chance_of_snow
+        ? Math.random() * 100 + row.day.daily_chance_of_rain
+        : Math.random() * 100 + row.day.daily_chance_of_snow;
 
     return (
       <tr key={row.date}>
@@ -59,7 +62,7 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
             {row.day.condition.text}
           </Grid>
         </td>
-        <td>{Intl.NumberFormat().format(5)}</td>
+        <td>{`${row.astro.sunrise} - ${row.astro.sunset}`}</td>
         <td>
           <Group position="apart">
             <Text size="xs" color="blue" weight={700}>
@@ -92,7 +95,7 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
             <th>Date</th>
             <th>High - Low</th>
             <th>Image</th>
-            <th>IDK</th>
+            <th>Sunrise - Sunset</th>
             <th>Precipitation Chance</th>
           </tr>
         </thead>
