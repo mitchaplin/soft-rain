@@ -13,19 +13,19 @@ import { useTempUnit } from "../context/TempUnitProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
 
 interface CurrentWeatherProps {
-  resp: any;
+  data: any;
 }
 const CurrentWeather = (props: CurrentWeatherProps) => {
   const theme = useMantineTheme();
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const duration = 1000;
   const { tempUnit, toggleTempUnit } = useTempUnit();
-  const { resp } = props;
+  const { data } = props;
 
   // const resp = testData;
   return (
     <div>
-      {resp && (
+      {data && (
         <Transition
           mounted={true}
           transition="fade"
@@ -48,7 +48,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     <Card.Section style={{ margin: "0px 0px 0px 10px" }}>
                       <Grid justify="center">
                         <Image
-                          src={resp.current.condition.icon}
+                          src={data.current.condition.icon}
                           height={75}
                           radius={"md"}
                           alt=""
@@ -61,22 +61,22 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                       variant="filled"
                       style={{ margin: "12px 0 0 12px" }}
                     >
-                      {resp.current.condition.text.toUpperCase()}
+                      {data.current.condition.text.toUpperCase()}
                     </Badge>
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       {tempUnit === "imperial"
-                        ? Math.round(resp.current.temp_f)
-                        : Math.round(resp.current.temp_c)}
+                        ? Math.round(data.current.temp_f)
+                        : Math.round(data.current.temp_c)}
                       °
                     </Title>
                     <Title order={2} style={{ lineHeight: 1.5 }}>
-                      {resp.location.name}
+                      {data.location.name}
                     </Title>
                     <Title order={2} style={{ lineHeight: 1.5 }}>
-                      {resp.location.region}
+                      {data.location.region}
                     </Title>
                     <Text component="p" size="xl">
-                      {resp.location.country}
+                      {data.location.country}
                     </Text>
                   </Card>
                 </Grid.Col>
@@ -90,16 +90,16 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       Wind
                       {tempUnit === "imperial" ? (
-                        <Text>Speed: {resp.current.wind_mph}</Text>
+                        <Text>Speed: {data.current.wind_mph}</Text>
                       ) : (
-                        <Text>Speed: {resp.current.wind_kph}</Text>
+                        <Text>Speed: {data.current.wind_kph}</Text>
                       )}
-                      <Text>Degree: {resp.current.wind_degree}</Text>
-                      <Text>Direction: {resp.current.wind_dir}</Text>
+                      <Text>Degree: {data.current.wind_degree}</Text>
+                      <Text>Direction: {data.current.wind_dir}</Text>
                       {tempUnit === "imperial" ? (
-                        <Text>Gust: {resp.current.gust_mph}</Text>
+                        <Text>Gust: {data.current.gust_mph}</Text>
                       ) : (
-                        <Text>Gust: {resp.current.gust_kph}</Text>
+                        <Text>Gust: {data.current.gust_kph}</Text>
                       )}
                     </Title>
                     <Title
@@ -117,7 +117,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                         fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        transform={`rotate(${resp.current.wind_degree})`}
+                        transform={`rotate(${data.current.wind_degree})`}
                         scale={1}
                         filter={
                           "invert(67%) sepia(100%) saturate(3787%) hue-rotate(170deg) brightness(95%) contrast(103%)"
@@ -149,12 +149,12 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                         <Text>
                           Feels Like:{" "}
                           {tempUnit === "imperial"
-                            ? Math.round(resp.current.feelslike_f)
-                            : Math.round(resp.current.feelslike_c)}
+                            ? Math.round(data.current.feelslike_f)
+                            : Math.round(data.current.feelslike_c)}
                           °
                         </Text>
-                        <Text>Pressure: {resp.current.pressure_in} in</Text>
-                        <Text>Pressure: {resp.current.pressure_mb} mb</Text>
+                        <Text>Pressure: {data.current.pressure_in} in</Text>
+                        <Text>Pressure: {data.current.pressure_mb} mb</Text>
                       </Title>
                     </Group>
                   </Card>
@@ -178,15 +178,15 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     >
                       Conditions
                       {tempUnit === "imperial" ? (
-                        <Text>Visibility: {resp.current.vis_miles} in</Text>
+                        <Text>Visibility: {data.current.vis_miles} in</Text>
                       ) : (
-                        <Text>Visibility: {resp.current.vis_km} km</Text>
+                        <Text>Visibility: {data.current.vis_km} km</Text>
                       )}
-                      <Text>Precipitation: {resp.current.precip_in} in</Text>
-                      <Text>Precipitation: {resp.current.precip_in} in</Text>
-                      <Text>Cloud Cover: {resp.current.cloud}%</Text>
-                      <Text>Humidity: {resp.current.humidity}%</Text>
-                      <Text>UV Index: {resp.current.uv}</Text>
+                      <Text>Precipitation: {data.current.precip_in} in</Text>
+                      <Text>Precipitation: {data.current.precip_in} in</Text>
+                      <Text>Cloud Cover: {data.current.cloud}%</Text>
+                      <Text>Humidity: {data.current.humidity}%</Text>
+                      <Text>UV Index: {data.current.uv}</Text>
                     </Title>
                   </Card>
                 </Grid.Col>
@@ -207,10 +207,10 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   >
                     <Title order={1} style={{ lineHeight: 1.5 }}>
                       Coords
-                      <Text>Timezone: {resp.location.tz_id}</Text>
-                      <Text>Lat: {resp.location.lat}</Text>
-                      <Text>Long: {resp.location.lon}</Text>
-                      <Text>Local Time: {resp.location.localtime}</Text>
+                      <Text>Timezone: {data.location.tz_id}</Text>
+                      <Text>Lat: {data.location.lat}</Text>
+                      <Text>Long: {data.location.lon}</Text>
+                      <Text>Local Time: {data.location.localtime}</Text>
                     </Title>
                   </Card>
                 </Grid.Col>

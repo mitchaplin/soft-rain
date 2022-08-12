@@ -4,6 +4,7 @@ import {
   MantineProvider,
   Paper,
 } from "@mantine/core";
+import { initializeApp } from "firebase/app";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { LatLongProvider } from "./context/LatLongProvider";
@@ -12,11 +13,29 @@ import { WeatherDataProvider } from "./context/WeatherDataProvider";
 import { WeatherOptionProvider } from "./context/WeatherOptionProvider";
 import { useGeolocation } from "./hooks/CurrentLocation";
 import MainComponent from "./MainComponent";
+
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
   const location = useGeolocation();
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
+  // Import the functions you need from the SDKs you need
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  // Your web app's Firebase configuration
+
+  const firebaseConfig = {
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: "soft-rain-42f61.firebaseapp.com",
+    projectId: "soft-rain-42f61",
+    storageBucket: "soft-rain-42f61.appspot.com",
+    messagingSenderId: process.env.FIREBASE_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
 
   return (
     <BrowserRouter>

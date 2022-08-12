@@ -20,9 +20,9 @@ const Forecast = (): any => {
       {weatherData && weatherData.error ? (
         <ErrorText message={weatherData.error.message} />
       ) : weatherData && weatherOption === "one" ? (
-        <CurrentWeather resp={weatherData}></CurrentWeather>
+        <CurrentWeather data={weatherData}></CurrentWeather>
       ) : weatherData && weatherOption === "three" ? (
-        <ThreeDayForecast resp={weatherData}></ThreeDayForecast>
+        <ThreeDayForecast data={weatherData}></ThreeDayForecast>
       ) : weatherData && weatherOption === "map" ? (
         <WeatherMapComponent></WeatherMapComponent>
       ) : (

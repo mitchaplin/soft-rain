@@ -1,13 +1,15 @@
 import { ActionIcon, Box, Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { CurrentLocation } from "tabler-icons-react";
+import { DAY_CHOICE } from "../constants";
 
 import { useWeatherData } from "../context/WeatherDataProvider";
+import { useWeatherOption } from "../context/WeatherOptionProvider";
 import { useGeolocation } from "../hooks/CurrentLocation";
-import { testData } from "../testdata";
 
 export function SubmitForm() {
   const { weatherData, setWeatherData } = useWeatherData();
+  const { weatherOption, setWeatherOption } = useWeatherOption();
   const geoLocation = useGeolocation();
 
   const form = useForm({
@@ -24,21 +26,32 @@ export function SubmitForm() {
         "X-RapidAPI-Key": `${process.env.REACT_APP_RAPID_API_KEY}`,
       },
     };
-
-    fetch(
-      `https://weatherapi-com.p.rapidapi.com/current.json?q=${location}`,
-      options
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        setWeatherData(response);
-      })
-      .catch((err) => {
-        setWeatherData(testData);
-        console.error(err);
-      });
+    weatherOption === "three"
+      ? fetch(
+          `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${location}&days=${DAY_CHOICE}`,
+          options
+        )
+          .then((response) => response.json())
+          .then((response) => {
+            setWeatherData(response);
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+      : fetch(
+          `https://weatherapi-com.p.rapidapi.com/current.json?q=${location}`,
+          options
+        )
+          .then((response) => response.json())
+          .then((response) => {
+            setWeatherData(response);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
   };
-  const location = useGeolocation();
+
+  console.log("test", weatherData, weatherOption);
   return (
     <Box sx={{ maxWidth: 400 }} mx="auto">
       <form
