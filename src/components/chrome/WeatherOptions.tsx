@@ -43,7 +43,11 @@ function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
 
   return (
     <UnstyledButton
-      onClick={() => [setWeatherOption(null), setWeatherOption(name), null]}
+      onClick={() => [
+        setWeatherOption(null),
+        setWeatherOption(name),
+        setWeatherData(null),
+      ]}
       sx={(theme: any) => ({
         display: "block",
         width: "100%",

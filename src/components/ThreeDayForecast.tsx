@@ -117,12 +117,12 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
 
   return (
     <ScrollArea>
-      <Table sx={{ minWidth: 500 }} verticalSpacing="xs">
+      <Table sx={{ minWidth: 500 }} fontSize={"lg"} verticalSpacing="xs">
         <thead>
           <tr>
             <th>Forecasted Date</th>
             <th>High - Low</th>
-            <th>""</th>
+            <th></th>
             <th>Image</th>
             <th>Sunrise - Sunset</th>
             <th>Precipitation Chance</th>

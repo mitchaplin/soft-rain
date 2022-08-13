@@ -25,7 +25,7 @@ export function User() {
     >
       <UnstyledButton
         sx={
-          user
+          !user
             ? {
                 display: "block",
                 width: "100%",
@@ -56,7 +56,7 @@ export function User() {
               }
         }
       >
-        {user ? (
+        {!user ? (
           <Group>
             <Avatar
               src="https://www.zoontjens.co.uk/cms/wp-content/uploads/stock-male.jpg"

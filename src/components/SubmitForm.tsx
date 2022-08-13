@@ -61,22 +61,26 @@ export function SubmitForm() {
       >
         <Group position="left" mt="sm">
           <TextInput
-            sx={{ minWidth: 340 }}
+            sx={{ minWidth: geoLocation?.coords !== undefined ? 340 : 400 }}
             required
             label="Location"
             placeholder="Enter a location..."
             {...form.getInputProps("location")}
           />
-          <ActionIcon
-            style={{ margin: "1.75rem 0rem 0rem 0rem" }}
-            onClick={() =>
-              form.setValues({
-                location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
-              })
-            }
-          >
-            <CurrentLocation />
-          </ActionIcon>
+          {geoLocation?.coords !== undefined ? (
+            <ActionIcon
+              style={{ margin: "1.75rem 0rem 0rem 0rem" }}
+              onClick={() =>
+                form.setValues({
+                  location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
+                })
+              }
+            >
+              <CurrentLocation />
+            </ActionIcon>
+          ) : (
+            <></>
+          )}
         </Group>
         <Group position="right" mt="md">
           <Button type="submit" fullWidth={true} style={{ marginBottom: 25 }}>
