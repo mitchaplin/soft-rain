@@ -44,7 +44,7 @@ function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
   return (
     <UnstyledButton
       onClick={() => [setWeatherOption(null), setWeatherOption(name), null]}
-      sx={(theme) => ({
+      sx={(theme: any) => ({
         display: "block",
         width: "100%",
         marginBottom: 6,

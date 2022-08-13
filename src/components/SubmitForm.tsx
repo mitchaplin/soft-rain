@@ -68,7 +68,6 @@ export function SubmitForm() {
             {...form.getInputProps("location")}
           />
           <ActionIcon
-            variant="hover"
             style={{ margin: "1.75rem 0rem 0rem 0rem" }}
             onClick={() =>
               form.setValues({

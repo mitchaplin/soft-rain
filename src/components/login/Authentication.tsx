@@ -1,7 +1,7 @@
-import { Button, Group, Paper, SharedPaperProps, Text } from "@mantine/core";
+import { Button, Group, Paper, PaperProps, Text } from "@mantine/core";
 import { BrandGoogle } from "tabler-icons-react";
 
-export const Authentication = (props: SharedPaperProps) => {
+export const Authentication = (props: PaperProps) => {
   return (
     <Paper p="sm" {...props}>
       <Text align="center" size="md">
