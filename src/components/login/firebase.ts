@@ -49,7 +49,6 @@ const loginWithGoogle = (notifications: any) => {
   }
 };
 
-// Any here should be NotificationsContextProps but mantine doesn't export the type?
 const loginWithGithub = async (notifications: any) => {
   try {
     await signInWithPopup(auth, githubAuthProvider);

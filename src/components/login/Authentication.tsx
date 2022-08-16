@@ -11,7 +11,7 @@ export const Authentication = (props: PaperProps) => {
         Log in with Google
       </Text>
 
-      <Group grow mb="md" mt="md">
+      <Group grow mt="sm">
         <Button onClick={() => loginWithGoogle(notifications)} radius="xl">
           {<BrandGoogle />}
         </Button>
