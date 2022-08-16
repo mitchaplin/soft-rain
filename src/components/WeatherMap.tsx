@@ -1,31 +1,49 @@
-import GoogleMapReact from "google-map-react";
-import { MADISON_LAT, MADISON_LONG } from "../constants";
+import React from "react";
 
-const WeatherMap = ({ text }: any) => (
-  <div
-    style={{
-      color: "white",
-      background: "grey",
-      padding: "15px 10px",
-      display: "inline-flex",
-      textAlign: "center",
-      alignItems: "center",
-      justifyContent: "center",
-      borderRadius: "100%",
-      transform: "translate(-50%, -50%)",
-    }}
-  >
-    {text}
-  </div>
-);
-
-export const WeatherMapComponent = () => {
-  return (
-    <GoogleMapReact
-      defaultCenter={{ lat: MADISON_LAT, lng: MADISON_LONG }}
-      defaultZoom={11}
-    >
-      <WeatherMap lat={59.955413} lng={30.337844} text={"DA MAP"} />
-    </GoogleMapReact>
-  );
+const containerStyle = {
+  width: "400px",
+  height: "400px",
 };
+
+const center = {
+  lat: -3.745,
+  lng: -38.523,
+};
+
+function WeatherMap() {
+  return null;
+  // const { isLoaded } = useJsApiLoader({
+  //   id: "google-map-script",
+  //   libraries: ["places"],
+  //   googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+  // });
+
+  // const [map, setMap] = React.useState(null);
+
+  // const onLoad = React.useCallback(function callback(map) {
+  //   const bounds = new window.google.maps.LatLngBounds(center);
+  //   map.fitBounds(bounds);
+  //   setMap(map);
+  // }, []);
+
+  // const onUnmount = React.useCallback(function callback(map) {
+  //   setMap(null);
+  // }, []);
+
+  // return isLoaded ? (
+  //   <GoogleMap
+  //     mapContainerStyle={containerStyle}
+  //     center={center}
+  //     zoom={10}
+  //     onLoad={onLoad}
+  //     onUnmount={onUnmount}
+  //   >
+  //     {/* Child components, such as markers, info windows, etc. */}
+  //     <></>
+  //   </GoogleMap>
+  // ) : (
+  //   <></>
+  // );
+}
+
+export default React.memo(WeatherMap);

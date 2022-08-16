@@ -1,8 +1,8 @@
-import { ColorScheme, Image, SimpleGrid, Title } from "@mantine/core";
+import { ColorScheme, Group, Image, Title } from "@mantine/core";
 
 export function Logo({ colorScheme }: { colorScheme: ColorScheme }) {
   return (
-    <SimpleGrid cols={4}>
+    <Group>
       <Image
         src={require("./soft_rain_logo.png")}
         alt={"Soft Rain"}
@@ -10,7 +10,7 @@ export function Logo({ colorScheme }: { colorScheme: ColorScheme }) {
         height={50}
         width={50}
       />
-      <Title style={{ marginLeft: "-2rem" }}>Soft Rain</Title>
-    </SimpleGrid>
+      <Title style={{ display: "inline-block" }}>Soft Rain</Title>
+    </Group>
   );
 }

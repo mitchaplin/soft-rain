@@ -1,10 +1,10 @@
 import {
   Avatar,
   Box,
+  Button,
   Group,
   Menu,
   Text,
-  UnstyledButton,
   useMantineTheme,
 } from "@mantine/core";
 import { getAuth, signOut } from "firebase/auth";
@@ -18,27 +18,21 @@ export function User() {
   const auth = getAuth();
   console.log(user);
   return (
-    <Box
-      sx={{
-        paddingTop: theme.spacing.sm,
-        borderTop: `1px solid ${
-          theme.colorScheme === "dark"
-            ? theme.colors.dark[4]
-            : theme.colors.gray[2]
-        }`,
-      }}
-    >
+    <Box>
       {user ? (
         <Menu>
           <Menu.Target>
-            <UnstyledButton
+            <Button
+              variant="default"
               sx={
                 user
                   ? {
                       display: "block",
                       width: "100%",
+                      height: "4rem",
+
                       padding: theme.spacing.xs,
-                      borderRadius: theme.radius.sm,
+                      borderRadius: theme.radius.lg,
                       color:
                         theme.colorScheme === "dark"
                           ? theme.colors.dark[0]
@@ -47,7 +41,7 @@ export function User() {
                       "&:hover": {
                         backgroundColor:
                           theme.colorScheme === "dark"
-                            ? theme.colors.dark[6]
+                            ? theme.colors.dark[5]
                             : theme.colors.gray[0],
                       },
                     }
@@ -66,7 +60,7 @@ export function User() {
             >
               <Group>
                 <Avatar
-                  imageProps={{ referrerpolicy: "no-referrer" }}
+                  imageProps={{ referrerPolicy: "no-referrer" }}
                   src={user?.photoURL}
                   radius="xl"
                 />
@@ -85,7 +79,7 @@ export function User() {
                   <ChevronLeft size={18} />
                 )}
               </Group>
-            </UnstyledButton>
+            </Button>
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Item onClick={() => signOut(auth)}>Logout</Menu.Item>

@@ -1,5 +1,7 @@
-import { ActionIcon, Box, Button, Group, TextInput } from "@mantine/core";
+import { ActionIcon, Box, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { StandaloneSearchBox, useJsApiLoader } from "@react-google-maps/api";
+import { useState } from "react";
 import { CurrentLocation } from "tabler-icons-react";
 import { DAY_CHOICE } from "../constants";
 
@@ -7,11 +9,13 @@ import { useWeatherData } from "../context/WeatherDataProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
 import { useGeolocation } from "../hooks/CurrentLocation";
 
+const libraries = ["places"];
+
 export function SubmitForm() {
   const { weatherData, setWeatherData } = useWeatherData();
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const geoLocation = useGeolocation();
-
+  const [searchBox, setSearchBox] = useState<any>(null);
   const form = useForm({
     initialValues: {
       location: "",
@@ -51,42 +55,56 @@ export function SubmitForm() {
           });
   };
 
-  console.log("test", weatherData, weatherOption);
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    libraries: libraries as any,
+    googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+  });
+
   return (
-    <Box sx={{ maxWidth: 400 }} mx="auto">
+    <Box sx={{ maxWidth: 700 }} mx="auto">
       <form
         onSubmit={form.onSubmit((values) =>
           getCurrentForecast(values.location)
         )}
       >
-        <Group position="left" mt="sm">
-          <TextInput
-            sx={{ minWidth: geoLocation?.coords !== undefined ? 340 : 400 }}
-            required
-            label="Location"
-            placeholder="Enter a location..."
-            {...form.getInputProps("location")}
-          />
-          {geoLocation?.coords !== undefined ? (
-            <ActionIcon
-              style={{ margin: "1.75rem 0rem 0rem 0rem" }}
-              onClick={() =>
-                form.setValues({
-                  location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
-                })
+        {isLoaded && (
+          <StandaloneSearchBox
+            onLoad={(ref) => setSearchBox(ref)}
+            onPlacesChanged={() => {
+              console.log(searchBox.getPlaces());
+              form.setFieldValue(
+                "location",
+                searchBox.getPlaces()[0].formatted_address
+              );
+            }}
+          >
+            <TextInput
+              sx={{ width: 500 }}
+              required
+              placeholder="Enter a location..."
+              radius={"lg"}
+              size={"lg"}
+              rightSection={
+                geoLocation?.coords !== undefined ? (
+                  <ActionIcon
+                    style={{ marginRight: "1rem" }}
+                    onClick={() =>
+                      form.setValues({
+                        location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
+                      })
+                    }
+                  >
+                    <CurrentLocation />
+                  </ActionIcon>
+                ) : (
+                  <></>
+                )
               }
-            >
-              <CurrentLocation />
-            </ActionIcon>
-          ) : (
-            <></>
-          )}
-        </Group>
-        <Group position="right" mt="md">
-          <Button type="submit" fullWidth={true} style={{ marginBottom: 25 }}>
-            Submit
-          </Button>
-        </Group>
+              {...form.getInputProps("location")}
+            />
+          </StandaloneSearchBox>
+        )}
       </form>
     </Box>
   );

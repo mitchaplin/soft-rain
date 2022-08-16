@@ -7,13 +7,13 @@ import {
 import { NotificationsProvider } from "@mantine/notifications";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Chrome from "./components/Chrome";
 import { FirebaseAuthProvider } from "./components/login/AuthenticationProvider";
 import { LatLongProvider } from "./context/LatLongProvider";
 import { TempUnitProvider } from "./context/TempUnitProvider";
 import { WeatherDataProvider } from "./context/WeatherDataProvider";
 import { WeatherOptionProvider } from "./context/WeatherOptionProvider";
 import { useGeolocation } from "./hooks/CurrentLocation";
-import MainComponent from "./MainComponent";
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
@@ -40,7 +40,7 @@ function App() {
                         <WeatherOptionProvider>
                           <WeatherDataProvider>
                             <LatLongProvider>
-                              <MainComponent />
+                              <Chrome />
                             </LatLongProvider>
                           </WeatherDataProvider>
                         </WeatherOptionProvider>

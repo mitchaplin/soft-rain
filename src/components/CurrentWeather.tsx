@@ -23,7 +23,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
     <Transition
       mounted={data}
       transition="slide-right"
-      duration={100}
+      duration={700}
       timingFunction="ease"
     >
       {(styles) => (
