@@ -12,6 +12,7 @@ import {
   TemperatureCelsius,
   TemperatureFahrenheit,
 } from "tabler-icons-react";
+import { useSearchText } from "../../context/SearchTextProvider";
 import { useTempUnit } from "../../context/TempUnitProvider";
 
 const useStyles = createStyles((theme) => ({
@@ -50,9 +51,14 @@ interface FooterCenteredProps {
 export function ActionsFooter({ favorites }: FooterCenteredProps) {
   const { classes } = useStyles();
   const { tempUnit, toggleTempUnit } = useTempUnit();
+  const { searchText, setSearchText } = useSearchText();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const items = favorites.map((favorite) => (
-    <Button variant="outline" sx={{ borderRadius: "lg" }} onClick={() => {}}>
+    <Button
+      variant="outline"
+      sx={{ borderRadius: "lg" }}
+      onClick={() => setSearchText(favorite.location)}
+    >
       {favorite.location}
     </Button>
   ));

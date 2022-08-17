@@ -1,9 +1,10 @@
 import { ActionIcon, Box, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { StandaloneSearchBox, useJsApiLoader } from "@react-google-maps/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CurrentLocation } from "tabler-icons-react";
 import { DAY_CHOICE } from "../constants";
+import { useSearchText } from "../context/SearchTextProvider";
 
 import { useWeatherData } from "../context/WeatherDataProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
@@ -14,6 +15,7 @@ const libraries = ["places"];
 export function SubmitForm() {
   const { weatherData, setWeatherData } = useWeatherData();
   const { weatherOption, setWeatherOption } = useWeatherOption();
+  const { searchText, setSearchText } = useSearchText();
   const geoLocation = useGeolocation();
   const [searchBox, setSearchBox] = useState<any>(null);
   const form = useForm({
@@ -21,6 +23,10 @@ export function SubmitForm() {
       location: "",
     },
   });
+
+  useEffect(() => {
+    form.setFieldValue("location", searchText);
+  }, [form, searchText]);
 
   const getCurrentForecast = (location: string) => {
     const options = {
@@ -72,7 +78,6 @@ export function SubmitForm() {
           <StandaloneSearchBox
             onLoad={(ref) => setSearchBox(ref)}
             onPlacesChanged={() => {
-              console.log(searchBox.getPlaces());
               form.setFieldValue(
                 "location",
                 searchBox.getPlaces()[0].formatted_address

@@ -76,12 +76,6 @@ const data = [
     label: "Three Day Forecast",
     name: "three" as WeatherOptionsTypes,
   },
-  // {
-  //   icon: <Map size={16} />,
-  //   color: "grape",
-  //   label: "Map Forecast",
-  //   name: "map" as WeatherOptionsTypes,
-  // },
 ];
 
 export function WeatherOptions() {

@@ -4,7 +4,6 @@ import { useGeolocation } from "../hooks/CurrentLocation";
 import CurrentWeather from "./CurrentWeather";
 import { ErrorText } from "./ErrorText";
 import ThreeDayForecast from "./ThreeDayForecast";
-import WeatherMap from "./WeatherMap";
 
 const Forecast = (): any => {
   const { weatherData, setWeatherData } = useWeatherData();
@@ -13,17 +12,12 @@ const Forecast = (): any => {
 
   return (
     <>
-      {/* <WeatherMap></WeatherMap> */}
-      {console.log(location)}
-      {console.log(weatherData)}
       {weatherData && weatherData.error ? (
         <ErrorText message={weatherData.error.message} />
       ) : weatherData && weatherOption === "one" ? (
         <CurrentWeather data={weatherData}></CurrentWeather>
       ) : weatherData && weatherOption === "three" ? (
         <ThreeDayForecast data={weatherData}></ThreeDayForecast>
-      ) : weatherData && weatherOption === "map" ? (
-        <WeatherMap></WeatherMap>
       ) : (
         <></>
       )}

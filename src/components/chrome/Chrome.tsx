@@ -1,10 +1,10 @@
 import { AppShell, Group, Header, useMantineColorScheme } from "@mantine/core";
-import { ActionsFooter } from "./chrome/ActionsFooter";
-import { Logo } from "./chrome/Logo";
-import { User } from "./chrome/User";
-import { WeatherOptions } from "./chrome/WeatherOptions";
-import Forecast from "./Forecast";
-import { SubmitForm } from "./SubmitForm";
+import Forecast from "../Forecast";
+import { SubmitForm } from "../SubmitForm";
+import { ActionsFooter } from "./ActionsFooter";
+import { Logo } from "./Logo";
+import { User } from "./User";
+import { WeatherOptions } from "./WeatherOptions";
 
 const Chrome = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();

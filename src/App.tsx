@@ -7,9 +7,10 @@ import {
 import { NotificationsProvider } from "@mantine/notifications";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Chrome from "./components/Chrome";
+import Chrome from "./components/chrome/Chrome";
 import { FirebaseAuthProvider } from "./components/login/AuthenticationProvider";
 import { LatLongProvider } from "./context/LatLongProvider";
+import { SearchTextProvider } from "./context/SearchTextProvider";
 import { TempUnitProvider } from "./context/TempUnitProvider";
 import { WeatherDataProvider } from "./context/WeatherDataProvider";
 import { WeatherOptionProvider } from "./context/WeatherOptionProvider";
@@ -36,15 +37,17 @@ function App() {
                 <NotificationsProvider>
                   <Paper radius={0} style={{ height: "100vh" }}>
                     <FirebaseAuthProvider>
-                      <TempUnitProvider>
-                        <WeatherOptionProvider>
-                          <WeatherDataProvider>
-                            <LatLongProvider>
-                              <Chrome />
-                            </LatLongProvider>
-                          </WeatherDataProvider>
-                        </WeatherOptionProvider>
-                      </TempUnitProvider>
+                      <SearchTextProvider>
+                        <TempUnitProvider>
+                          <WeatherOptionProvider>
+                            <WeatherDataProvider>
+                              <LatLongProvider>
+                                <Chrome />
+                              </LatLongProvider>
+                            </WeatherDataProvider>
+                          </WeatherOptionProvider>
+                        </TempUnitProvider>
+                      </SearchTextProvider>
                     </FirebaseAuthProvider>
                   </Paper>
                 </NotificationsProvider>
