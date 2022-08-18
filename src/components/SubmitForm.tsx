@@ -1,34 +1,67 @@
-import { ActionIcon, Box, TextInput } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  Button,
+  createStyles,
+  Group,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useMediaQuery } from "@mantine/hooks";
 import { StandaloneSearchBox, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
-import { CurrentLocation } from "tabler-icons-react";
-import { DAY_CHOICE } from "../constants";
+import { CurrentLocation, Search, Star, StarOff } from "tabler-icons-react";
+import { DAY_CHOICE, libraries } from "../constants";
+import { useFavorites } from "../context/FavoritesProvider";
 import { useSearchText } from "../context/SearchTextProvider";
 
 import { useWeatherData } from "../context/WeatherDataProvider";
 import { useWeatherOption } from "../context/WeatherOptionProvider";
 import { useGeolocation } from "../hooks/CurrentLocation";
+import { addFavorite } from "./login/actions";
+import { useFirebaseAuth } from "./login/AuthenticationProvider";
 
-const libraries = ["places"];
+const useStyles = createStyles((theme) => ({
+  invalid: {
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[8]
+        : theme.colors.gray[0],
+  },
+}));
 
 export function SubmitForm() {
   const { weatherData, setWeatherData } = useWeatherData();
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const { searchText, setSearchText } = useSearchText();
   const geoLocation = useGeolocation();
+  const user = useFirebaseAuth();
+  const favorites = useFavorites();
   const [searchBox, setSearchBox] = useState<any>(null);
+  const md = useMediaQuery("(min-width: 800px)");
+  const { classes } = useStyles();
+
   const form = useForm({
     initialValues: {
       location: "",
+      coords: "",
+    },
+    validate: {
+      location: (value) =>
+        value.length > 100 ? "Location Must Not Exceed 100 Characters" : null,
+      coords: (value) =>
+        value.length > 25 ? "Coordinate Values Must Not Exceed 25" : null,
     },
   });
 
   useEffect(() => {
     form.setFieldValue("location", searchText);
-  }, [form, searchText]);
+  }, [searchText]);
 
-  const getCurrentForecast = (location: string) => {
+  const getCurrentForecast = (values: { location: string; coords: string }) => {
+    const location = values.coords === "" ? values.location : values.coords;
+    form.setValues({ location: values.location, coords: "" });
     const options = {
       method: "GET",
       headers: {
@@ -68,48 +101,86 @@ export function SubmitForm() {
   });
 
   return (
-    <Box sx={{ maxWidth: 700 }} mx="auto">
-      <form
-        onSubmit={form.onSubmit((values) =>
-          getCurrentForecast(values.location)
-        )}
-      >
-        {isLoaded && (
-          <StandaloneSearchBox
-            onLoad={(ref) => setSearchBox(ref)}
-            onPlacesChanged={() => {
-              form.setFieldValue(
-                "location",
-                searchBox.getPlaces()[0].formatted_address
-              );
-            }}
-          >
-            <TextInput
-              sx={{ width: 500 }}
-              required
-              placeholder="Enter a location..."
-              radius={"lg"}
-              size={"lg"}
-              rightSection={
-                geoLocation?.coords !== undefined ? (
-                  <ActionIcon
-                    style={{ marginRight: "1rem" }}
-                    onClick={() =>
-                      form.setValues({
-                        location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
-                      })
-                    }
-                  >
-                    <CurrentLocation />
-                  </ActionIcon>
-                ) : (
-                  <></>
-                )
-              }
-              {...form.getInputProps("location")}
-            />
-          </StandaloneSearchBox>
-        )}
+    <Box sx={{ maxWidth: 700, display: "inline-block" }}>
+      <form onSubmit={form.onSubmit((values) => getCurrentForecast(values))}>
+        <Group>
+          {isLoaded && (
+            <StandaloneSearchBox
+              onLoad={(ref) => setSearchBox(ref)}
+              onPlacesChanged={() => {
+                form.setFieldValue(
+                  "location",
+                  searchBox.getPlaces()[0].formatted_address
+                );
+              }}
+            >
+              <TextInput
+                sx={{ width: md ? 500 : 275 }}
+                required
+                placeholder="Enter a location..."
+                radius={"lg"}
+                size={"lg"}
+                classNames={{ input: classes.invalid }}
+                rightSectionWidth={75}
+                rightSection={
+                  <>
+                    {user && (
+                      <Tooltip
+                        label={
+                          favorites?.includes(form.values.location)
+                            ? "Favorited"
+                            : "Set as Favorite"
+                        }
+                      >
+                        <ActionIcon
+                          onClick={() =>
+                            form.values.location === "" ||
+                            form.values.location === "Current Location"
+                              ? () => {}
+                              : addFavorite(user?.uid, form.values.location)
+                          }
+                        >
+                          {favorites?.includes(form.values.location) ? (
+                            <Star size={24} style={{ color: "gold" }} />
+                          ) : (
+                            <StarOff size={24} />
+                          )}
+                        </ActionIcon>
+                      </Tooltip>
+                    )}
+                    {geoLocation?.coords !== undefined ? (
+                      <Tooltip label={"Use Current Location"}>
+                        <ActionIcon
+                          sx={(theme) => ({
+                            color:
+                              form.values.coords !== "" &&
+                              form.values.location === "Current Location"
+                                ? theme.colors.blue
+                                : "default",
+                          })}
+                          onClick={() =>
+                            form.setValues({
+                              location: "Current Location",
+                              coords: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
+                            })
+                          }
+                        >
+                          <CurrentLocation size={24} />
+                        </ActionIcon>
+                      </Tooltip>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                }
+                {...form.getInputProps("location")}
+              />
+            </StandaloneSearchBox>
+          )}
+          <Button type={"submit"} radius={"lg"}>
+            <Search></Search>
+          </Button>
+        </Group>
       </form>
     </Box>
   );

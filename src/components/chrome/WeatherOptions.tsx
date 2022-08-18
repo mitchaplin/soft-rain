@@ -6,7 +6,6 @@ import {
   useWeatherOption,
   WeatherOptionsTypes,
 } from "../../context/WeatherOptionProvider";
-import { useGeolocation } from "../../hooks/CurrentLocation";
 
 interface WeatherOptionProps {
   icon: React.ReactNode;
@@ -15,10 +14,14 @@ interface WeatherOptionProps {
   name: WeatherOptionsTypes;
 }
 
-function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
+export const WeatherOption = ({
+  icon,
+  color,
+  label,
+  name,
+}: WeatherOptionProps) => {
   const { weatherOption, setWeatherOption } = useWeatherOption();
   const { weatherData, setWeatherData } = useWeatherData();
-  const location = useGeolocation();
 
   return (
     <UnstyledButton
@@ -30,6 +33,7 @@ function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
       sx={(theme: any) => ({
         display: "block",
         width: "100%",
+        marginRight: "1rem",
         padding: theme.spacing.xs,
         borderRadius: theme.radius.lg,
         color:
@@ -61,9 +65,9 @@ function WeatherOption({ icon, color, label, name }: WeatherOptionProps) {
       </Group>
     </UnstyledButton>
   );
-}
+};
 
-const data = [
+export const weatherOptionsData = [
   {
     icon: <BoxMultiple1 size={16} />,
     color: "blue",
@@ -78,9 +82,21 @@ const data = [
   },
 ];
 
-export function WeatherOptions() {
-  const options = data.map((option) => (
+export const WeatherOptions = () => {
+  const options = weatherOptionsData.map((option) => (
     <WeatherOption {...option} key={option.label} name={option.name} />
   ));
-  return <span style={{ display: "inline-block" }}>{options}</span>;
-}
+  return (
+    <div
+      style={{
+        minWidth: "30rem",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      {options}
+    </div>
+  );
+};
