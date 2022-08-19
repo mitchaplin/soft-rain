@@ -100,13 +100,9 @@ const Chrome = () => {
     >
       <Forecast />
       {lg ? (
-        <ActionsFooter
-          includeFavorites={true}
-          includeKnobs={true}
-          favorites={favorites || []}
-        />
+        <ActionsFooter includeFavorites={!!user} favorites={favorites || []} />
       ) : (
-        <ActionsFooter includeFavorites={false} includeKnobs={true} />
+        <ActionsFooter includeFavorites={false} />
       )}
 
       <Drawer
@@ -118,8 +114,8 @@ const Chrome = () => {
       >
         <Navbar height={"100%"} p="xs" width={{ base: "100%" }}>
           <Navbar.Section mt="xs">
-            {weatherOptionsData.map((option) => (
-              <div style={{ marginBottom: "1rem" }}>
+            {weatherOptionsData.map((option, index) => (
+              <div key={index} style={{ marginBottom: "1rem" }}>
                 <WeatherOption {...option} />
               </div>
             ))}

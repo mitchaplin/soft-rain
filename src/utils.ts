@@ -73,4 +73,6 @@ type CurrentWeather = {
 };
 
 export const truncateFavorites = (favorites: string[]) =>
-  favorites.map((fav) => `${fav.slice(0, 46)}...`).slice(0, 8);
+  favorites
+    .map((fav) => (fav.length < 47 ? fav : `${fav.slice(0, 46)}`))
+    .slice(0, 8);

@@ -25,7 +25,6 @@ export const addFavorite = (userId: string, favorite: string) => {
   // Get the snapshot value of the dbFavorites in firebase
   get(child(favoritesRef, `users/${userId}`))
     .then((snapshot) => {
-      console.log(snapshot.exists());
       if (snapshot.exists()) {
         const dbFavorites = snapshot.val() as Array<string>;
 
@@ -68,7 +67,6 @@ export const removeFromFavorites = (
         const newFavorite = dbFavorites.filter(
           (_, idx) => indexToRemove !== idx
         );
-        console.log(newFavorite, "new fav");
         // Set new newFavorite value to firebase
         set(ref(database, "users/" + userId), newFavorite);
       }

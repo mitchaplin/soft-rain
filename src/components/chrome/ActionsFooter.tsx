@@ -57,13 +57,11 @@ const useStyles = createStyles((theme) => ({
 interface FooterCenteredProps {
   favorites?: string[];
   includeFavorites: boolean;
-  includeKnobs: boolean;
 }
 
 export const ActionsFooter = ({
   favorites,
   includeFavorites,
-  includeKnobs,
 }: FooterCenteredProps) => {
   const { classes } = useStyles();
   const { tempUnit, toggleTempUnit } = useTempUnit();
@@ -119,41 +117,40 @@ export const ActionsFooter = ({
           {includeFavorites ? (
             <Group className={classes.links}>{items}</Group>
           ) : null}
-          {includeKnobs ? (
-            <Group
-              sx={{
-                marginLeft: lg ? "4rem" : "0rem",
-                display: "flex",
-                flexDirection: "row",
-              }}
-              spacing="xs"
-              noWrap
-            >
-              <ActionIcon
-                variant="default"
-                onClick={() => toggleTempUnit()}
-                size={30}
-              >
-                {tempUnit === "metric" ? (
-                  <TemperatureCelsius size={16} />
-                ) : (
-                  <TemperatureFahrenheit size={16} />
-                )}
-              </ActionIcon>
 
-              <ActionIcon
-                variant="default"
-                onClick={() => toggleColorScheme()}
-                size={30}
-              >
-                {colorScheme === "dark" ? (
-                  <Sun size={16} />
-                ) : (
-                  <MoonStars size={16} />
-                )}
-              </ActionIcon>
-            </Group>
-          ) : null}
+          <Group
+            sx={{
+              marginLeft: lg ? "4rem" : "0rem",
+              display: "flex",
+              flexDirection: "row",
+            }}
+            spacing="xs"
+            noWrap
+          >
+            <ActionIcon
+              variant="default"
+              onClick={() => toggleTempUnit()}
+              size={30}
+            >
+              {tempUnit === "metric" ? (
+                <TemperatureCelsius size={16} />
+              ) : (
+                <TemperatureFahrenheit size={16} />
+              )}
+            </ActionIcon>
+
+            <ActionIcon
+              variant="default"
+              onClick={() => toggleColorScheme()}
+              size={30}
+            >
+              {colorScheme === "dark" ? (
+                <Sun size={16} />
+              ) : (
+                <MoonStars size={16} />
+              )}
+            </ActionIcon>
+          </Group>
         </div>
       </div>
     </Group>

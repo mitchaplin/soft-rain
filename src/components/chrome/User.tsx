@@ -16,7 +16,7 @@ export function User() {
   const theme = useMantineTheme();
   const user = useFirebaseAuth();
   const auth = getAuth();
-  console.log(user);
+
   return (
     <Box>
       {user ? (
