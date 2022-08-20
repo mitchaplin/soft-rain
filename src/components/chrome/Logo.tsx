@@ -1,6 +1,13 @@
-import { ColorScheme, Group, Image, Title } from "@mantine/core";
+import {
+  ColorScheme,
+  Group,
+  Image,
+  Title,
+  useMantineTheme,
+} from "@mantine/core";
 
 export function Logo({ colorScheme }: { colorScheme: ColorScheme }) {
+  const theme = useMantineTheme();
   return (
     <Group>
       <Image
@@ -10,7 +17,10 @@ export function Logo({ colorScheme }: { colorScheme: ColorScheme }) {
         height={50}
         width={50}
       />
-      <Title style={{ display: "inline-block" }}>Soft Rain</Title>
+      <Group>
+        <Title> Soft</Title>{" "}
+        <Title sx={{ color: theme.colors.blue }}>Rain</Title>
+      </Group>
     </Group>
   );
 }

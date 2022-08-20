@@ -24,7 +24,62 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
   return (
     <>
       {lg ? (
-        <div>text</div>
+        <Grid>
+          <Grid.Col span={5} offset={1}>
+            {
+              <Text
+                size={"xl"}
+                sx={{
+                  lineHeight: 1.5,
+                  fontSize: 300,
+                  color: theme.colors.blue,
+                }}
+              >
+                {tempUnit === "imperial"
+                  ? Math.round(data.current.temp_f)
+                  : Math.round(data.current.temp_c)}
+                °
+              </Text>
+            }
+          </Grid.Col>
+          <Grid.Col span={5} offset={0}>
+            <Group>
+              <Text
+                size={"lg"}
+                sx={{
+                  lineHeight: 1.5,
+                  fontSize: 75,
+                  color: theme.colors.white,
+                }}
+              >
+                Feels Like:{" "}
+              </Text>
+              {tempUnit === "imperial" ? (
+                <Text
+                  size={"lg"}
+                  sx={{
+                    lineHeight: 1.5,
+                    fontSize: 75,
+                    color: theme.colors.blue,
+                  }}
+                >
+                  {Math.round(data.current.feelslike_f)}°
+                </Text>
+              ) : (
+                <Text
+                  size={"lg"}
+                  sx={{
+                    lineHeight: 1.5,
+                    fontSize: 75,
+                    color: theme.colors.blue,
+                  }}
+                >
+                  {Math.round(data.current.feelslike_c)}°
+                </Text>
+              )}
+            </Group>
+          </Grid.Col>
+        </Grid>
       ) : (
         <Transition
           mounted={data}
