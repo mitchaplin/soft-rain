@@ -27,56 +27,157 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
         <Grid>
           <Grid.Col span={5} offset={1}>
             {
-              <Text
-                size={"xl"}
-                sx={{
-                  lineHeight: 1.5,
-                  fontSize: 300,
-                  color: theme.colors.blue,
-                }}
-              >
-                {tempUnit === "imperial"
-                  ? Math.round(data.current.temp_f)
-                  : Math.round(data.current.temp_c)}
-                °
-              </Text>
+              <>
+                <Text
+                  size={"xl"}
+                  sx={{
+                    lineHeight: 1.5,
+                    fontSize: 300,
+                    color: theme.colors.blue,
+                  }}
+                >
+                  {tempUnit === "imperial"
+                    ? Math.round(data.current.temp_f)
+                    : Math.round(data.current.temp_c)}
+                  °
+                </Text>
+                <Title sx={{ lineHeight: 1.5, fontSize: 50 }}>
+                  {data.location.name}
+                </Title>
+                <Title sx={{ lineHeight: 1.5, fontSize: 50 }}>
+                  {data.location.region}
+                </Title>
+                <Title sx={{ lineHeight: 1.5, fontSize: 50 }}>
+                  {data.location.country}
+                </Title>
+              </>
             }
           </Grid.Col>
           <Grid.Col span={5} offset={0}>
             <Group>
-              <Text
-                size={"lg"}
-                sx={{
-                  lineHeight: 1.5,
-                  fontSize: 75,
-                  color: theme.colors.white,
-                }}
-              >
-                Feels Like:{" "}
-              </Text>
-              {tempUnit === "imperial" ? (
+              <Group sx={{ marginRight: "4rem" }}>
                 <Text
                   size={"lg"}
+                  sx={{
+                    lineHeight: 1.5,
+                    fontSize: 75,
+                    color: theme.colors.white,
+                  }}
+                >
+                  Feels Like:{" "}
+                </Text>
+                {tempUnit === "imperial" ? (
+                  <Text
+                    size={"lg"}
+                    sx={{
+                      lineHeight: 1.5,
+                      fontSize: 75,
+                      color: theme.colors.blue,
+                    }}
+                  >
+                    {Math.round(data.current.feelslike_f)}°
+                  </Text>
+                ) : (
+                  <Text
+                    size={"lg"}
+                    sx={{
+                      lineHeight: 1.5,
+                      fontSize: 75,
+                      color: theme.colors.blue,
+                    }}
+                  >
+                    {Math.round(data.current.feelslike_c)}°
+                  </Text>
+                )}
+              </Group>
+              <Group>
+                <Text
+                  size={"md"}
                   sx={{
                     lineHeight: 1.5,
                     fontSize: 75,
                     color: theme.colors.blue,
                   }}
                 >
-                  {Math.round(data.current.feelslike_f)}°
+                  {data.current.condition.text.toUpperCase()}
                 </Text>
-              ) : (
+                <Grid justify="center">
+                  <Image
+                    src={data.current.condition.icon}
+                    height={100}
+                    radius={"md"}
+                    alt=""
+                    style={{ width: 100, justifyContent: "center" }}
+                  />
+                </Grid>
+              </Group>
+              <Group>
                 <Text
                   size={"lg"}
                   sx={{
                     lineHeight: 1.5,
                     fontSize: 75,
-                    color: theme.colors.blue,
+                    color: theme.colors.white,
                   }}
                 >
-                  {Math.round(data.current.feelslike_c)}°
+                  <Group>
+                    Wind:
+                    <Text
+                      sx={{
+                        lineHeight: 1.5,
+                        fontSize: 75,
+                        color: theme.colors.blue,
+                      }}
+                    >
+                      {data.current.wind_dir}
+                    </Text>
+                    /
+                    {tempUnit === "imperial" ? (
+                      <Text
+                        sx={{
+                          lineHeight: 1.5,
+                          fontSize: 75,
+                          color: theme.colors.blue,
+                        }}
+                      >
+                        {data.current.wind_mph} mph
+                      </Text>
+                    ) : (
+                      <Text
+                        sx={{
+                          lineHeight: 1.5,
+                          fontSize: 75,
+                          color: theme.colors.blue,
+                        }}
+                      >
+                        {data.current.wind_kph} kph
+                      </Text>
+                    )}
+                  </Group>
                 </Text>
-              )}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="icon icon-tabler icon-tabler-arrow-top-tail"
+                  height={100}
+                  width={100}
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="current"
+                  fill={theme.colors.blue[-1]}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform={`rotate(${data.current.wind_degree})`}
+                  scale={1}
+                  filter={
+                    "invert(67%) sepia(100%) saturate(3787%) hue-rotate(170deg) brightness(95%) contrast(103%)"
+                  }
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <line x1="12" y1="18" x2="12" y2="3" />
+                  <path d="M15 6l-3 -3l-3 3" />
+                  <path d="M15 21l-3 -3l-3 3" />
+                </svg>
+              </Group>
             </Group>
           </Grid.Col>
         </Grid>
