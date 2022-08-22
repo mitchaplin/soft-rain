@@ -311,11 +311,10 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
               <Progress
                 mt="lg"
                 animate={true}
-                value={data.current.uv * 10}
+                value={data.current.uv * 9}
                 label={data.current.uv}
                 size="xl"
                 sx={{ width: "40rem" }}
-                radius="xl"
               />
               <Progress
                 mt="sm"
