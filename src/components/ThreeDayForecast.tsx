@@ -17,7 +17,7 @@ import { useTempUnit } from "../context/TempUnitProvider";
 const useStyles = createStyles((theme) => ({
   progressBar: {
     "&:not(:first-of-type)": {
-      borderLeft: `3px solid ${
+      borderLeft: `.2rem solid ${
         theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white
       }`,
     },
@@ -48,7 +48,9 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
   const { classes, theme } = useStyles();
   const [opened, setOpened] = useState(false);
   const { tempUnit, toggleTempUnit } = useTempUnit();
+  const dt = data;
   const rows = data.forecast.forecastday.map((row: any) => {
+    console.log(dt);
     const dailyChanceOfPrecip =
       row.day.daily_chance_of_rain > row.day.daily_chance_of_snow
         ? row.day.daily_chance_of_rain
@@ -74,9 +76,7 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
               0
             )}°F - ${row.day.mintemp_f.toFixed(0)}°F`}</td>
           )}
-          <td>
-            <FullDayForecastModal data={row.hour}></FullDayForecastModal>
-          </td>
+          <td></td>
           <td>
             <Grid align="center">
               <Image

@@ -34,12 +34,13 @@ const Chrome = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const favorites = useFavorites();
   const lg = useMediaQuery("(min-width: 1600px)");
+  const md = useMediaQuery("(min-width: 1000px)");
   const [opened, setOpened] = useState(false);
   const title = opened ? "Close navigation" : "Open navigation";
   const { searchText, setSearchText } = useSearchText();
   const user = useFirebaseAuth();
 
-  const items = truncateFavorites(favorites || []).map((favorite, index) => (
+  const items = truncateFavorites(favorites || [], 8).map((favorite, index) => (
     <Group key={index} sx={{ marginTop: "1rem" }}>
       <Button
         variant="outline"
@@ -72,11 +73,14 @@ const Chrome = () => {
                 <WeatherOptions />
               </>
             ) : (
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                title={title}
-              />
+              <>
+                <Burger
+                  opened={opened}
+                  onClick={() => setOpened((o) => !o)}
+                  title={title}
+                />
+                {md ? <Logo colorScheme={colorScheme} /> : <></>}
+              </>
             )}
             <SubmitForm />
             {lg ? <User /> : null}

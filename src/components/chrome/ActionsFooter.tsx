@@ -32,9 +32,6 @@ const useStyles = createStyles((theme) => ({
 
     width: "100%",
     bottom: 0,
-    borderTop: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`,
   },
 
   inner: {
@@ -78,7 +75,7 @@ export const ActionsFooter = ({
     />
   );
 
-  const items = truncateFavorites(favorites || []).map((favorite, index) => (
+  const items = truncateFavorites(favorites || [], 3).map((favorite, index) => (
     <Group key={index} sx={{ marginLeft: "3rem" }}>
       <Button
         variant="outline"
@@ -107,7 +104,7 @@ export const ActionsFooter = ({
                 sx={{ paddingLeft: 0 }}
                 size="lg"
                 radius="xl"
-                color="teal"
+                color={"yellow"}
                 leftSection={avatar}
               >
                 {`${user?.displayName}'s Favorites`}
