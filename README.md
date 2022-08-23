@@ -8,6 +8,4 @@
 
 ## Fix Three Day Forecast modal
 
-## Add React Query (Branch)
-
 ## styling cleanup
