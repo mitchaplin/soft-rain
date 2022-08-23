@@ -50,7 +50,6 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
   const { tempUnit, toggleTempUnit } = useTempUnit();
   const dt = data;
   const rows = data.forecast.forecastday.map((row: any) => {
-    console.log(dt);
     const dailyChanceOfPrecip =
       row.day.daily_chance_of_rain > row.day.daily_chance_of_snow
         ? row.day.daily_chance_of_rain
