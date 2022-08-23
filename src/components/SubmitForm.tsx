@@ -8,16 +8,15 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useMediaQuery } from "@mantine/hooks";
+import { useDebouncedState, useMediaQuery } from "@mantine/hooks";
 import { StandaloneSearchBox, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { CurrentLocation, Search, Star, StarOff } from "tabler-icons-react";
 import { DAY_CHOICE, libraries } from "../constants";
 import { useFavorites } from "../context/FavoritesProvider";
 import { useSearchText } from "../context/SearchTextProvider";
-
 import { useWeatherData } from "../context/WeatherDataProvider";
-import { useWeatherOption } from "../context/WeatherOptionProvider";
 import { useGeolocation } from "../hooks/CurrentLocation";
 import { addFavorite } from "./login/actions";
 import { useFirebaseAuth } from "./login/AuthenticationProvider";
@@ -33,7 +32,6 @@ const useStyles = createStyles((theme) => ({
 
 export function SubmitForm() {
   const { weatherData, setWeatherData } = useWeatherData();
-  const { weatherOption, setWeatherOption } = useWeatherOption();
   const { searchText, setSearchText } = useSearchText();
   const geoLocation = useGeolocation();
   const user = useFirebaseAuth();
@@ -41,7 +39,10 @@ export function SubmitForm() {
   const [searchBox, setSearchBox] = useState<any>(null);
   const md = useMediaQuery("(min-width: 800px)");
   const { classes } = useStyles();
-
+  const [debouncedSearchText, setDebouncedSearchText] = useDebouncedState(
+    searchText,
+    1000
+  );
   const form = useForm({
     initialValues: {
       location: "",
@@ -57,42 +58,37 @@ export function SubmitForm() {
 
   useEffect(() => {
     form.setFieldValue("location", searchText);
+    setWeatherData({ isLoading: true });
+    setDebouncedSearchText(searchText);
   }, [searchText]);
 
-  const getCurrentForecast = (values: { location: string; coords: string }) => {
-    const location = values.coords === "" ? values.location : values.coords;
-    form.setValues({ location: values.location, coords: "" });
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Host": `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
-        "X-RapidAPI-Key": `${process.env.REACT_APP_RAPID_API_KEY}`,
-      },
-    };
-    weatherOption === "three"
-      ? fetch(
-          `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${location}&days=${DAY_CHOICE}`,
-          options
-        )
-          .then((response) => response.json())
-          .then((response) => {
-            setWeatherData(response);
-          })
-          .catch((err) => {
-            console.error(err);
-          })
-      : fetch(
-          `https://weatherapi-com.p.rapidapi.com/current.json?q=${location}`,
-          options
-        )
-          .then((response) => response.json())
-          .then((response) => {
-            setWeatherData(response);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+  useEffect(() => {
+    setWeatherData({ isLoading: true });
+  }, [debouncedSearchText]);
+
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Host": `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
+      "X-RapidAPI-Key": `${process.env.REACT_APP_RAPID_API_KEY}`,
+    },
   };
+
+  const {} = useQuery(
+    ["weather", debouncedSearchText],
+    () => {
+      return fetch(
+        `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${debouncedSearchText}&days=${DAY_CHOICE}`,
+        options
+      ).then((response) => response.json());
+    },
+    {
+      enabled: !!debouncedSearchText,
+      onSuccess: (response) =>
+        setWeatherData({ ...response, isLoading: false }),
+      onError: (err) => console.error(err),
+    }
+  );
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -102,16 +98,15 @@ export function SubmitForm() {
 
   return (
     <Box sx={{ maxWidth: 700, display: "inline-block" }}>
-      <form onSubmit={form.onSubmit((values) => getCurrentForecast(values))}>
+      <form
+        onSubmit={form.onSubmit((values) => setSearchText(values.location))}
+      >
         <Group>
           {isLoaded && (
             <StandaloneSearchBox
               onLoad={(ref) => setSearchBox(ref)}
               onPlacesChanged={() => {
-                form.setFieldValue(
-                  "location",
-                  searchBox.getPlaces()[0].formatted_address
-                );
+                setSearchText(searchBox.getPlaces()[0].formatted_address);
               }}
             >
               <TextInput

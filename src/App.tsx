@@ -7,6 +7,7 @@ import {
 import { NotificationsProvider } from "@mantine/notifications";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Chrome from "./components/chrome/Chrome";
 import { FirebaseAuthProvider } from "./components/login/AuthenticationProvider";
@@ -39,6 +40,7 @@ function App() {
             >
               <MantineProvider theme={{ colorScheme }} withGlobalStyles>
                 <QueryClientProvider client={queryClient}>
+                  <ReactQueryDevtools />
                   <NotificationsProvider>
                     <Paper radius={0} style={{ height: "100vh" }}>
                       <FirebaseAuthProvider>
