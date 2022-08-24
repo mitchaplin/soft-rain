@@ -13,13 +13,13 @@ import { StandaloneSearchBox, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { CurrentLocation, Search, Star, StarOff } from "tabler-icons-react";
-import { DAY_CHOICE, libraries } from "../constants";
-import { useFavorites } from "../context/FavoritesProvider";
-import { useSearchText } from "../context/SearchTextProvider";
-import { useWeatherData } from "../context/WeatherDataProvider";
-import { useGeolocation } from "../hooks/CurrentLocation";
-import { addFavorite } from "./login/actions";
-import { useFirebaseAuth } from "./login/AuthenticationProvider";
+import { useFavorites } from "../../context/FavoritesProvider";
+import { useSearchText } from "../../context/SearchTextProvider";
+import { useWeatherData } from "../../context/WeatherDataProvider";
+import { useGeolocation } from "../../hooks/CurrentLocation";
+import { DAY_CHOICE, libraries } from "../../resources/constants";
+import { addFavorite } from "../login/actions";
+import { useFirebaseAuth } from "../login/AuthenticationProvider";
 
 const useStyles = createStyles((theme) => ({
   invalid: {

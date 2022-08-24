@@ -2,7 +2,6 @@ import {
   Button,
   createStyles,
   Grid,
-  Group,
   Image,
   Loader,
   Modal,
@@ -14,8 +13,8 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
-import { useSearchText } from "../context/SearchTextProvider";
-import { useTempUnit } from "../context/TempUnitProvider";
+import { useSearchText } from "../../context/SearchTextProvider";
+import { useTempUnit } from "../../context/TempUnitProvider";
 
 const useStyles = createStyles((theme) => ({
   progressBar: {
@@ -29,7 +28,7 @@ const useStyles = createStyles((theme) => ({
 
 const FullDayForecastModal = (data: any) => {
   const [opened, setOpened] = useState(false);
-
+  console.log(data);
   return (
     <>
       <Modal opened={opened} onClose={() => setOpened(false)} title="24 hour">
@@ -37,7 +36,7 @@ const FullDayForecastModal = (data: any) => {
       </Modal>
 
       <Button onClick={() => setOpened(true)}>
-        {`${data?.data?.location?.localtime.split(" ")[0]}`} Forecast
+        {`${data?.data?.date.split(" ")}`} Forecast
       </Button>
     </>
   );
@@ -55,7 +54,6 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
   const lg = useMediaQuery("(min-width: 1600px)");
   const md = useMediaQuery("(min-width: 1000px)");
 
-  console.log(data);
   const rows = data?.forecast?.forecastday.map((row: any) => {
     const dailyChanceOfPrecip =
       row.day.daily_chance_of_rain > row.day.daily_chance_of_snow
@@ -82,7 +80,7 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
           </Text>
         </td>
         <td>
-          <FullDayForecastModal data={data} />
+          <FullDayForecastModal data={row} />
         </td>
         {md ? (
           tempUnit === "metric" ? (
@@ -150,25 +148,14 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
         )}
         {lg && (
           <td>
-            <Group position="apart">
-              <Text
-                sx={{
-                  lineHeight: 1.5,
-                  fontSize: 20,
-                  color: theme.colors.blue,
-                }}
-                size="xs"
-                weight={700}
-              >
-                {dailyChanceOfPrecip.toFixed(0)}%
-              </Text>
-            </Group>
             <Progress
               classNames={{ bar: classes.progressBar }}
-              animate
+              animate={!!dailyChanceOfPrecip}
+              size={24}
               sections={[
                 {
-                  value: dailyChanceOfPrecip,
+                  value: dailyChanceOfPrecip || "0%",
+                  label: `${dailyChanceOfPrecip.toFixed(0)}%`,
                   color:
                     theme.colorScheme === "dark"
                       ? theme.colors.blue[9]

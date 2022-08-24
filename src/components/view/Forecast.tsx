@@ -1,14 +1,13 @@
-import { useWeatherData } from "../context/WeatherDataProvider";
-import { useWeatherOption } from "../context/WeatherOptionProvider";
-import { useGeolocation } from "../hooks/CurrentLocation";
+import { useWeatherData } from "../../context/WeatherDataProvider";
+import { useWeatherOption } from "../../context/WeatherOptionProvider";
 import CurrentWeather from "./CurrentWeather";
+
 import { ErrorText } from "./ErrorText";
 import ThreeDayForecast from "./ThreeDayForecast";
 
-const Forecast = (): any => {
+const Forecast = () => {
   const { weatherData, setWeatherData } = useWeatherData();
   const { weatherOption, setWeatherOption } = useWeatherOption();
-  const location = useGeolocation();
 
   return (
     <>

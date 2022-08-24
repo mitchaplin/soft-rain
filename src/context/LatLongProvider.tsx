@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { MADISON_LAT, MADISON_LONG } from "../constants";
+import { MADISON_LAT, MADISON_LONG } from "../resources/constants";
 
 export type LatLong = { latLong: string };
 type ContextState = {

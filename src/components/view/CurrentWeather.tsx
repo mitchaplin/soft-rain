@@ -15,10 +15,10 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useEffect } from "react";
-import { useSearchText } from "../context/SearchTextProvider";
-import { useTempUnit } from "../context/TempUnitProvider";
-import { useWeatherData } from "../context/WeatherDataProvider";
-import { UV_COLORS } from "../utils";
+import { useSearchText } from "../../context/SearchTextProvider";
+import { useTempUnit } from "../../context/TempUnitProvider";
+import { useWeatherData } from "../../context/WeatherDataProvider";
+import { UV_COLORS } from "../../resources/utils";
 
 interface CurrentWeatherProps {
   data: any;
@@ -115,8 +115,9 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                                 color: theme.colors.blue,
                               }}
                             >
-                              {data.current.condition.text.toUpperCase()}
                               {data.current.is_day ? " DAY" : " NIGHT"}
+                              {"  /  "}
+                              {data.current.condition.text.toUpperCase()}
                             </Text>
                           </Grid>
                         </Group>
@@ -156,7 +157,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
               <Grid.Col span={5} offset={0} mt={lgH ? "4rem" : "2rem"}>
                 <Group>
                   <Divider my="sm" orientation="vertical" />
-                  <Group sx={{ marginRight: "4rem" }}>
+                  <Group mr="4rem">
                     <Text
                       size={"md"}
                       sx={{
@@ -211,8 +212,8 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           }}
                         >
                           {data.current.wind_dir}
+                          {"   /   "}
                         </Text>
-                        /
                         {tempUnit === "imperial" ? (
                           <Text
                             sx={{

@@ -16,13 +16,13 @@ import { useState } from "react";
 import { X } from "tabler-icons-react";
 import { useFavorites } from "../../context/FavoritesProvider";
 import { useSearchText } from "../../context/SearchTextProvider";
-import { truncateFavorites } from "../../utils";
-import Forecast from "../Forecast";
+import { truncateFavorites } from "../../resources/utils";
 import { removeFromFavorites } from "../login/actions";
 import { useFirebaseAuth } from "../login/AuthenticationProvider";
-import { SubmitForm } from "../SubmitForm";
+import Forecast from "../view/Forecast";
 import { ActionsFooter } from "./ActionsFooter";
 import { Logo } from "./Logo";
+import { SubmitForm } from "./SubmitForm";
 import { User } from "./User";
 import {
   WeatherOption,

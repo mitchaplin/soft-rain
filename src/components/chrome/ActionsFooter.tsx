@@ -18,7 +18,7 @@ import {
 } from "tabler-icons-react";
 import { useSearchText } from "../../context/SearchTextProvider";
 import { useTempUnit } from "../../context/TempUnitProvider";
-import { truncateFavorites } from "../../utils";
+import { truncateFavorites } from "../../resources/utils";
 import { removeFromFavorites } from "../login/actions";
 import { useFirebaseAuth } from "../login/AuthenticationProvider";
 
