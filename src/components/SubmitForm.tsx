@@ -60,6 +60,7 @@ export function SubmitForm() {
     form.setFieldValue("location", searchText);
     setWeatherData({ isLoading: true });
     setDebouncedSearchText(searchText);
+    form.setFieldValue("coords", "");
   }, [searchText]);
 
   useEffect(() => {
@@ -148,14 +149,13 @@ export function SubmitForm() {
                         <ActionIcon
                           sx={(theme) => ({
                             color:
-                              form.values.coords !== "" &&
-                              form.values.location === "Current Location"
+                              form.values.coords !== ""
                                 ? theme.colors.blue
                                 : "default",
                           })}
                           onClick={() =>
                             form.setValues({
-                              location: "Current Location",
+                              location: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
                               coords: `${geoLocation?.coords.latitude},${geoLocation?.coords.longitude}`,
                             })
                           }

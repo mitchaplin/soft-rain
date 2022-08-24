@@ -1,17 +1,20 @@
 import {
-  Accordion,
   Button,
   createStyles,
   Grid,
   Group,
   Image,
+  Loader,
   Modal,
+  Paper,
   Progress,
   ScrollArea,
   Table,
   Text,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
+import { useSearchText } from "../context/SearchTextProvider";
 import { useTempUnit } from "../context/TempUnitProvider";
 
 const useStyles = createStyles((theme) => ({
@@ -30,12 +33,12 @@ const FullDayForecastModal = (data: any) => {
   return (
     <>
       <Modal opened={opened} onClose={() => setOpened(false)} title="24 hour">
-        <Text>{data.temp_f}</Text>
+        <Text>{data?.temp_f}</Text>
       </Modal>
 
-      <Group position="center">
-        <Button onClick={() => setOpened(true)}>View Forecast</Button>
-      </Group>
+      <Button onClick={() => setOpened(true)}>
+        {`${data?.data?.location?.localtime.split(" ")[0]}`} Forecast
+      </Button>
     </>
   );
 };
@@ -46,36 +49,73 @@ interface ThreeDayForecastProps {
 
 const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
   const { classes, theme } = useStyles();
-  const [opened, setOpened] = useState(false);
   const { tempUnit, toggleTempUnit } = useTempUnit();
-  const dt = data;
-  const rows = data.forecast.forecastday.map((row: any) => {
+  const { searchText, setSearchText } = useSearchText();
+  const lgH = useMediaQuery("(min-height: 1000px)");
+  const lg = useMediaQuery("(min-width: 1600px)");
+  const md = useMediaQuery("(min-width: 1000px)");
+
+  console.log(data);
+  const rows = data?.forecast?.forecastday.map((row: any) => {
     const dailyChanceOfPrecip =
       row.day.daily_chance_of_rain > row.day.daily_chance_of_snow
         ? row.day.daily_chance_of_rain
         : row.day.daily_chance_of_snow;
 
     return (
-      <>
-        <tr key={row.date}>
-          <td style={{ paddingRight: "6rem" }}>
-            <Accordion variant="contained" style={{ width: "100%" }}>
-              <Accordion.Item value="test" style={{ width: "100%" }}>
-                <Accordion.Control>{row.date}</Accordion.Control>
-                <Accordion.Panel>Content</Accordion.Panel>
-              </Accordion.Item>
-            </Accordion>
-          </td>
-          {tempUnit === "metric" ? (
-            <td>{`${row.day.maxtemp_c.toFixed(
-              0
-            )}°C - ${row.day.mintemp_c.toFixed(0)}°C`}</td>
+      <tr key={row.date}>
+        <td>
+          <Text
+            sx={{
+              lineHeight: 1.5,
+              fontSize: 35,
+              color: theme.colors.blue,
+            }}
+          >
+            {/* <Accordion variant="contained" sx={{ width: "100%" }}>
+            <Accordion.Item value="test" sx={{ width: "100%" }}>
+              <Accordion.Control>{row.name}</Accordion.Control>
+              <Accordion.Panel>Content</Accordion.Panel>
+            </Accordion.Item>
+          </Accordion> */}
+            {data.location.name}
+          </Text>
+        </td>
+        <td>
+          <FullDayForecastModal data={data} />
+        </td>
+        {md ? (
+          tempUnit === "metric" ? (
+            <td>
+              <Text
+                sx={{
+                  lineHeight: 1.5,
+                  fontSize: 25,
+                  color: theme.colors.blue,
+                }}
+              >{`${row.day.maxtemp_c.toFixed(
+                0
+              )}°C - ${row.day.mintemp_c.toFixed(0)}°C`}</Text>
+            </td>
           ) : (
-            <td>{`${row.day.maxtemp_f.toFixed(
-              0
-            )}°F - ${row.day.mintemp_f.toFixed(0)}°F`}</td>
-          )}
-          <td></td>
+            <td>
+              <Text
+                sx={{
+                  lineHeight: 1.5,
+                  fontSize: 25,
+                  color: theme.colors.blue,
+                }}
+              >
+                {`${row.day.maxtemp_f.toFixed(
+                  0
+                )}°F - ${row.day.mintemp_f.toFixed(0)}°F`}
+              </Text>
+            </td>
+          )
+        ) : (
+          <></>
+        )}
+        {md && (
           <td>
             <Grid align="center">
               <Image
@@ -85,13 +125,41 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
                 alt=""
                 style={{ width: 50, justifyContent: "center" }}
               />
-              {row.day.condition.text}
+              <Text
+                sx={{
+                  lineHeight: 1.5,
+                  fontSize: 25,
+                  color: theme.colors.blue,
+                }}
+              >
+                {row.day.condition.text}
+              </Text>
             </Grid>
           </td>
-          <td>{`${row.astro.sunrise} - ${row.astro.sunset}`}</td>
+        )}
+        {lg && (
+          <td>
+            <Text
+              sx={{
+                lineHeight: 1.5,
+                fontSize: 25,
+                color: theme.colors.blue,
+              }}
+            >{`${row.astro.sunrise} - ${row.astro.sunset}`}</Text>
+          </td>
+        )}
+        {lg && (
           <td>
             <Group position="apart">
-              <Text size="xs" color="blue" weight={700}>
+              <Text
+                sx={{
+                  lineHeight: 1.5,
+                  fontSize: 20,
+                  color: theme.colors.blue,
+                }}
+                size="xs"
+                weight={700}
+              >
                 {dailyChanceOfPrecip.toFixed(0)}%
               </Text>
             </Group>
@@ -109,27 +177,43 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
               ]}
             />
           </td>
-        </tr>
-      </>
+        )}
+      </tr>
     );
   });
 
   return (
-    <ScrollArea>
-      <Table sx={{ minWidth: 500 }} fontSize={"lg"} verticalSpacing="xs">
-        <thead>
-          <tr>
-            <th>Forecasted Date</th>
-            <th>High - Low</th>
-            <th></th>
-            <th>Image</th>
-            <th>Sunrise - Sunset</th>
-            <th>Precipitation Chance</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-    </ScrollArea>
+    <Paper
+      style={{
+        overflowY: "auto",
+        overflowX: "hidden",
+        height: lgH ? "94.5%" : "90%",
+      }}
+    >
+      {data.isLoading ? (
+        <Grid>
+          <Grid.Col span={3} offset={5.5} mt="25vh">
+            <Loader size="xl" variant="dots" />
+          </Grid.Col>
+        </Grid>
+      ) : (
+        <ScrollArea>
+          <Table fontSize={"lg"} verticalSpacing="xs">
+            <thead>
+              <tr>
+                <th>Location</th>
+                <th></th>
+                {md && <th>High - Low</th>}
+                {md && <th>Current Weather</th>}
+                {lg && <th>Sunrise - Sunset</th>}
+                {lg && <th>Precipitation Chance</th>}
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        </ScrollArea>
+      )}
+    </Paper>
   );
 };
 export default ThreeDayForecast;

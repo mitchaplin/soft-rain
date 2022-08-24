@@ -1,7 +1,6 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
 import React from "react";
 import { BoxMultiple1, BoxMultiple3 } from "tabler-icons-react";
-import { useWeatherData } from "../../context/WeatherDataProvider";
 import {
   useWeatherOption,
   WeatherOptionsTypes,
@@ -21,15 +20,10 @@ export const WeatherOption = ({
   name,
 }: WeatherOptionProps) => {
   const { weatherOption, setWeatherOption } = useWeatherOption();
-  const { weatherData, setWeatherData } = useWeatherData();
 
   return (
     <UnstyledButton
-      onClick={() => [
-        setWeatherOption(null),
-        setWeatherOption(name),
-        setWeatherData(null),
-      ]}
+      onClick={() => [setWeatherOption(name)]}
       sx={(theme: any) => ({
         display: "block",
         width: "100%",

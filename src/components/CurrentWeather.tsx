@@ -13,10 +13,11 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { useIntersection, useMediaQuery } from "@mantine/hooks";
-import { useEffect, useRef } from "react";
+import { useMediaQuery } from "@mantine/hooks";
+import { useEffect } from "react";
 import { useSearchText } from "../context/SearchTextProvider";
 import { useTempUnit } from "../context/TempUnitProvider";
+import { useWeatherData } from "../context/WeatherDataProvider";
 import { UV_COLORS } from "../utils";
 
 interface CurrentWeatherProps {
@@ -35,29 +36,24 @@ const useStyles = createStyles((theme) => ({
 
 const CurrentWeather = (props: CurrentWeatherProps) => {
   const { classes, theme } = useStyles();
+  const { weatherData, setWeatherData } = useWeatherData();
   const { tempUnit, toggleTempUnit } = useTempUnit();
   const { data } = props;
   const lg = useMediaQuery("(min-width: 1600px)");
   const lgH = useMediaQuery("(min-height: 1000px)");
-  const containerRef = useRef();
   const { searchText, setSearchText } = useSearchText();
-  const { ref, entry } = useIntersection({
-    root: containerRef.current,
-    threshold: 1,
-  });
-  const firstRender = useRef(true);
 
+  // Hacky way to tell whether or not this is the first render
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
+    if (searchText) {
       return;
+    } else {
+      setSearchText("Madison, WI, USA");
     }
-    setSearchText("Madison, WI, USA");
-  }, [firstRender.current]);
+  }, [weatherData]);
 
   return (
     <Paper
-      ref={ref}
       style={{
         overflowY: "auto",
         overflowX: "hidden",
