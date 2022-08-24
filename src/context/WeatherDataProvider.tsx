@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { CurrentWeatherType } from "../resources/types";
 
-export type WeatherDataType = any;
+export type WeatherDataType = CurrentWeatherType;
 type ContextState = {
   weatherData: WeatherDataType;
   setWeatherData: Dispatch<SetStateAction<WeatherDataType>>;
@@ -11,7 +12,7 @@ const WeatherDataContext = React.createContext<ContextState | undefined>(
 );
 
 const WeatherDataProvider = ({ children }: { children: React.ReactNode }) => {
-  const [weatherData, setWeatherData] = React.useState<WeatherDataType>(null);
+  const [weatherData, setWeatherData] = React.useState<any>(null);
   const value = { weatherData, setWeatherData };
 
   return (

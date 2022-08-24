@@ -1,4 +1,10 @@
-import { Group, Text, ThemeIcon, UnstyledButton } from "@mantine/core";
+import {
+  Group,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
+  useMantineTheme,
+} from "@mantine/core";
 import React from "react";
 import { BoxMultiple1, BoxMultiple3 } from "tabler-icons-react";
 import {
@@ -20,12 +26,12 @@ export const WeatherOption = ({
   name,
 }: WeatherOptionProps) => {
   const { weatherOption, setWeatherOption } = useWeatherOption();
-
+  const theme = useMantineTheme();
   return (
     <UnstyledButton
       mr="1rem"
       onClick={() => [setWeatherOption(name)]}
-      sx={(theme: any) => ({
+      sx={{
         display: "block",
         width: "100%",
         padding: theme.spacing.xs,
@@ -48,13 +54,12 @@ export const WeatherOption = ({
               ? theme.colors.dark[6]
               : theme.colors.gray[4],
         },
-      })}
+      }}
     >
       <Group>
         <ThemeIcon color={color} variant="light">
           {icon}
         </ThemeIcon>
-
         <Text size="sm">{label}</Text>
       </Group>
     </UnstyledButton>

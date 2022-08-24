@@ -18,11 +18,12 @@ import { useEffect } from "react";
 import { useSearchText } from "../../context/SearchTextProvider";
 import { useTempUnit } from "../../context/TempUnitProvider";
 import { useWeatherData } from "../../context/WeatherDataProvider";
+import { CurrentWeatherType } from "../../resources/types";
 import { UV_COLORS } from "../../resources/utils";
 import { MoreDataModal } from "./MoreDataModal";
 
 interface CurrentWeatherProps {
-  data: any;
+  data: CurrentWeatherType;
 }
 
 const CurrentWeather = (props: CurrentWeatherProps) => {
@@ -33,7 +34,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
   const lg = useMediaQuery("(min-width: 1600px)");
   const lgH = useMediaQuery("(min-height: 1000px)");
   const { searchText, setSearchText } = useSearchText();
-
+  console.log(data);
   // Hacky way to tell whether or not this is the first render
   useEffect(() => {
     if (searchText) {
@@ -317,7 +318,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     mt="lg"
                     animate={true}
                     value={data.current.uv * 9}
-                    label={data.current.uv}
+                    label={`${data.current.uv}`}
                     size="xl"
                     sx={{ width: "40rem" }}
                   />

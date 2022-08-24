@@ -8,9 +8,10 @@ import {
 } from "@mantine/core";
 import { useState } from "react";
 import { useTempUnit } from "../../context/TempUnitProvider";
+import { CurrentWeatherType } from "../../resources/types";
 
 interface MoreDataModalProps {
-  data: any;
+  data: CurrentWeatherType;
 }
 export const MoreDataModal = ({ data }: MoreDataModalProps) => {
   const [opened, setOpened] = useState(false);

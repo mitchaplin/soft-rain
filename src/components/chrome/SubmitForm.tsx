@@ -58,13 +58,13 @@ export function SubmitForm() {
 
   useEffect(() => {
     form.setFieldValue("location", searchText);
-    setWeatherData({ isLoading: true });
+    setWeatherData({ isLoading: true } as any);
     setDebouncedSearchText(searchText);
     form.setFieldValue("coords", "");
   }, [searchText]);
 
   useEffect(() => {
-    setWeatherData({ isLoading: true });
+    setWeatherData({ isLoading: true } as any);
   }, [debouncedSearchText]);
 
   const options = {

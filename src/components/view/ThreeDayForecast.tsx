@@ -14,13 +14,14 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import { useTempUnit } from "../../context/TempUnitProvider";
+import { CurrentWeatherType } from "../../resources/types";
 
 const FullDayForecastModal = (data: any) => {
   const [opened, setOpened] = useState(false);
   return (
     <>
       <Modal opened={opened} onClose={() => setOpened(false)} title="24 hour">
-        <Text>{data?.temp_f}</Text>
+        <Text>test</Text>
       </Modal>
 
       <Button onClick={() => setOpened(true)}>
@@ -30,18 +31,18 @@ const FullDayForecastModal = (data: any) => {
   );
 };
 
-interface ThreeDayForecastProps {
-  data: any;
+interface CurrentWeatherProps {
+  data: CurrentWeatherType;
 }
 
-const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
+const ThreeDayForecast = ({ data }: CurrentWeatherProps) => {
   const theme = useMantineTheme();
   const { tempUnit, toggleTempUnit } = useTempUnit();
   const lgH = useMediaQuery("(min-height: 1000px)");
   const lg = useMediaQuery("(min-width: 1600px)");
   const md = useMediaQuery("(min-width: 1000px)");
-
-  const rows = data?.forecast?.forecastday.map((row: any) => {
+  console.log(data);
+  const rows = data?.forecast?.forecastday.map((row) => {
     const dailyChanceOfPrecip =
       row.day.daily_chance_of_rain > row.day.daily_chance_of_snow
         ? row.day.daily_chance_of_rain
@@ -134,7 +135,7 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
               size={24}
               sections={[
                 {
-                  value: dailyChanceOfPrecip || "0%",
+                  value: dailyChanceOfPrecip || 0,
                   label: `${dailyChanceOfPrecip.toFixed(0)}%`,
                   color:
                     theme.colorScheme === "dark"
