@@ -10,14 +10,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Chrome from "./components/chrome/Chrome";
-import { FirebaseAuthProvider } from "./components/login/AuthenticationProvider";
-import { FavoritesProvider } from "./context/FavoritesProvider";
-import { LatLongProvider } from "./context/LatLongProvider";
-import { SearchTextProvider } from "./context/SearchTextProvider";
-import { TempUnitProvider } from "./context/TempUnitProvider";
-import { WeatherDataProvider } from "./context/WeatherDataProvider";
-import { WeatherOptionProvider } from "./context/WeatherOptionProvider";
-import { useGeolocation } from "./hooks/CurrentLocation";
+import { AppContextProvider } from "./context/AppContextProvider";
+import { useGeolocation } from "./context/CurrentLocation";
 
 const queryClient = new QueryClient();
 
@@ -43,21 +37,9 @@ function App() {
                   <ReactQueryDevtools />
                   <NotificationsProvider>
                     <Paper radius={0} style={{ height: "100vh" }}>
-                      <FirebaseAuthProvider>
-                        <FavoritesProvider>
-                          <SearchTextProvider>
-                            <TempUnitProvider>
-                              <WeatherOptionProvider>
-                                <WeatherDataProvider>
-                                  <LatLongProvider>
-                                    <Chrome />
-                                  </LatLongProvider>
-                                </WeatherDataProvider>
-                              </WeatherOptionProvider>
-                            </TempUnitProvider>
-                          </SearchTextProvider>
-                        </FavoritesProvider>
-                      </FirebaseAuthProvider>
+                      <AppContextProvider>
+                        <Chrome />
+                      </AppContextProvider>
                     </Paper>
                   </NotificationsProvider>
                 </QueryClientProvider>
