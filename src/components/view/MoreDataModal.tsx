@@ -24,6 +24,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
         opened={opened}
         onClose={() => setOpened(false)}
         title="Current Weather Information"
+        sx={{ fontSize: 25 }}
         size="75%"
       >
         <Group mr="4rem">

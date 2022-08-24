@@ -1,9 +1,7 @@
 import {
-  Button,
   Grid,
   Image,
   Loader,
-  Modal,
   Paper,
   Progress,
   ScrollArea,
@@ -12,25 +10,9 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { useState } from "react";
 import { useTempUnit } from "../../context/TempUnitProvider";
 import { CurrentWeatherType } from "../../resources/types";
-
-const FullDayForecastModal = (data: any) => {
-  const [opened, setOpened] = useState(false);
-  return (
-    <>
-      <Modal opened={opened} onClose={() => setOpened(false)} title="24 hour">
-        <Text>test</Text>
-      </Modal>
-
-      <Button onClick={() => setOpened(true)}>
-        {`${data?.data?.date.split(" ")}`} Forecast
-      </Button>
-    </>
-  );
-};
-
+import { ForecastModal } from "./ForecastModal";
 interface CurrentWeatherProps {
   data: CurrentWeatherType;
 }
@@ -62,7 +44,7 @@ const ThreeDayForecast = ({ data }: CurrentWeatherProps) => {
           </Text>
         </td>
         <td>
-          <FullDayForecastModal data={row} />
+          <ForecastModal data={row} />
         </td>
         {md ? (
           tempUnit === "metric" ? (

@@ -75,9 +75,8 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                         }}
                       >
                         {tempUnit === "imperial"
-                          ? Math.round(data.current.temp_f)
-                          : Math.round(data.current.temp_c)}
-                        °
+                          ? `${Math.round(data.current.temp_f)}°F`
+                          : `${Math.round(data.current.temp_c)}°C`}
                         <Group>
                           <Text
                             size="md"
@@ -169,7 +168,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           color: theme.colors.blue,
                         }}
                       >
-                        {Math.round(data.current.feelslike_f)}°
+                        {`${Math.round(data.current.feelslike_f)}°F`}
                       </Text>
                     ) : (
                       <Text
@@ -180,7 +179,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           color: theme.colors.blue,
                         }}
                       >
-                        {Math.round(data.current.feelslike_c)}°
+                        {`${Math.round(data.current.feelslike_c)}°C`}
                       </Text>
                     )}
                   </Group>
@@ -317,6 +316,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   <Progress
                     mt="lg"
                     animate={true}
+                    color={UV_COLORS[data.current.uv]}
                     value={data.current.uv * 9}
                     label={`${data.current.uv}`}
                     size="xl"
@@ -328,17 +328,17 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     radius="xl"
                     sx={{ width: "40rem" }}
                     sections={[
-                      { value: 9, color: UV_COLORS.one, label: "1" },
-                      { value: 9, color: UV_COLORS.two, label: "2" },
-                      { value: 9, color: UV_COLORS.three, label: "3" },
-                      { value: 9, color: UV_COLORS.four, label: "4" },
-                      { value: 9, color: UV_COLORS.five, label: "5" },
-                      { value: 9, color: UV_COLORS.six, label: "6" },
-                      { value: 9, color: UV_COLORS.seven, label: "7" },
-                      { value: 9, color: UV_COLORS.eight, label: "8" },
-                      { value: 9, color: UV_COLORS.nine, label: "9" },
-                      { value: 9, color: UV_COLORS.ten, label: "10" },
-                      { value: 10, color: UV_COLORS.eleven, label: "11" },
+                      { value: 9, color: UV_COLORS[1], label: "1" },
+                      { value: 9, color: UV_COLORS[2], label: "2" },
+                      { value: 9, color: UV_COLORS[3], label: "3" },
+                      { value: 9, color: UV_COLORS[4], label: "4" },
+                      { value: 9, color: UV_COLORS[5], label: "5" },
+                      { value: 9, color: UV_COLORS[6], label: "6" },
+                      { value: 9, color: UV_COLORS[7], label: "7" },
+                      { value: 9, color: UV_COLORS[8], label: "8" },
+                      { value: 9, color: UV_COLORS[9], label: "9" },
+                      { value: 9, color: UV_COLORS[10], label: "10" },
+                      { value: 10, color: UV_COLORS[11], label: "11" },
                     ]}
                   />
                 </>

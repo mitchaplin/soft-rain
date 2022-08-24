@@ -1,15 +1,15 @@
 export const UV_COLORS = {
-  one: "#299501",
-  two: "#299501",
-  three: "#F7E401",
-  four: "#F7E401",
-  five: "#F7E401",
-  six: "#F95901",
-  seven: "#F95901",
-  eight: "#D90011",
-  nine: "#D90011",
-  ten: "#D90011",
-  eleven: "#6C49C9",
+  1: "#299501",
+  2: "#299501",
+  3: "#F7E401",
+  4: "#F7E401",
+  5: "#F7E401",
+  6: "#F95901",
+  7: "#F95901",
+  8: "#D90011",
+  9: "#D90011",
+  10: "#D90011",
+  11: "#6C49C9",
 };
 
 export const truncateFavorites = (favorites: string[], num: number) =>
