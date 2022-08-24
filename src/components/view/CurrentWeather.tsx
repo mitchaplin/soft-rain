@@ -12,6 +12,7 @@ import {
   Progress,
   Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useEffect } from "react";
@@ -19,6 +20,7 @@ import { useSearchText } from "../../context/SearchTextProvider";
 import { useTempUnit } from "../../context/TempUnitProvider";
 import { useWeatherData } from "../../context/WeatherDataProvider";
 import { UV_COLORS } from "../../resources/utils";
+import { MoreDataModal } from "./MoreDataModal";
 
 interface CurrentWeatherProps {
   data: any;
@@ -35,14 +37,14 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const CurrentWeather = (props: CurrentWeatherProps) => {
-  const { classes, theme } = useStyles();
+  const theme = useMantineTheme();
   const { weatherData, setWeatherData } = useWeatherData();
   const { tempUnit, toggleTempUnit } = useTempUnit();
   const { data } = props;
   const lg = useMediaQuery("(min-width: 1600px)");
   const lgH = useMediaQuery("(min-height: 1000px)");
   const { searchText, setSearchText } = useSearchText();
-
+  console.log(data);
   // Hacky way to tell whether or not this is the first render
   useEffect(() => {
     if (searchText) {
@@ -62,7 +64,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
     >
       {data.isLoading ? (
         <Grid>
-          <Grid.Col span={3} offset={5.5} mt="25vh">
+          <Grid.Col span={3} offset={6} mt="30vh">
             <Loader size="xl" variant="dots" />
           </Grid.Col>
         </Grid>
@@ -70,7 +72,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
         <>
           {lg ? (
             <Grid>
-              <Grid.Col span={6} offset={1}>
+              <Grid.Col span={6} offset={0.75} pr="4rem">
                 {
                   <>
                     <Group mt={lgH ? "0rem" : "-4rem"}>
@@ -351,7 +353,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   />
                 </>
                 <Button mt={lgH ? "5rem" : "2rem"} size="xl">
-                  More Data
+                  <MoreDataModal data={data} />
                 </Button>
               </Grid.Col>
             </Grid>

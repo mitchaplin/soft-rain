@@ -36,7 +36,7 @@ function App() {
                 <QueryClientProvider client={queryClient}>
                   <ReactQueryDevtools />
                   <NotificationsProvider>
-                    <Paper radius={0} style={{ height: "100vh" }}>
+                    <Paper style={{ height: "100vh" }}>
                       <AppContextProvider>
                         <Chrome />
                       </AppContextProvider>

@@ -28,7 +28,6 @@ const useStyles = createStyles((theme) => ({
 
 const FullDayForecastModal = (data: any) => {
   const [opened, setOpened] = useState(false);
-  console.log(data);
   return (
     <>
       <Modal opened={opened} onClose={() => setOpened(false)} title="24 hour">
@@ -171,9 +170,11 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
 
   return (
     <Paper
+      p="2rem"
       style={{
         overflowY: "auto",
         overflowX: "hidden",
+
         height: lgH ? "94.5%" : "90%",
       }}
     >
