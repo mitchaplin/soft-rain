@@ -77,8 +77,8 @@ export function SubmitForm() {
 
   const {} = useQuery(
     ["weather", debouncedSearchText],
-    () => {
-      return fetch(
+    async () => {
+      return await fetch(
         `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${debouncedSearchText}&days=${DAY_CHOICE}`,
         options
       ).then((response) => response.json());
@@ -114,8 +114,8 @@ export function SubmitForm() {
                 sx={{ width: md ? 500 : 275 }}
                 required
                 placeholder="Enter a location..."
-                radius={"lg"}
-                size={"lg"}
+                radius="lg"
+                size="lg"
                 classNames={{ input: classes.invalid }}
                 rightSectionWidth={75}
                 rightSection={
@@ -145,7 +145,7 @@ export function SubmitForm() {
                       </Tooltip>
                     )}
                     {geoLocation?.coords !== undefined ? (
-                      <Tooltip label={"Use Current Location"}>
+                      <Tooltip label="Use Current Location">
                         <ActionIcon
                           sx={(theme) => ({
                             color:
@@ -172,7 +172,7 @@ export function SubmitForm() {
               />
             </StandaloneSearchBox>
           )}
-          <Button type={"submit"} radius={"lg"}>
+          <Button type="submit" radius="lg">
             <Search></Search>
           </Button>
         </Group>

@@ -2,7 +2,6 @@ import {
   Badge,
   Button,
   Card,
-  createStyles,
   Divider,
   Grid,
   Group,
@@ -26,16 +25,6 @@ interface CurrentWeatherProps {
   data: any;
 }
 
-const useStyles = createStyles((theme) => ({
-  progressBar: {
-    "&:not(:first-of-type)": {
-      borderLeft: `.2rem solid ${
-        theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white
-      }`,
-    },
-  },
-}));
-
 const CurrentWeather = (props: CurrentWeatherProps) => {
   const theme = useMantineTheme();
   const { weatherData, setWeatherData } = useWeatherData();
@@ -44,7 +33,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
   const lg = useMediaQuery("(min-width: 1600px)");
   const lgH = useMediaQuery("(min-height: 1000px)");
   const { searchText, setSearchText } = useSearchText();
-  console.log(data);
+
   // Hacky way to tell whether or not this is the first render
   useEffect(() => {
     if (searchText) {
@@ -77,7 +66,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   <>
                     <Group mt={lgH ? "0rem" : "-4rem"}>
                       <Text
-                        size={"xl"}
+                        size="xl"
                         sx={{
                           lineHeight: 1.5,
                           fontSize: 250,
@@ -90,7 +79,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                         °
                         <Group>
                           <Text
-                            size={"md"}
+                            size="md"
                             sx={{
                               lineHeight: 1.5,
                               fontSize: 75,
@@ -100,7 +89,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             <Image
                               src={data.current.condition.icon}
                               height={75}
-                              radius={"md"}
+                              radius="md"
                               alt=""
                               style={{
                                 width: 75,
@@ -110,7 +99,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           </Text>
                           <Grid justify="center">
                             <Text
-                              size={"md"}
+                              size="md"
                               sx={{
                                 lineHeight: 1.5,
                                 fontSize: 75,
@@ -161,7 +150,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   <Divider my="sm" orientation="vertical" />
                   <Group mr="4rem">
                     <Text
-                      size={"md"}
+                      size="md"
                       sx={{
                         lineHeight: 1.5,
                         fontSize: 50,
@@ -172,7 +161,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     </Text>
                     {tempUnit === "imperial" ? (
                       <Text
-                        size={"lg"}
+                        size="lg"
                         sx={{
                           lineHeight: 1.5,
                           fontSize: 75,
@@ -183,7 +172,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                       </Text>
                     ) : (
                       <Text
-                        size={"lg"}
+                        size="lg"
                         sx={{
                           lineHeight: 1.5,
                           fontSize: 75,
@@ -197,7 +186,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   <Group>
                     <Divider my="sm" orientation="vertical" />
                     <Text
-                      size={"lg"}
+                      size="lg"
                       sx={{
                         lineHeight: 1.5,
                         fontSize: 50,
@@ -265,7 +254,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   <Group mr="4rem">
                     <Divider my="sm" orientation="vertical" />
                     <Text
-                      size={"lg"}
+                      size="lg"
                       sx={{
                         lineHeight: 1.5,
                         fontSize: 50,
@@ -276,7 +265,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     </Text>
                     {tempUnit === "imperial" ? (
                       <Text
-                        size={"lg"}
+                        size="lg"
                         sx={{
                           lineHeight: 1.5,
                           fontSize: 75,
@@ -287,7 +276,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                       </Text>
                     ) : (
                       <Text
-                        size={"lg"}
+                        size="lg"
                         sx={{
                           lineHeight: 1.5,
                           fontSize: 75,
@@ -299,10 +288,10 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     )}
                   </Group>
                 </Group>
-                <Group mr={"4rem"}>
+                <Group mr="4rem">
                   <Divider my="sm" orientation="vertical" />
                   <Text
-                    size={"lg"}
+                    size="lg"
                     sx={{
                       lineHeight: 1.5,
                       fontSize: 50,
@@ -313,7 +302,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   </Text>
 
                   <Text
-                    size={"lg"}
+                    size="lg"
                     sx={{
                       lineHeight: 1.5,
                       fontSize: 75,

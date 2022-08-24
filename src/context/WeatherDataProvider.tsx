@@ -24,9 +24,7 @@ const WeatherDataProvider = ({ children }: { children: React.ReactNode }) => {
 function useWeatherData() {
   const context = React.useContext(WeatherDataContext);
   if (context === undefined) {
-    throw new Error(
-      "useWeatherData must be used within a weather data provider"
-    );
+    throw new Error("useWeatherData must be used within a WeatherDataProvider");
   }
   return context;
 }

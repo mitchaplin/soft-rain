@@ -23,12 +23,12 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
         opened={opened}
         onClose={() => setOpened(false)}
         title="Current Weather Information"
-        size={"75%"}
+        size="75%"
       >
         <Group mr="4rem">
           <Divider my="sm" orientation="vertical" />
           <Text
-            size={"lg"}
+            size="lg"
             sx={{
               lineHeight: 1.5,
               fontSize: 25,
@@ -39,7 +39,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
           </Text>
           {tempUnit === "imperial" ? (
             <Text
-              size={"lg"}
+              size="lg"
               sx={{
                 lineHeight: 1.5,
                 fontSize: 50,
@@ -50,7 +50,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
             </Text>
           ) : (
             <Text
-              size={"lg"}
+              size="lg"
               sx={{
                 lineHeight: 1.5,
                 fontSize: 75,
@@ -77,7 +77,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
         <Group mr="4rem">
           <Divider my="sm" orientation="vertical" />
           <Text
-            size={"lg"}
+            size="lg"
             sx={{
               lineHeight: 1.5,
               fontSize: 25,
@@ -88,7 +88,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
           </Text>
           {tempUnit === "imperial" ? (
             <Text
-              size={"lg"}
+              size="lg"
               sx={{
                 lineHeight: 1.5,
                 fontSize: 50,
@@ -99,7 +99,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
             </Text>
           ) : (
             <Text
-              size={"lg"}
+              size="lg"
               sx={{
                 lineHeight: 1.5,
                 fontSize: 50,
@@ -114,7 +114,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
         <Group mr="4rem">
           <Divider my="sm" orientation="vertical" />
           <Text
-            size={"lg"}
+            size="lg"
             sx={{
               lineHeight: 1.5,
               fontSize: 25,
@@ -125,7 +125,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
           </Text>
           {tempUnit === "imperial" ? (
             <Text
-              size={"lg"}
+              size="lg"
               sx={{
                 lineHeight: 1.5,
                 fontSize: 50,
@@ -136,7 +136,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
             </Text>
           ) : (
             <Text
-              size={"lg"}
+              size="lg"
               sx={{
                 lineHeight: 1.5,
                 fontSize: 50,

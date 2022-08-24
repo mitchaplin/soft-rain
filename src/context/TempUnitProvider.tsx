@@ -26,7 +26,7 @@ const TempUnitProvider = ({ children }: { children: React.ReactNode }) => {
 function useTempUnit() {
   const context = React.useContext(TempUnitContext);
   if (context === undefined) {
-    throw new Error("useTempUnit must be used within a temp unit provider");
+    throw new Error("useTempUnit must be used within a TempUnitProvider");
   }
   return context;
 }

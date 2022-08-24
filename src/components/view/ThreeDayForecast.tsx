@@ -1,6 +1,5 @@
 import {
   Button,
-  createStyles,
   Grid,
   Image,
   Loader,
@@ -10,21 +9,11 @@ import {
   ScrollArea,
   Table,
   Text,
+  useMantineTheme,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
-import { useSearchText } from "../../context/SearchTextProvider";
 import { useTempUnit } from "../../context/TempUnitProvider";
-
-const useStyles = createStyles((theme) => ({
-  progressBar: {
-    "&:not(:first-of-type)": {
-      borderLeft: `.2rem solid ${
-        theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white
-      }`,
-    },
-  },
-}));
 
 const FullDayForecastModal = (data: any) => {
   const [opened, setOpened] = useState(false);
@@ -46,9 +35,8 @@ interface ThreeDayForecastProps {
 }
 
 const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
-  const { classes, theme } = useStyles();
+  const theme = useMantineTheme();
   const { tempUnit, toggleTempUnit } = useTempUnit();
-  const { searchText, setSearchText } = useSearchText();
   const lgH = useMediaQuery("(min-height: 1000px)");
   const lg = useMediaQuery("(min-width: 1600px)");
   const md = useMediaQuery("(min-width: 1000px)");
@@ -69,12 +57,6 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
               color: theme.colors.blue,
             }}
           >
-            {/* <Accordion variant="contained" sx={{ width: "100%" }}>
-            <Accordion.Item value="test" sx={{ width: "100%" }}>
-              <Accordion.Control>{row.name}</Accordion.Control>
-              <Accordion.Panel>Content</Accordion.Panel>
-            </Accordion.Item>
-          </Accordion> */}
             {data.location.name}
           </Text>
         </td>
@@ -118,7 +100,7 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
               <Image
                 src={row.day.condition.icon}
                 height={50}
-                radius={"md"}
+                radius="md"
                 alt=""
                 style={{ width: 50, justifyContent: "center" }}
               />
@@ -148,7 +130,6 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
         {lg && (
           <td>
             <Progress
-              classNames={{ bar: classes.progressBar }}
               animate={!!dailyChanceOfPrecip}
               size={24}
               sections={[
@@ -174,7 +155,6 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
       style={{
         overflowY: "auto",
         overflowX: "hidden",
-
         height: lgH ? "94.5%" : "90%",
       }}
     >
@@ -186,7 +166,7 @@ const ThreeDayForecast = ({ data }: ThreeDayForecastProps) => {
         </Grid>
       ) : (
         <ScrollArea>
-          <Table fontSize={"lg"} verticalSpacing="xs">
+          <Table fontSize="lg" verticalSpacing="xs">
             <thead>
               <tr>
                 <th>Location</th>

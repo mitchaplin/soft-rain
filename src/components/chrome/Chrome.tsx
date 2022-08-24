@@ -9,7 +9,6 @@ import {
   Header,
   Navbar,
   ScrollArea,
-  useMantineColorScheme,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
@@ -31,7 +30,6 @@ import {
 } from "./WeatherOptions";
 
 const Chrome = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const favorites = useFavorites();
   const lg = useMediaQuery("(min-width: 1600px)");
   const md = useMediaQuery("(min-width: 1000px)");
@@ -41,7 +39,7 @@ const Chrome = () => {
   const user = useFirebaseAuth();
 
   const items = truncateFavorites(favorites || [], 8).map((favorite, index) => (
-    <Group key={index} sx={{ marginTop: "1rem" }}>
+    <Group mt="1rem" key={index}>
       <Button
         variant="outline"
         sx={{ borderRadius: "lg" }}
@@ -63,13 +61,13 @@ const Chrome = () => {
     <AppShell
       padding="lg"
       fixed
-      navbarOffsetBreakpoint={"lg"}
+      navbarOffsetBreakpoint="lg"
       header={
         <Header height={100}>
           <Group sx={{ height: "100%" }} px={20} position="apart">
             {lg ? (
               <>
-                <Logo colorScheme={colorScheme} />
+                <Logo />
                 <WeatherOptions />
               </>
             ) : (
@@ -79,7 +77,7 @@ const Chrome = () => {
                   onClick={() => setOpened((o) => !o)}
                   title={title}
                 />
-                {md ? <Logo colorScheme={colorScheme} /> : <></>}
+                {md ? <Logo /> : <></>}
               </>
             )}
             <SubmitForm />
@@ -109,14 +107,15 @@ const Chrome = () => {
         <ActionsFooter includeFavorites={false} />
       )}
 
+      {/* Side Drawer Component and Contents */}
       <Drawer
         opened={opened}
         onClose={() => setOpened(false)}
-        title={<Logo colorScheme={colorScheme} />}
+        title={<Logo />}
         padding="xl"
         size="xl"
       >
-        <Navbar height={"100%"} p="xs" width={{ base: "100%" }}>
+        <Navbar height="100%" p="xs" width={{ base: "100%" }}>
           <Navbar.Section mt="xs">
             {weatherOptionsData.map((option, index) => (
               <div key={index} style={{ marginBottom: "1rem" }}>

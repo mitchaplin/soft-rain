@@ -39,9 +39,7 @@ const FavoritesProvider = ({ children }: { children: React.ReactNode }) => {
 function useFavorites() {
   const context = React.useContext(FavoritesContext);
   if (context === undefined) {
-    throw new Error(
-      "useFirebaseAuth must be used within a FirebaseAuthProvider"
-    );
+    throw new Error("useFavorites must be used within a FavoritesProvider");
   }
   return context.favorites;
 }

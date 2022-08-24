@@ -23,11 +23,11 @@ export const WeatherOption = ({
 
   return (
     <UnstyledButton
+      mr="1rem"
       onClick={() => [setWeatherOption(name)]}
       sx={(theme: any) => ({
         display: "block",
         width: "100%",
-        marginRight: "1rem",
         padding: theme.spacing.xs,
         borderRadius: theme.radius.lg,
         color:

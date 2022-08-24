@@ -1,16 +1,3 @@
-export function toTimestamp(s: any) {
-  const date = new Date(s * 1000);
-  const hours = date.getHours();
-  const minutes = "0" + date.getMinutes();
-  const formattedTime = hours + ":" + minutes.substring(0, 2);
-
-  return formattedTime;
-}
-
-export const determineWeatherImage = (icon: string) => {
-  return "";
-};
-
 export const UV_COLORS = {
   one: "#299501",
   two: "#299501",
@@ -73,17 +60,6 @@ type Condition =
   | "Moderate or heavy rain in area with thunder"
   | "Patchy light snow in area with thunder"
   | "Moderate or heavy snow in area with thunder";
-
-type CurrentWeather = {
-  current: {
-    condition: {
-      text: Condition;
-      icon: string;
-      code: number;
-    };
-  };
-  location: {};
-};
 
 export const truncateFavorites = (favorites: string[], num: number) =>
   favorites

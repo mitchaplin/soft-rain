@@ -24,9 +24,7 @@ const SearchTextProvider = ({ children }: { children: React.ReactNode }) => {
 function useSearchText() {
   const context = React.useContext(SearchTextContext);
   if (context === undefined) {
-    throw new Error(
-      "useSearchText must be used within a SearchText data provider"
-    );
+    throw new Error("useSearchText must be used within a SearchTextProvider");
   }
   return context;
 }

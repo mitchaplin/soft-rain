@@ -95,16 +95,16 @@ export const ActionsFooter = ({
   ));
 
   return (
-    <Group mx={"-1.25rem"}>
+    <Group mx="-1.25rem">
       <div className={classes.footer}>
         <div className={classes.inner}>
           {includeFavorites ? (
-            <Group sx={{ marginRight: "4rem" }}>
+            <Group mr="4rem">
               <Badge
                 sx={{ paddingLeft: 0 }}
                 size="lg"
                 radius="xl"
-                color={"yellow"}
+                color="yellow"
                 leftSection={avatar}
               >
                 {`${user?.displayName}'s Favorites`}
@@ -116,8 +116,8 @@ export const ActionsFooter = ({
           ) : null}
 
           <Group
+            ml={lg ? "4rem" : "0rem"}
             sx={{
-              marginLeft: lg ? "4rem" : "0rem",
               display: "flex",
               flexDirection: "row",
             }}
