@@ -6,7 +6,9 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
+import { ArrowRight } from "tabler-icons-react";
 import { useTempUnit } from "../../context/TempUnitProvider";
 import { CurrentWeatherType } from "../../resources/types";
 
@@ -17,6 +19,7 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
   const { tempUnit, toggleTempUnit } = useTempUnit();
+  const lgH = useMediaQuery("(min-height: 1000px)");
 
   return (
     <>
@@ -151,7 +154,18 @@ export const MoreDataModal = ({ data }: MoreDataModalProps) => {
         </Group>
       </Modal>
 
-      <Button onClick={() => setOpened(true)}>More Data</Button>
+      <Button
+        mt={lgH ? "5rem" : "2rem"}
+        size="xl"
+        sx={{
+          fontSize: 20,
+          "&:hover": {},
+        }}
+        onClick={() => setOpened(true)}
+        rightIcon={<ArrowRight />}
+      >
+        <span style={{ paddingBottom: ".25rem" }}>More Data</span>
+      </Button>
     </>
   );
 };

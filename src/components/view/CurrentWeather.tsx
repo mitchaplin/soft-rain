@@ -1,6 +1,5 @@
 import {
   Badge,
-  Button,
   Card,
   Divider,
   Grid,
@@ -342,9 +341,8 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                     ]}
                   />
                 </>
-                <Button mt={lgH ? "5rem" : "2rem"} size="xl">
-                  <MoreDataModal data={data} />
-                </Button>
+
+                <MoreDataModal data={data} />
               </Grid.Col>
             </Grid>
           ) : (
