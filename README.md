@@ -1,5 +1,16 @@
-# TODO
+# Soft Rain
 
-## Fix Three Day Forecast modal
+## This project was created using create-react-app-typescript
 
-## styling cleanup
+## Main Technologies used in this project are:
+
+- React
+- Typescript
+- React Context
+- React Query,
+- Firebase Realtime DB
+- Firebase Auth
+- React Charts
+- Mantine UI,
+- React Tabler Icons
+- Openweatherapi
