@@ -1,7 +1,6 @@
 import { useWeatherData } from "../../context/WeatherDataProvider";
 import { useWeatherOption } from "../../context/WeatherOptionProvider";
 import CurrentWeather from "./CurrentWeather";
-
 import { ErrorText } from "./ErrorText";
 import ThreeDayForecast from "./ThreeDayForecast";
 
