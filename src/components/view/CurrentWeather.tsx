@@ -33,7 +33,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
   const lg = useMediaQuery("(min-width: 1600px)");
   const lgH = useMediaQuery("(min-height: 1000px)");
   const { searchText, setSearchText } = useSearchText();
-  console.log(data);
+
   // Hacky way to tell whether or not this is the first render
   useEffect(() => {
     if (searchText) {

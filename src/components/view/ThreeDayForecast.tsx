@@ -12,6 +12,7 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import { useTempUnit } from "../../context/TempUnitProvider";
 import { CurrentWeatherType } from "../../resources/types";
+import { ForecastChart } from "./ForecastChart";
 import { ForecastModal } from "./ForecastModal";
 interface CurrentWeatherProps {
   data: CurrentWeatherType;
@@ -23,7 +24,7 @@ const ThreeDayForecast = ({ data }: CurrentWeatherProps) => {
   const lgH = useMediaQuery("(min-height: 1000px)");
   const lg = useMediaQuery("(min-width: 1600px)");
   const md = useMediaQuery("(min-width: 1000px)");
-  console.log(data);
+
   const rows = data?.forecast?.forecastday.map((row) => {
     const dailyChanceOfPrecip =
       row.day.daily_chance_of_rain > row.day.daily_chance_of_snow
@@ -148,21 +149,29 @@ const ThreeDayForecast = ({ data }: CurrentWeatherProps) => {
           </Grid.Col>
         </Grid>
       ) : (
-        <ScrollArea>
-          <Table fontSize="lg" verticalSpacing="xs">
-            <thead>
-              <tr>
-                <th>Location</th>
-                <th></th>
-                {md && <th>High - Low</th>}
-                {md && <th>Current Weather</th>}
-                {lg && <th>Sunrise - Sunset</th>}
-                {lg && <th>Precipitation Chance</th>}
-              </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-          </Table>
-        </ScrollArea>
+        <>
+          <ScrollArea>
+            <Table fontSize="lg" verticalSpacing="xs">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th></th>
+                  {md && <th>High - Low</th>}
+                  {md && <th>Current Weather</th>}
+                  {lg && <th>Sunrise - Sunset</th>}
+                  {lg && <th>Precipitation Chance</th>}
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+            </Table>
+            {/* <ForecastChart data={data.forecast.forecastday} /> */}
+          </ScrollArea>
+          {md && (
+            <div style={{ height: 700, marginTop: "1rem" }}>
+              <ForecastChart data={data.forecast.forecastday} />
+            </div>
+          )}
+        </>
       )}
     </Paper>
   );
