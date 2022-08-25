@@ -118,8 +118,11 @@ const ThreeDayForecast = ({ data }: CurrentWeatherProps) => {
               size={24}
               sections={[
                 {
-                  value: dailyChanceOfPrecip || 0,
-                  label: `${dailyChanceOfPrecip.toFixed(0)}%`,
+                  value: dailyChanceOfPrecip || (`${0}%` as any),
+                  label:
+                    dailyChanceOfPrecip === 0
+                      ? "0"
+                      : `${dailyChanceOfPrecip.toFixed(0)}%`,
                   color:
                     theme.colorScheme === "dark"
                       ? theme.colors.blue[9]
@@ -164,10 +167,9 @@ const ThreeDayForecast = ({ data }: CurrentWeatherProps) => {
               </thead>
               <tbody>{rows}</tbody>
             </Table>
-            {/* <ForecastChart data={data.forecast.forecastday} /> */}
           </ScrollArea>
           {md && (
-            <div style={{ height: 700, marginTop: "1rem" }}>
+            <div style={{ height: 700, marginTop: "1.5rem" }}>
               <ForecastChart data={data.forecast.forecastday} />
             </div>
           )}

@@ -1,15 +1,6 @@
 import React from "react";
 import { AxisOptions, Chart } from "react-charts";
-
-type Forecast = {
-  time: string;
-  temp: number;
-};
-
-type Series = {
-  label: string;
-  data: Forecast[];
-};
+import { Forecast } from "../../resources/types";
 
 const coerceData = (arr: any) => {
   return arr.data.map((item: any, index: any) => {

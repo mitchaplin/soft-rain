@@ -48,6 +48,11 @@ type Condition =
   | "Patchy light snow in area with thunder"
   | "Moderate or heavy snow in area with thunder";
 
+export type Forecast = {
+  time: string;
+  temp: number;
+};
+
 const requestData = {
   data: {
     location: {
