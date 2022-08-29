@@ -3,7 +3,10 @@ import { AxisOptions, Chart } from "react-charts";
 import { Forecast } from "../../resources/types";
 
 const coerceData = (arr: any) => {
-  return arr.data.map((item: any, index: any) => {
+  const filteredDates = arr.data.filter(
+    (item: any) => item?.hour?.length >= 24
+  );
+  return filteredDates.map((item: any, index: any) => {
     return {
       label: item.hour[index].time.split(" ")[0],
       data: item.hour

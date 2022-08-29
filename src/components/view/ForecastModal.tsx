@@ -21,17 +21,16 @@ export const ForecastModal = (row: any) => {
 
   const range = (start: number, end: number, length = end - start) =>
     Array.from({ length }, (_, i) => start + i);
-
   const rows = range(0, 24).map((item, index) => {
     return (
       <tr key={index}>
         <td>
-          <Text size={15}>{row?.data?.hour[item].time.split(" ")[1]}</Text>
+          <Text size={15}>{row?.data?.hour[item]?.time.split(" ")[1]}</Text>
         </td>
         <td>
           <Grid align="center">
             <Image
-              src={row?.data?.hour[item].condition.icon}
+              src={row?.data?.hour[item]?.condition.icon}
               height={50}
               radius="md"
               alt=""
@@ -44,7 +43,7 @@ export const ForecastModal = (row: any) => {
                 color: theme.colors.blue,
               }}
             >
-              {md && row?.data?.hour[item].condition.text}
+              {md && row?.data?.hour[item]?.condition.text}
             </Text>
           </Grid>
         </td>
@@ -56,7 +55,7 @@ export const ForecastModal = (row: any) => {
                 color: theme.colors.blue,
               }}
             >
-              {row?.data?.hour[item].temp_c.toFixed(0)}°C
+              {row?.data?.hour[item]?.temp_c.toFixed(0)}°C
             </Text>
           </td>
         ) : (
@@ -67,7 +66,7 @@ export const ForecastModal = (row: any) => {
                 color: theme.colors.blue,
               }}
             >
-              {row?.data?.hour[item].temp_f.toFixed(0)}°F
+              {row?.data?.hour[item]?.temp_f.toFixed(0)}°F
             </Text>
           </td>
         )}
@@ -78,10 +77,10 @@ export const ForecastModal = (row: any) => {
               color: theme.colors.blue,
             }}
           >
-            {row?.data?.hour[item].chance_of_rain >
-            row?.data?.hour[item].chance_of_snow
-              ? row?.data?.hour[item].chance_of_rain
-              : row?.data?.hour[item].chance_of_snow}
+            {row?.data?.hour[item]?.chance_of_rain >
+            row?.data?.hour[item]?.chance_of_snow
+              ? row?.data?.hour[item]?.chance_of_rain
+              : row?.data?.hour[item]?.chance_of_snow}
             %
           </Text>
         </td>
