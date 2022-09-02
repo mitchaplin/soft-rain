@@ -38,6 +38,7 @@ export function SubmitForm() {
   const favorites = useFavorites();
   const [searchBox, setSearchBox] = useState<any>(null);
   const md = useMediaQuery("(min-width: 800px)");
+  const sm = useMediaQuery("(min-width: 550px)");
   const { classes } = useStyles();
   const [debouncedSearchText, setDebouncedSearchText] = useDebouncedState(
     searchText,
@@ -111,7 +112,7 @@ export function SubmitForm() {
               }}
             >
               <TextInput
-                sx={{ width: md ? 500 : 275 }}
+                sx={{ width: md ? 500 : sm ? 350 : 200 }}
                 required
                 placeholder="Enter a location..."
                 radius="lg"

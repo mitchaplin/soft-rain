@@ -17,6 +17,7 @@ export const ForecastModal = (row: any) => {
   const theme = useMantineTheme();
   const { tempUnit, toggleTempUnit } = useTempUnit();
   const md = useMediaQuery("(min-width: 800px)");
+  const sm = useMediaQuery("(min-width: 550px)");
   const lg = useMediaQuery("(min-width: 1000px)");
 
   const range = (start: number, end: number, length = end - start) =>
@@ -109,7 +110,7 @@ export const ForecastModal = (row: any) => {
       </Modal>
 
       <Button onClick={() => setOpened(true)}>
-        {`${row?.data?.date.split(" ")}`} Forecast
+        {`${row?.data?.date.split(" ")}`} {sm && "Forecast"}
       </Button>
     </>
   );

@@ -46,9 +46,10 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
   return (
     <Paper
       style={{
-        overflowY: "auto",
+        overflowY: "hidden",
         overflowX: "hidden",
         height: lgH ? "94.5%" : "90%",
+        paddingBottom: "8rem",
       }}
     >
       {data.isLoading ? (
@@ -356,7 +357,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   }}
                   sm={4}
                   xs={4}
-                  mt="1rem"
+                  mt="2rem"
                   mr="1rem"
                 >
                   <Card shadow="sm" p="lg" style={{ width: 295, height: 350 }}>
@@ -403,7 +404,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   style={{ maxWidth: 295, textAlign: "center" }}
                   sm={4}
                   xs={4}
-                  mt="1rem"
+                  mt="2rem"
                   mr="1rem"
                 >
                   <Card shadow="sm" p="md" style={{ width: 295, height: 350 }}>
@@ -516,7 +517,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   style={{ maxWidth: 295, textAlign: "center" }}
                   sm={4}
                   xs={4}
-                  mt="1rem"
+                  mt="2rem"
                   mr="1rem"
                 >
                   <Card shadow="sm" p="md" style={{ width: 295, height: 350 }}>
@@ -565,7 +566,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   style={{ maxWidth: 295, textAlign: "center" }}
                   sm={4}
                   xs={4}
-                  mt="1rem"
+                  mt="2rem"
                   mr="1rem"
                 >
                   <Card shadow="sm" p="md" style={{ width: 295, height: 350 }}>
@@ -666,7 +667,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                   style={{ maxWidth: 295, textAlign: "center" }}
                   sm={4}
                   xs={4}
-                  mt="1rem"
+                  mt="2rem"
                   mr="1rem"
                   mb="1rem"
                 >
