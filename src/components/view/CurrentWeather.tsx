@@ -48,7 +48,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
       style={{
         overflowY: "hidden",
         overflowX: "hidden",
-        height: lgH ? "94.5%" : "90%",
+        height: "94.5%",
         paddingBottom: "8rem",
       }}
     >
