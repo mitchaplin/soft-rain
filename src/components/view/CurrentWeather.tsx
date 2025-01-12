@@ -75,8 +75,8 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                         }}
                       >
                         {tempUnit === "imperial"
-                          ? `${Math.round(data.current.temp_f)}°F`
-                          : `${Math.round(data.current.temp_c)}°C`}
+                          ? `${Math.round(data?.current?.temp_f)}°F`
+                          : `${Math.round(data?.current?.temp_c)}°C`}
                         <Group>
                           <Text
                             size="md"
@@ -87,7 +87,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             }}
                           >
                             <Image
-                              src={data.current.condition.icon}
+                              src={data?.current?.condition.icon}
                               height={75}
                               radius="md"
                               alt=""
@@ -106,9 +106,9 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                                 color: theme.colors.blue,
                               }}
                             >
-                              {data.current.is_day ? " DAY" : " NIGHT"}
+                              {data?.current?.is_day ? " DAY" : " NIGHT"}
                               {"  /  "}
-                              {data.current.condition.text.toUpperCase()}
+                              {data?.current?.condition.text.toUpperCase()}
                             </Text>
                           </Grid>
                         </Group>
@@ -168,7 +168,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           color: theme.colors.blue,
                         }}
                       >
-                        {`${Math.round(data.current.feelslike_f)}°F`}
+                        {`${Math.round(data?.current?.feelslike_f)}°F`}
                       </Text>
                     ) : (
                       <Text
@@ -179,7 +179,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           color: theme.colors.blue,
                         }}
                       >
-                        {`${Math.round(data.current.feelslike_c)}°C`}
+                        {`${Math.round(data?.current?.feelslike_c)}°C`}
                       </Text>
                     )}
                   </Group>
@@ -202,7 +202,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             color: theme.colors.blue,
                           }}
                         >
-                          {data.current.wind_dir}
+                          {data?.current?.wind_dir}
                           {"   /   "}
                         </Text>
                         {tempUnit === "imperial" ? (
@@ -213,7 +213,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.wind_mph} mph
+                            {data?.current?.wind_mph} mph
                           </Text>
                         ) : (
                           <Text
@@ -223,7 +223,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.wind_kph} kph
+                            {data?.current?.wind_kph} kph
                           </Text>
                         )}
                       </Group>
@@ -239,7 +239,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                       fill="none"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      transform={`rotate(${data.current.wind_degree})`}
+                      transform={`rotate(${data?.current?.wind_degree})`}
                       scale={1}
                       filter={
                         "invert(67%) sepia(100%) saturate(3787%) hue-rotate(170deg) brightness(95%) contrast(103%)"
@@ -272,7 +272,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           color: theme.colors.blue,
                         }}
                       >
-                        {data.current.precip_in} in
+                        {data?.current?.precip_in} in
                       </Text>
                     ) : (
                       <Text
@@ -283,7 +283,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           color: theme.colors.blue,
                         }}
                       >
-                        {data.current.precip_mm} mm
+                        {data?.current?.precip_mm} mm
                       </Text>
                     )}
                   </Group>
@@ -309,16 +309,16 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                       color: theme.colors.blue,
                     }}
                   >
-                    {data.current.uv}
+                    {data?.current?.uv}
                   </Text>
                 </Group>
                 <>
                   <Progress
                     mt="lg"
                     animate={true}
-                    color={UV_COLORS[data.current.uv]}
-                    value={data.current.uv * 9}
-                    label={`${data.current.uv}`}
+                    color={UV_COLORS[data?.current?.uv]}
+                    value={data?.current?.uv * 9}
+                    label={`${data?.current?.uv}`}
                     size="xl"
                     sx={{ width: "40rem" }}
                   />
@@ -370,13 +370,13 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           }}
                         >
                           {tempUnit === "imperial"
-                            ? Math.round(data.current.temp_f)
-                            : Math.round(data.current.temp_c)}
+                            ? Math.round(data?.current?.temp_f)
+                            : Math.round(data?.current?.temp_c)}
                           °
                         </Text>
                         <Grid justify="center" mt="1rem">
                           <Image
-                            src={data.current.condition.icon}
+                            src={data?.current?.condition.icon}
                             height={75}
                             radius="md"
                             alt=""
@@ -386,7 +386,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                       </Group>
                     </Card.Section>
                     <Badge color="blue" variant="filled" mb="1.5rem">
-                      {data.current.condition.text.toUpperCase()}
+                      {data?.current?.condition.text.toUpperCase()}
                     </Badge>
                     <Divider />
                     <Title order={2} style={{ lineHeight: 1.5 }} mt="1rem">
@@ -419,7 +419,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.wind_mph} mph
+                            {data?.current?.wind_mph} mph
                           </Text>
                         </Group>
                       ) : (
@@ -431,7 +431,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.wind_kph} kph
+                            {data?.current?.wind_kph} kph
                           </Text>
                         </Group>
                       )}
@@ -443,7 +443,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             color: theme.colors.blue,
                           }}
                         >
-                          {data.current.wind_degree}
+                          {data?.current?.wind_degree}
                         </Text>
                       </Group>
                       <Group>
@@ -454,7 +454,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             color: theme.colors.blue,
                           }}
                         >
-                          {data.current.wind_dir}
+                          {data?.current?.wind_dir}
                         </Text>
                       </Group>
                       {tempUnit === "imperial" ? (
@@ -466,7 +466,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.gust_mph} mph
+                            {data?.current?.gust_mph} mph
                           </Text>
                         </Group>
                       ) : (
@@ -478,7 +478,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.gust_kph} kph
+                            {data?.current?.gust_kph} kph
                           </Text>
                         </Group>
                       )}
@@ -498,7 +498,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                         fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        transform={`rotate(${data.current.wind_degree})`}
+                        transform={`rotate(${data?.current?.wind_degree})`}
                         scale={1}
                         filter={
                           "invert(67%) sepia(100%) saturate(3787%) hue-rotate(170deg) brightness(95%) contrast(103%)"
@@ -532,8 +532,8 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                           }}
                         >
                           {tempUnit === "imperial"
-                            ? Math.round(data.current.feelslike_f)
-                            : Math.round(data.current.feelslike_c)}
+                            ? Math.round(data?.current?.feelslike_f)
+                            : Math.round(data?.current?.feelslike_c)}
                           °
                         </Text>
                       </Group>
@@ -545,7 +545,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             color: theme.colors.blue,
                           }}
                         >
-                          {data.current.pressure_in} in
+                          {data?.current?.pressure_in} in
                         </Text>
                       </Group>
                       <Group>
@@ -556,7 +556,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             color: theme.colors.blue,
                           }}
                         >
-                          {data.current.pressure_mb} mb
+                          {data?.current?.pressure_mb} mb
                         </Text>
                       </Group>
                     </Title>
@@ -586,7 +586,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.vis_miles} in
+                            {data?.current?.vis_miles} in
                           </Text>
                         </Group>
                       ) : (
@@ -598,7 +598,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.vis_km} km
+                            {data?.current?.vis_km} km
                           </Text>
                         </Group>
                       )}
@@ -611,7 +611,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.precip_in} in
+                            {data?.current?.precip_in} in
                           </Text>
                         </Group>
                       ) : (
@@ -623,7 +623,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                               color: theme.colors.blue,
                             }}
                           >
-                            {data.current.precip_mm} mm
+                            {data?.current?.precip_mm} mm
                           </Text>
                         </Group>
                       )}
@@ -635,7 +635,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             color: theme.colors.blue,
                           }}
                         >
-                          {data.current.cloud}%
+                          {data?.current?.cloud}%
                         </Text>
                       </Group>
                       <Group>
@@ -646,7 +646,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             color: theme.colors.blue,
                           }}
                         >
-                          {data.current.humidity}%
+                          {data?.current?.humidity}%
                         </Text>
                       </Group>
                       <Group>
@@ -657,7 +657,7 @@ const CurrentWeather = (props: CurrentWeatherProps) => {
                             color: theme.colors.blue,
                           }}
                         >
-                          {data.current.uv}
+                          {data?.current?.uv}
                         </Text>
                       </Group>
                     </Title>
