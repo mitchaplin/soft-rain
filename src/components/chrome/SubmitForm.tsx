@@ -71,8 +71,8 @@ export function SubmitForm() {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Host": `${process.env.RAPID_API_ADDRESS}`,
-      "X-RapidAPI-Key": `${process.env.RAPID_API_KEY}`,
+      "X-RapidAPI-Host": `${process.env.REACT_APP_RAPID_API_ADDRESS}`,
+      "X-RapidAPI-Key": `${process.env.REACT_APP_RAPID_API_KEY}`,
     },
   };
 
@@ -95,7 +95,7 @@ export function SubmitForm() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     libraries: libraries as any,
-    googleMapsApiKey: `${process.env.GOOGLE_MAPS_API_KEY}`,
+    googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
   });
 
   return (
